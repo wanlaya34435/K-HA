@@ -6,6 +6,7 @@ import com.zti.kha.model.ComplainInfo.Status;
 import com.zti.kha.model.User.GroupDisplay;
 import com.zti.kha.model.User.Profile;
 import com.zti.kha.model.User.ProfileDisplay;
+import com.zti.kha.model.User.ReadGroup;
 import com.zti.kha.utility.PostExceptions;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,7 +35,7 @@ public class ReportApi extends CommonApi {
     @ApiOperation(value = "รายงานข้อมูลผู้ใช้งาน", notes = "", response = Profile.class)
     @RequestMapping(value = "/exportReport/user", method = RequestMethod.GET)
     public void exportReportUser(HttpServletRequest request, HttpServletResponse response,
-                                 @RequestHeader(value = "token", defaultValue = TOKEN) String token,
+                                 @RequestParam(value = "token", defaultValue = TOKEN) String token,
                                    @RequestParam(value = "role", defaultValue = "", required = false) @ApiParam(value = "1=admin,2=user") String role,
                                    @RequestParam(value = "readGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId")List<String>  readGroupId,
                                    @RequestParam(value = "adminGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId") List<String> adminGroupId,
@@ -99,25 +100,24 @@ public class ReportApi extends CommonApi {
         XSSFWorkbook workbook = new XSSFWorkbook();
         // Set Column Excel
         XSSFSheet worksheet = workbook.createSheet("Sheet1");
-        worksheet.setColumnWidth(0, 7000);
-        worksheet.setColumnWidth(1, 7000);
+        worksheet.setColumnWidth(0, 8000);
+        worksheet.setColumnWidth(1, 8000);
         worksheet.setColumnWidth(2, 7000);
-        worksheet.setColumnWidth(3, 7000);
-        worksheet.setColumnWidth(4, 8000);
-        worksheet.setColumnWidth(5, 7000);
-        worksheet.setColumnWidth(6, 7000);
-        worksheet.setColumnWidth(7, 7000);
+        worksheet.setColumnWidth(3, 6000);
+        worksheet.setColumnWidth(4, 6000);
+        worksheet.setColumnWidth(5, 5000);
+        worksheet.setColumnWidth(6, 6000);
+        worksheet.setColumnWidth(7, 9000);
         worksheet.setColumnWidth(8, 7000);
-        worksheet.setColumnWidth(9, 5000);
-        worksheet.setColumnWidth(10, 6000);
-        worksheet.setColumnWidth(11, 5000);
-        worksheet.setColumnWidth(12, 4000);
-        worksheet.setColumnWidth(13, 4000);
-        worksheet.setColumnWidth(14, 4000);
-        worksheet.setColumnWidth(15, 4000);
-        worksheet.setColumnWidth(16, 4000);
+        worksheet.setColumnWidth(9, 7000);
+        worksheet.setColumnWidth(10, 7000);
+        worksheet.setColumnWidth(11, 7000);
+        worksheet.setColumnWidth(12, 5000);
+        worksheet.setColumnWidth(13, 7000);
+        worksheet.setColumnWidth(14, 6000);
+        worksheet.setColumnWidth(15, 5000);
+        worksheet.setColumnWidth(16, 8000);
         worksheet.setColumnWidth(17, 4000);
-        worksheet.setColumnWidth(18, 4000);
 
         // Set Font Excel
         Font font = worksheet.getWorkbook().createFont();
@@ -129,7 +129,7 @@ public class ReportApi extends CommonApi {
         headerCellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
         headerCellStyle.setWrapText(true);
         headerCellStyle.setFont(font);
-        headerCellStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+        headerCellStyle.setFillForegroundColor(IndexedColors.BLUE_GREY.getIndex());
         headerCellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
         headerCellStyle.setBorderTop(CellStyle.BORDER_THIN);
         headerCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
@@ -142,7 +142,7 @@ public class ReportApi extends CommonApi {
         columnCellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
         columnCellStyle.setWrapText(true);
         columnCellStyle.setFont(font);
-        columnCellStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+        columnCellStyle.setFillForegroundColor(IndexedColors.BLUE_GREY.getIndex());
         columnCellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
         columnCellStyle.setBorderTop(CellStyle.BORDER_THIN);
         columnCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
@@ -166,7 +166,7 @@ public class ReportApi extends CommonApi {
         Cell cellHeader = rowHeader.createCell(0);
         cellHeader.setCellValue("รายงานผู้ใช้งาน");
         cellHeader.setCellStyle(headerCellStyle);
-        worksheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 18));
+        worksheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 17));
 
         // Set Cell Column
         Row rowColumn = worksheet.createRow((short) 1);
@@ -191,9 +191,8 @@ public class ReportApi extends CommonApi {
         title.add("วันสิ้นสุดสัญญา");
         title.add("โครงการที่อยู่");
         title.add("ผู้พักอาศัย");
-        title.add("สิทธิการใช้งาน");
 
-        for (int i = 0; i <= 16; i++) {
+        for (int i = 0; i <= 17; i++) {
             Cell cell = rowColumn.createCell(i);
             cell.setCellValue(title.get(i));
             cell.setCellStyle(columnCellStyle);
@@ -208,7 +207,7 @@ public class ReportApi extends CommonApi {
 
             row = worksheet.createRow((short) startRowIndex);
             row.setHeight((short) 500);
-         /*   for (int i = 0; i <= 16; i++) {
+            for (int i = 0; i <= 17; i++) {
                 Cell row1 = row.createCell(i);
 
                 if (i == 0) {
@@ -224,72 +223,84 @@ public class ReportApi extends CommonApi {
                         row1.setCellValue(result.getEmail());
                     }
                 } else if (i == 3) {
-                    if (result.getPhoneNumber()!=null&&result.getPhoneNumber().length()>0){
-                        row1.setCellValue(result.getPhoneNumber());
+                    if (result.getIdCard()!=null&&result.getIdCard().length()>0){
+                        row1.setCellValue(result.getIdCard());
                     }                }
                 else if (i == 4) {
-                    if (result.getDepartmentProfile()!=null){
-                        row1.setCellValue(result.getDepartmentProfile().getDepartmentName());
+                    if (result.getPhoneNumber()!=null&&result.getPhoneNumber().length()>0){
+                        row1.setCellValue(result.getPhoneNumber());
                     }
                 }  else if (i == 5) {
-                    if (result.getAddressProfile()!=null&&result.getAddressProfile().getAddressNo().length()>0){
-                        row1.setCellValue(result.getAddressProfile().getAddressNo());
-                    }
-                } else if (i == 6) {
-                    if (result.getAddressProfile()!=null&&result.getAddressProfile().getSubDistrict_th().length()>0){
-                        row1.setCellValue(result.getAddressProfile().getSubDistrict_th());
-                    }
-                } else if (i == 7) {
-                    if (result.getAddressProfile()!=null&&result.getAddressProfile().getDistrict_th().length()>0){
-                        row1.setCellValue(result.getAddressProfile().getDistrict_th());
-                    }
-                } else if (i == 8) {
-                    if (result.getAddressProfile()!=null&&result.getAddressProfile().getProvince_th().length()>0){
-                        row1.setCellValue(result.getAddressProfile().getProvince_th());
-                    }
-                } else if (i == 9) {
-                    if (result.getAddressProfile()!=null){
-                        row1.setCellValue(result.getAddressProfile().getZipcode());
-                    }
-                } else if (i == 10) {
                     row1.setCellValue(convertDateToString(result.getCreateDate()));
-                } else if (i == 11) {
+
+                } else if (i == 6) {
                     String role="";
-                    if (result.getAdminRole()==0){
+                    if (result.getRole()!=null){
+                        role="ผู้ดูแลระบบ";
+                    }else {
                         role="ผู้ใช้งาน";
-                    }else if (result.getAdminRole()==1){
-                        role="ครู";
-                    }else if (result.getAdminRole()==2){
-                        role="ผู้ตรวจสอบ";
-                    }else if (result.getAdminRole()==3){
-                        role="เจ้าหน้าที่";
                     }
                     row1.setCellValue(role);
-                } else if (i == 12) {
-                    if (result.getUserName()!=null&&result.getUserName().length()>0) {
-                        row1.setCellValue("/");
+
+                } else if (i == 7) {
+                    String group="";
+
+                    for (int j=0;j<result.getReadGroups().size();j++){
+                        if (j==0){
+                            group=group+result.getReadGroups().get(j).getGroupName();
+                        }else {
+                            group=group+","+result.getReadGroups().get(j).getGroupName();
+                        }
                     }
+                    row1.setCellValue(group);
+
+                } else if (i == 8) {
+                    if (result.getAddress()!=null&&result.getAddress().length()>0){
+                        row1.setCellValue(result.getAddress());
+                    }
+                } else if (i == 9) {
+                        row1.setCellValue(result.getSubDistrictName());
+
+                } else if (i == 10) {
+                    row1.setCellValue(result.getDistrictName());
+                } else if (i == 11) {
+
+                    row1.setCellValue(result.getProvinceName());
+                } else if (i == 12) {
+                    row1.setCellValue(result.getZipcode());
                 }else if (i == 13) {
-                    if (result.getFacebookId()!=null&&result.getFacebookId().length()>0) {
-                        row1.setCellValue("/");
+                    if (result.getJob()!=null&&result.getJob().length()>0) {
+                        row1.setCellValue(result.getJob());
                     }
                 }else if (i == 14) {
-                    if (result.getAppleId()!=null&&result.getAppleId().length()>0) {
-                        row1.setCellValue("/");
+                    String type="";
+                    if (result.getType()==1){
+                        type="กลุ่มคนโสด";
+                    }else if (result.getType()==2){
+                        type="กลุ่มคนทำงาน";
+                    }if (result.getType()==3){
+                        type="กลุ่มครอบครัว";
+                    }if (result.getType()==4){
+                        type="ผู้สูงอายุ/ผู้พิการ";
                     }
+                    row1.setCellValue(type);
                 }else if (i == 15) {
-                    if (result.getLineId()!=null&&result.getLineId().length()>0) {
-                        row1.setCellValue("/");
+                    if (result.getEndContract()!=null) {
+                        row1.setCellValue(convertDateToString(result.getEndContract()));
                     }
                 }else if (i == 16) {
-                    if (result.getGoogleId()!=null&&result.getGoogleId().length()>0) {
-                        row1.setCellValue("/");
+                    if (result.getKhaProfile()!=null&&result.getKhaProfile().getName().length()>0) {
+
+                        row1.setCellValue(result.getKhaProfile().getName());
                     }
+                }else if (i == 17) {
+                    row1.setCellValue(result.getAmountResidents());
+
                 }
                 row1.setCellStyle(rowCellStyle);
 
             }
-*/
+
         }
         try {
             ServletOutputStream outStream = response.getOutputStream();

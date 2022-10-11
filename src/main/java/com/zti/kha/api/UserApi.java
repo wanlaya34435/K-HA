@@ -426,6 +426,7 @@ public class UserApi extends CommonApi {
                     }
                 }
             }
+
             //set ReadGroup
             if (byId.getRole()!=null) {
                 for (String adminGroups: byId.getRole().getAdminGroups()) {
