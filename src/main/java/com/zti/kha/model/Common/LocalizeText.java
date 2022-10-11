@@ -41,6 +41,7 @@ public class LocalizeText  extends BaseModel {
     String  showed="โชว์";
     String  hidden="ซ่อน";
     String userDisable="บัญชีนี้ถูกปิดการใช้งาน";
+    String duplicatePhoneNumber="หมายเลขโทรศัพท์มีในระบบแล้ว";
 
     String permissionDenied="ไม่มีสิทธิ์การเข้าถึงข้อมูล";
     String duplicateVillage="ชื่อหมู่บ้านซ้ำ";
@@ -91,6 +92,10 @@ public class LocalizeText  extends BaseModel {
 
     public String getNoReadGroups() {
         return noReadGroups;
+    }
+
+    public String getDuplicatePhoneNumber() {
+        return duplicatePhoneNumber;
     }
 
     public String getDuplicateSubscribe() {

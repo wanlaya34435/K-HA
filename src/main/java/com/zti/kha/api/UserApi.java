@@ -47,7 +47,7 @@ public class UserApi extends CommonApi {
     public BaseResponse register(HttpServletRequest request,
                                    @RequestParam(value = "token", defaultValue = "", required = false)  @ApiParam(value = "for admin")String token,
                                    @RequestParam(value = "password", defaultValue = "", required = false) String password,
-                                   @RequestParam(value = "phoneNumber", defaultValue = "", required = false) String phoneNumber,
+                                   @RequestParam(value = "phoneNumber", defaultValue = "", required = true) String phoneNumber,
                                    @RequestParam(value = "username", defaultValue = "", required = false) String userName,
                                    @RequestParam(value = "email", defaultValue = "", required = false) String email,
                                    @RequestParam(value = "firstName", defaultValue = "", required = false) String firstName,
@@ -55,7 +55,7 @@ public class UserApi extends CommonApi {
                                    @RequestParam(value = "imageProfile", defaultValue = "", required = false) String imageProfile,
                                    @RequestParam(value = "permissionButton", defaultValue = "", required = false) String permissionButton,
                                    @RequestParam(value = "permissionMenu", defaultValue = "", required = false) String permissionMenu,
-                                   @RequestParam(value = "groupId", defaultValue = "", required = false)  @ApiParam(value = "for admin") String groupId,
+                                   @RequestParam(value = "groupId", defaultValue = "", required = false)  @ApiParam(value = "") String groupId,
                                    @RequestParam(value = "idCard", defaultValue = "", required = false) String idCard,
                                    @RequestParam(value = "amountResidents", defaultValue = "0", required = false) int amountResidents,
                                    @RequestParam(value = "type", defaultValue = "1", required = false)@ApiParam(value = "1=กลุ่มคนโสด,2=กลุ่มคนทำงาน,3=กลุ่มครอบครัว,4=ผู้สูงอายุ/ผู้พิการ") int type,
@@ -78,8 +78,10 @@ public class UserApi extends CommonApi {
 
         if ( userName != null&&!userName.equals("")&& profileRepository.findByUserNameIgnoreCase(userName) != null  ) {
             return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicateUserName()));
-        } else if (phoneNumber.length() > 0 && phoneNumber.length() != 10) {
+        } else if (phoneNumber.length() > 0 && phoneNumber.length() != 10&& profileRepository.findByPhoneNumber(phoneNumber) != null ) {
             return getError(ErrorFactory.getError(FAILED, localizeText.getWrongPhoneNumber()));
+        }else if (phoneNumber.length() > 0 &&profileRepository.findByPhoneNumber(phoneNumber) != null ) {
+            return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicatePhoneNumber()));
         } else if (email.length()>0&&profileRepository.findByEmailIgnoreCase(email)!= null ) {
             return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicateEmail()));
         } else {
@@ -166,11 +168,10 @@ public class UserApi extends CommonApi {
             , @RequestParam(value = "id", defaultValue = "", required = true) String id
             , @RequestParam(value = "firstName", defaultValue = "", required = false) String firstName
             , @RequestParam(value = "lastName", defaultValue = "", required = false) String lastName
-            , @RequestParam(value = "phoneNumber", defaultValue = "", required = false) String phoneNumber
             , @RequestParam(value = "imageProfile", defaultValue = "", required = false) String imageProfile
             , @RequestParam(value = "permissionMenu", defaultValue = "", required = false) String permissionMenu
             , @RequestParam(value = "permissionButton", defaultValue = "", required = false) String permissionButton
-            , @RequestParam(value = "groupId", defaultValue = "", required = false)@ApiParam(value = "for admin") List<String> groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false)@ApiParam(value = "") List<String> groupId
             , @RequestParam(value = "groupIdDelete", defaultValue = "", required = false) @ApiParam(value = "for admin")List<String> groupIdDelete
             , @RequestParam(value = "email", defaultValue = "", required = false) String email
             , @RequestParam(value = "idCard", defaultValue = "", required = false) String idCard
@@ -200,7 +201,7 @@ public class UserApi extends CommonApi {
         }
             profile.setFirstName(firstName);
             profile.setLastName(lastName);
-            profile.setPhoneNumber(phoneNumber);
+//            profile.setPhoneNumber(phoneNumber);
             profile.setIdCard(idCard);
             profile.setAmountResidents(amountResidents);
             profile.setType(type);
@@ -266,7 +267,17 @@ public class UserApi extends CommonApi {
         return getOk(new BaseResponse(OK, localizeText.getDataUpdated(), save));
 
     }
+    @CrossOrigin
+    @RequestMapping(value = "/checkPhoneNumber", method = RequestMethod.GET)
+    public BaseResponse checkPhoneNumber(HttpServletRequest request
+            , @RequestParam(value = "phoneNumber", defaultValue = "", required = true) String phoneNumber) {
 
+        initialize(request);
+         if (profileRepository.findByPhoneNumber(phoneNumber) != null ) {
+            return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicatePhoneNumber()));
+        }
+        return getOk(new BaseResponse());
+    }
     @CrossOrigin
     @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
     public BaseResponse deleteUser(HttpServletRequest request

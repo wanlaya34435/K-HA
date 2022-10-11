@@ -707,7 +707,7 @@ public class ComplainApi extends CommonApi {
             CommentComplain insert = commentComplainRepository.insert(comment);
 
             Optional<Profile> byUserName = profileRepository.findById(post.get().getAuthor());
-            if (byUserName.isPresent() && !byUserName.get().getGcmToken().equals("")) {
+            if (byUserName.isPresent()&& byUserName.get().getGcmToken()!=null && !byUserName.get().getGcmToken().equals("")) {
                 GcmSender.sendCommentComplain(insert.getId(), insert.getComplainId(), TYPE_NOTI_COMMENT, byUserName.get().getGcmToken(), GCM_KEY, insert.getDescription(),post.get().getGroupId());
             }
 
