@@ -30,7 +30,7 @@ import static org.apache.poi.ss.usermodel.FillPatternType.SOLID_FOREGROUND;
 @RestController
 @RequestMapping("/api/v1")
 public class ReportApi extends CommonApi {
-   /* @CrossOrigin
+    @CrossOrigin
     @ApiOperation(value = "รายงานข้อมูลผู้ใช้งาน", notes = "", response = Profile.class)
     @RequestMapping(value = "/exportReport/user", method = RequestMethod.GET)
     public void exportReportUser(HttpServletRequest request, HttpServletResponse response,
@@ -166,7 +166,7 @@ public class ReportApi extends CommonApi {
         Cell cellHeader = rowHeader.createCell(0);
         cellHeader.setCellValue("รายงานผู้ใช้งาน");
         cellHeader.setCellStyle(headerCellStyle);
-        worksheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 18);
+        worksheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 18));
 
         // Set Cell Column
         Row rowColumn = worksheet.createRow((short) 1);
@@ -208,7 +208,7 @@ public class ReportApi extends CommonApi {
 
             row = worksheet.createRow((short) startRowIndex);
             row.setHeight((short) 500);
-            for (int i = 0; i <= 16; i++) {
+         /*   for (int i = 0; i <= 16; i++) {
                 Cell row1 = row.createCell(i);
 
                 if (i == 0) {
@@ -289,7 +289,7 @@ public class ReportApi extends CommonApi {
                 row1.setCellStyle(rowCellStyle);
 
             }
-
+*/
         }
         try {
             ServletOutputStream outStream = response.getOutputStream();
@@ -298,7 +298,7 @@ public class ReportApi extends CommonApi {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
     @CrossOrigin
     @ApiOperation(value = "รายงานร้องเรียนแจ้งเหตุ'", notes = "", response = Complain.class)
     @GetMapping(value = "exportReport/complain")
