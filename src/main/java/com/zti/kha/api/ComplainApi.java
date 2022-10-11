@@ -102,7 +102,7 @@ public class ComplainApi extends CommonApi {
         complain.setPostalCode(postalCode);
         complain.setSequence(generateSequence());
         complain.setGroupId(groupId);
-        complain.setComplainId(generateComplainId());
+        complain.setComplainId(generateComplainId("C"));
         complain.setPlaceName(placeName);
         complain.setDescription(description);
         complain.setTitleId(titleId);
@@ -218,11 +218,10 @@ public class ComplainApi extends CommonApi {
 
     }
 
-    private String generateComplainId() {
+    private String generateComplainId(String title) {
         Complain topByOrder = complainRepository.findTopByOrderByCreateDateDesc();
         String value;
         String currentDate = convertDateComplainId(new Date());
-        String title = "C";
 
         if (topByOrder != null) {
             String complainId = topByOrder.getComplainId();

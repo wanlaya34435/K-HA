@@ -818,17 +818,36 @@ public class UserApi extends CommonApi {
     @ApiOperation(value = "ข้อมูลผู้ใช้งานทั้งหมด", notes = "", response = Profile.class)
     @RequestMapping(value = "/getUserAll", method = RequestMethod.GET)
     public BaseResponse getUserAll(HttpServletRequest request, @RequestHeader(value = "token", defaultValue = TOKEN) String token,
-                                    @RequestParam(value = "role", defaultValue = "", required = false) @ApiParam(value = "1=admin,2=user") String role,
+                                   @RequestParam(value = "role", defaultValue = "", required = false) @ApiParam(value = "1=admin,2=user") String role,
                                    @RequestParam(value = "readGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId")List<String>  readGroupId,
                                    @RequestParam(value = "adminGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId") List<String> adminGroupId,
                                    @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate,
-                                    @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate,
-                                    @RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord,
-                                    @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                    @RequestParam(value = "sizeContents", defaultValue = "30", required = false) int sizeContents) throws PostExceptions {
+                                   @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate,
+                                   @RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord,
+                                   @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                   @RequestParam(value = "sort", defaultValue = "1", required = false) @ApiParam(value = "1 = Sort by firstName,2 = Sort by email,3 = Sort by createDate,4 = Sort by enable") int sort,
+                                   @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int orderSort,
+                                   @RequestParam(value = "sizeContents", defaultValue = "30", required = false) int sizeContents) throws PostExceptions {
         initialize(request);
         Profile profile1 = userValidateToken(token, request);
-        Pageable pageable =  PageRequest.of(page, sizeContents,Sort.by("createDate").descending());
+        Pageable pageable = null;
+        if (sort == 1 && orderSort == 1) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("firstName").ascending());
+        } else if (sort == 1 && orderSort == 2) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("firstName").descending());
+        } else if (sort == 2 && orderSort == 1) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("email").ascending());
+        } else if (sort == 2 && orderSort == 2) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("email").descending());
+        } else if (sort == 3 && orderSort == 1) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("createDate").ascending());
+        } else if (sort == 3 && orderSort == 2) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("createDate").descending());
+        }else if (sort == 4 && orderSort == 1) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("enable").ascending());
+        } else if (sort == 4 && orderSort == 2) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("enable").descending());
+        }
         Query query = new Query().with(pageable);
 
         if (role.length() > 0) {
