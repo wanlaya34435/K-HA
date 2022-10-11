@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <!-- Fragments Define / default -->
+    <definition name="base.definition" template="/WEB-INF/fragments/body/default.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/fragments/base/_header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/fragments/base/_menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/fragments/base/_footer.jsp" />
+    </definition>
+
+    <!-- Fragments Define / login -->
+    <definition name="login.definition" template="/WEB-INF/fragments/body/login.jsp">
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <!-- Fragments Define / error -->
+    <definition name="error.definition" template="/WEB-INF/fragments/body/error.jsp">
+        <put-attribute name="body" value="" />
+    </definition>
+
+
+
+    <definition name="errors/error-404" extends="error.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/errors/404.jsp" />
+    </definition>
+
+    <definition name="errors/error-500" extends="error.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/errors/500.jsp" />
+    </definition>
+
+    <definition name="errors/default" extends="error.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/errors/default.jsp" />
+    </definition>
+
+
+    <!-- Login -->
+    <definition name="login/view" extends="login.definition">
+        <put-attribute name="title" value="login" />
+        <put-attribute name="body" value="/WEB-INF/layouts/login/view.jsp" />
+    </definition>
+    <!-- Register -->
+    <definition name="register/view" extends="base.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/layouts/register/view.jsp" />
+    </definition>
+    <!-- Dashboard -->
+    <definition name="dashboard/view" extends="base.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/layouts/dashboard/view.jsp" />
+    </definition>
+
+    <!-- Content -->
+    <definition name="contents/view" extends="base.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/layouts/contents/view.jsp" />
+    </definition>
+
+    <definition name="contents/manage" extends="base.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/layouts/contents/manage.jsp" />
+    </definition>
+
+    <!-- Banner -->
+    <definition name="banners/view" extends="base.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/layouts/banners/view.jsp" />
+    </definition>
+
+    <definition name="banners/manage" extends="base.definition">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/layouts/banners/manage.jsp" />
+    </definition>
+
+
+
+</tiles-definitions>

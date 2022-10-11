@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration packages="biz.paluch.logging.gelf.log4j2">
+    <Properties>
+        <Property name="PATH">
+            <!-- ## DEFAULT ## -->
+            ./logs
+        </Property>
+        <Property name="LOG_PATTERN">
+            %d [%-6p] %C{1}.%M(%F:%L) – %m%n
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+        </Console>
+
+        <RollingFile name="RollingFile"
+                     fileName="${PATH}/catalina.log"
+                     filePattern="${PATH}/$${date:yyyy-MM}/catalina-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- rollover on startup, daily and when the file reaches 10 MegaBytes -->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+<!--        <Gelf name="gelf" host="udp:202.29.172.67" port="12201" version="1.1" extractStackTrace="true"-->
+<!--              filterStackTrace="true" mdcProfiling="true" includeFullMdc="true" maximumMessageSize="8192"-->
+<!--              originHost="%host{fqdn}" >-->
+        <Gelf name="gelf" host="udp:178.128.48.112" port="12201" version="1.1" extractStackTrace="true"
+              filterStackTrace="true" mdcProfiling="true" includeFullMdc="true" maximumMessageSize="8192"
+              originHost="%host{fqdn}" >
+
+                <Field name="timestamp" pattern="%d{dd MMM yyyy HH:mm:ss,SSS}" />
+                <Field name="level" pattern="%level" />
+<!--                <Field name="simpleClassName" pattern="%C{1}" />-->
+                <Field name="className" pattern="%C (%F:%L)" />
+                <Field name="server" pattern="%host" />
+<!--                <Field name="server.fqdn" pattern="%host{fqdn}" />-->
+                <Field name="app.name" pattern="korat.mobileapp" />
+        </Gelf>
+    </Appenders>
+
+    <Loggers>
+        <!-- LOG everything at INFO level -->
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+            <AppenderRef ref="gelf" />
+        </Root>
+
+        <!-- LOG "package *" at TRACE level -->
+        <Logger name="com.zti" level="trace"></Logger>
+    </Loggers>
+
+</Configuration>

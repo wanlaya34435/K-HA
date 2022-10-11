@@ -1,0 +1,28 @@
+{
+    "loadingRecords": "กำลังโหลดข้อมูล...",
+    "processing":     "กำลังดำเนินการ...",
+    "search":         "ค้นหา",
+	"infoFiltered":   "",
+	"decimal":        "",
+    "emptyTable":     "ไม่มีรายการข้อมูล",
+    "info":           "แสดงข้อมูล _START_ ถึง _END_ จากทั้งหมด _TOTAL_ รายการ",
+    "infoEmpty":      "แสดงข้อมูล 0 ถึง 0 จากทั้งหมด 0 รายการ",
+    "zeroRecords":    "ไม่พบข้อมูล",
+    "paginate": {
+        "first":      "ลำดับแรก",
+        "last":       "สุดท้าย",
+        "next":       "ถัดไป",
+        "previous":   "ก่อนหน้า"
+    },
+    "aria": {
+        "sortAscending":  ": เรียงตามลำดับจากน้อยไปมาก",
+        "sortDescending": ": เรียงตามลำดับจากมากไปน้อย"
+    },
+    "infoPostFix":    "",
+    "thousands":      ",",
+    "sLengthMenu": "แสดงข้อมูล _MENU_ รายการ"
+    
+
+    
+   
+ }
