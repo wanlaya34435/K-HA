@@ -418,7 +418,7 @@ public class UserApi extends CommonApi {
                 }
             }
             if (groupIdDelete.size()>0) {
-                for (String groupDelete:groupId) {
+                for (String groupDelete:groupIdDelete) {
                     checkSuperAdminGroups(adminProfile, groupDelete);
                     byId.getRole().getAdminGroups().remove(groupDelete);
                     if (byId.getRole().getAdminGroups().size() == 0) {
