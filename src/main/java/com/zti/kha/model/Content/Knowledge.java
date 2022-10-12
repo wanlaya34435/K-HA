@@ -18,12 +18,22 @@ public class Knowledge extends BaseContent {
     private String imagePath;
     private String videoPath;
     private String filesPath ;
+    private String audioPath ;
+
     @Transient
     private List<String> categoryProfile = new ArrayList<>();
     private List<String> category = new ArrayList<>();
 
     public String getThumbnailsPath() {
         return thumbnailsPath;
+    }
+
+    public String getAudioPath() {
+        return audioPath;
+    }
+
+    public void setAudioPath(String audioPath) {
+        this.audioPath = audioPath;
     }
 
     public void setThumbnailsPath(String thumbnailsPath) {

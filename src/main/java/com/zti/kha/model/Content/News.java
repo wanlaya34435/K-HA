@@ -16,8 +16,9 @@ public class News extends BaseNoti {
     private String title ;
     private String description ;
     private String youtube ;
-
-    private List<String> filesPath = new ArrayList<>();
+    private String videoPath;
+    private String filesPath ;
+    private String audioPath;
     @Transient
     private List<String> categoryProfile=  new ArrayList<>();
     private List<String> category = new ArrayList<>();
@@ -68,12 +69,28 @@ public class News extends BaseNoti {
         this.buttonUrl = buttonUrl;
     }
 
-    public List<String> getFilesPath() {
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
+
+    public String getFilesPath() {
         return filesPath;
     }
 
-    public void setFilesPath(List<String> filesPath) {
+    public void setFilesPath(String filesPath) {
         this.filesPath = filesPath;
+    }
+
+    public String getAudioPath() {
+        return audioPath;
+    }
+
+    public void setAudioPath(String audioPath) {
+        this.audioPath = audioPath;
     }
 
     public String getFacebookLive() {

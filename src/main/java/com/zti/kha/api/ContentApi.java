@@ -48,6 +48,9 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "sequence", defaultValue = "0", required = false) int sequence
             , @RequestParam(value = "enable", defaultValue = "true", required = false) boolean enable
             , @RequestParam(value = "groupId", defaultValue = "", required = true) String groupId
+            , @RequestParam(value = "startDate", defaultValue = "", required = true) @ApiParam(value = "Time in milliseconds") String startDate
+            , @RequestParam(value = "endDate", defaultValue = "", required = true) @ApiParam(value = "Time in milliseconds") String endDate
+
     ) throws PostExceptions {
         initialize(request);
         Profile profile = userValidateToken(token, request);
@@ -70,6 +73,20 @@ public class ContentApi extends CommonApi {
         banner.setEnable(enable);
         banner.setUrl(url);
         banner.setPin(Integer.parseInt(pin));
+        if (startDate.length() > 0) {
+            if (startDate.equals("null")) {
+                banner.setStartDate(null);
+            } else {
+                banner.setStartDate(new Date(Long.parseLong(startDate)));
+            }
+        }
+        if (endDate.length() > 0) {
+            if (endDate.equals("null")) {
+                banner.setEndDate(null);
+            } else {
+                banner.setEndDate(new Date(Long.parseLong(endDate)));
+            }
+        }
         if (id.length() > 0) {
             banner.setUpdateDate(new Date());
             banner.setEditBy(profile.getUserName());
@@ -98,6 +115,9 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "sequence", defaultValue = "", required = false) String sequence
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
             , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
+            , @RequestParam(value = "isAdmin", defaultValue = "false", required = false) boolean isAdmin
+            , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
+            , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
     ) throws PostExceptions {
         initialize(request);
 
@@ -128,6 +148,17 @@ public class ContentApi extends CommonApi {
             if (sequence.length() > 0) {
                 query.addCriteria(Criteria.where("sequence").is(Integer.parseInt(sequence)));
             }
+
+            if (startDate.length() > 0 && endDate.length() > 0) {
+                query.addCriteria(Criteria.where("startDate").gte(new Date(Long.parseLong(startDate))));
+                query.addCriteria(Criteria.where("endDate").lte(new Date(Long.parseLong(endDate))));
+            } else {
+                if (isAdmin == false) {
+                    query.addCriteria(Criteria.where("startDate").lte(new Date()));
+                    query.addCriteria(Criteria.where("endDate").gte(new Date()));
+                }
+            }
+
             Criteria title = Criteria.where("url").regex(keyWord, "i");
             if (keyWord != null && keyWord.length() > 0) {
                 query.addCriteria(new Criteria().orOperator(title));
@@ -168,13 +199,14 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "buttonName", defaultValue = "", required = false) String buttonName
             , @RequestParam(value = "buttonUrl", defaultValue = "", required = false) String buttonUrl
             , @RequestParam(value = "facebookLive", defaultValue = "", required = false) String facebookLive
-            , @RequestParam(value = "file", required = false) MultipartFile file
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: news") List<String> category
             , @RequestParam(value = "enable", defaultValue = "true", required = false) boolean enable
             , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
             , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
             , @RequestParam(value = "groupId", defaultValue = "", required = true) String groupId
-
+            , @RequestParam(value = "videoPath", required = false) MultipartFile videoPath
+            , @RequestParam(value = "filesPath", required = false) MultipartFile filesPath
+            , @RequestParam(value = "audioPath", required = false) MultipartFile audioPath
 
     ) throws PostExceptions {
         initialize(request);
@@ -201,8 +233,16 @@ public class ContentApi extends CommonApi {
         } else {
             newsEvent.setSequence(sequence);
         }
-        if (file != null) {
-            newsEvent.setFilesPath(pdf(file, profile));
+        if (filesPath != null) {
+            newsEvent.setFilesPath(pdf(filesPath, profile).get(0));
+        }
+
+        if (videoPath != null) {
+            newsEvent.setVideoPath(uploadFile(videoPath, profile, FOLDER_VIDEO, FILE_TYPE_MP4));
+        }
+
+        if (audioPath != null) {
+            newsEvent.setAudioPath(uploadFile(audioPath, profile, FOLDER_AUDIO, FILE_TYPE_MP3));
         }
         newsEvent.setGroupId(groupId);
         newsEvent.setCategory(category);
@@ -716,11 +756,12 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "enable", defaultValue = "true", required = false) boolean enable
             , @RequestParam(value = "thumbnailsPath", required = false) MultipartFile thumbnailsPath
             , @RequestParam(value = "title", defaultValue = "", required = false) String title
-            , @RequestParam(value = "mediaType", defaultValue = "1", required = false) @ApiParam(value = "1=pdf,2=video,3=image,4=web") int mediaType
+            , @RequestParam(value = "mediaType", defaultValue = "1", required = false) @ApiParam(value = "1=pdf,2=video,3=image,4=web,5=audio") int mediaType
             , @RequestParam(value = "url", defaultValue = "", required = false) String url
             , @RequestParam(value = "imagePath", required = false) MultipartFile imagePath
             , @RequestParam(value = "videoPath", required = false) MultipartFile videoPath
             , @RequestParam(value = "filesPath", required = false) MultipartFile filesPath
+            , @RequestParam(value = "audioPath", required = false) MultipartFile audioPath
 
     ) throws PostExceptions {
         initialize(request);
@@ -755,6 +796,9 @@ public class ContentApi extends CommonApi {
 
         if (filesPath != null) {
             knowledge.setFilesPath(pdf(filesPath, profile).get(0));
+        }
+        if (audioPath != null) {
+            knowledge.setAudioPath(uploadFile(audioPath, profile, FOLDER_AUDIO, FILE_TYPE_MP3));
         }
         knowledge.setTitle(title);
         knowledge.setUrl(url);

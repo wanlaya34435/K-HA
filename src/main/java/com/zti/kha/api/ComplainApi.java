@@ -246,7 +246,7 @@ public class ComplainApi extends CommonApi {
     public BaseResponse historyComplain(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = false) String id
-            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done") String currentStatus
+            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done,4=out of control") String currentStatus
             , @RequestParam(value = "titleId", defaultValue = "", required = true) @ApiParam(value = "categoryCode of categoryType complain") String titleId
             , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
             , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
@@ -352,7 +352,7 @@ public class ComplainApi extends CommonApi {
     public BaseResponse inboxComplain(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = false) String id
-            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done") String currentStatus
+            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done,4=out of control") String currentStatus
             , @RequestParam(value = "titleId", defaultValue = "", required = true) @ApiParam(value = "categoryCode of categoryType complain") String titleId
             , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
             , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
@@ -543,7 +543,7 @@ public class ComplainApi extends CommonApi {
     public BaseResponse adminManageStatusComplain(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = true) String id
-            , @RequestParam(value = "statusCode", defaultValue = "", required = true) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done") int statusCode
+            , @RequestParam(value = "statusCode", defaultValue = "", required = true) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done,4=out of control") int statusCode
             , @RequestParam(value = "remark", defaultValue = "", required = false) String remark
             , @RequestParam(value = "pushnotification", defaultValue = "false") Boolean pushnotification
             , @RequestParam(value = "filesPath", required = false) MultipartFile filesPath

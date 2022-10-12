@@ -317,7 +317,7 @@ public class ReportApi extends CommonApi {
     @GetMapping(value = "exportReport/complain")
     public void exportReport(HttpServletRequest request, HttpServletResponse response
             , @RequestParam(value = "token", defaultValue = TOKEN) String token
-            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done") String currentStatus
+            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done,4=out of control") String currentStatus
             , @RequestParam(value = "titleId", defaultValue = "", required = true) @ApiParam(value = "categoryCode of categoryType complain") String titleId
             , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
             , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
@@ -687,6 +687,9 @@ public class ReportApi extends CommonApi {
 
                 } else if (result.getCurrentStatus() == 2) {
                     msgCode = "ยกเลิก";
+
+                } else if (result.getCurrentStatus() == 4 ){
+                    msgCode = "นอกเหนือความรับผิดชอบ";
 
                 }
                 row10.setCellValue(msgCode);
