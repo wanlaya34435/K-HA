@@ -82,7 +82,9 @@ public class ReportApi extends CommonApi {
             post.get(i).setPendingGroups(setGroupName(post.get(i).getPendingGroups()));
             if (post.get(i).getRole()!=null) {
                 post.get(i).getRole().setGroupsName(setRoleName(post.get(i).getRole().getAdminGroups()));
+                post.get(i).getRole().setTechnicianName(setRoleName(post.get(i).getRole().getTechnicianGroups()));
             }
+
             post.get(i).setProvinceName(getProvinceName(post.get(i).getProvinceCode()));
             post.get(i).setDistrictName(getDistrictName(post.get(i).getDistrictCode()));
             post.get(i).setSubDistrictName(getSubDistrictName(post.get(i).getSubDistrictCode()));

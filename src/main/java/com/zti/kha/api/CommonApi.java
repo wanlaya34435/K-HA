@@ -539,6 +539,14 @@ public class CommonApi {
             throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
         }
 
+    }
+    protected void checkAdminComplain(Profile profile, String groupId) throws PostExceptions {
+        if (profile.getRole() == null) {
+            throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        }
+        if (!profile.getRole().getAdminGroups().contains(groupId)&&!profile.getRole().getTechnicianGroups().contains(groupId)) {
+            throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        }
 
     }
 
@@ -609,7 +617,9 @@ public class CommonApi {
 
         Query query = new Query();
         Criteria adminGroups = Criteria.where("role.adminGroups").in(complain.getGroupId());
-        query.addCriteria(adminGroups);
+        Criteria technicianGroups = Criteria.where("role.technicianGroups").in(complain.getGroupId());
+
+        query.addCriteria(new Criteria().orOperator(adminGroups,technicianGroups));
 
         List<Profile> profileList = mongoTemplate.find(query, Profile.class);
         return profileList;
@@ -618,7 +628,7 @@ public class CommonApi {
 
 
     public void checkRoleCommentComplain(Profile profile, Complain complain) throws PostExceptions {
-        if (!complain.getAuthor().equals(profile.getId()) && (profile.getRole() == null || !profile.getRole().getAdminGroups().contains(complain.getGroupId()))) {
+        if (!complain.getAuthor().equals(profile.getId()) && (profile.getRole() == null ||( !profile.getRole().getAdminGroups().contains(complain.getGroupId())&&!profile.getRole().getTechnicianGroups().contains(complain.getGroupId())))) {
             throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
         }
     }

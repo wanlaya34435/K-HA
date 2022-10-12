@@ -166,6 +166,7 @@ public class UserApi extends CommonApi {
     public BaseResponse editProfile(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = true) String id
+            , @RequestParam(value = "phoneNumber", defaultValue = "", required = false) String phoneNumber
             , @RequestParam(value = "firstName", defaultValue = "", required = false) String firstName
             , @RequestParam(value = "lastName", defaultValue = "", required = false) String lastName
             , @RequestParam(value = "imageProfile", defaultValue = "", required = false) String imageProfile
@@ -201,7 +202,7 @@ public class UserApi extends CommonApi {
         }
             profile.setFirstName(firstName);
             profile.setLastName(lastName);
-//            profile.setPhoneNumber(phoneNumber);
+            profile.setPhoneNumber(phoneNumber);
             profile.setIdCard(idCard);
             profile.setAmountResidents(amountResidents);
             profile.setType(type);
@@ -395,7 +396,10 @@ public class UserApi extends CommonApi {
             byId.setPendingGroups(setGroupName(byId.getPendingGroups()));
             if (byId.getRole() != null) {
                 byId.getRole().setGroupsName(setRoleName(byId.getRole().getAdminGroups()));
+                byId.getRole().setTechnicianName(setRoleName(byId.getRole().getTechnicianGroups()));
+
             }
+
             return getOk(new BaseResponse(OK, localizeText.getDataUpdated(), byId));
         }
     }
@@ -406,7 +410,10 @@ public class UserApi extends CommonApi {
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = true) String id
             , @RequestParam(value = "groupId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupId
-            , @RequestParam(value = "groupIdDelete", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupIdDelete) throws PostExceptions {
+            , @RequestParam(value = "groupIdDelete", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupIdDelete
+            , @RequestParam(value = "techId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> techId
+            , @RequestParam(value = "techIdDelete", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> techIdDelete
+    ) throws PostExceptions {
 
         initialize(request);
         Profile adminProfile = userValidateToken(token, request);
@@ -432,10 +439,32 @@ public class UserApi extends CommonApi {
                 for (String groupDelete:groupIdDelete) {
                     checkSuperAdminGroups(adminProfile, groupDelete);
                     byId.getRole().getAdminGroups().remove(groupDelete);
-                    if (byId.getRole().getAdminGroups().size() == 0) {
-                        byId.setRole(null);
+                }
+            }
+            if (techId.size()>0) {
+                for (String groupAdd:techId) {
+                    checkSuperAdminGroups(adminProfile, groupAdd);
+                    RoleAdmin role = new RoleAdmin();
+                    if (byId.getRole() != null) {
+                        role = byId.getRole();
+                    }
+                    if (!role.getTechnicianGroups().contains(groupAdd)) {
+                        role.getTechnicianGroups().add(groupAdd);
+                        byId.setRole(role);
                     }
                 }
+            }
+            if (techIdDelete.size()>0) {
+                for (String groupDelete:techIdDelete) {
+                    checkSuperAdminGroups(adminProfile, groupDelete);
+                    byId.getRole().getTechnicianGroups().remove(groupDelete);
+
+                }
+            }
+
+            //check no damin
+            if (byId.getRole().getSuperAdmin()==false&&byId.getRole().getAdminGroups().size() == 0&&byId.getRole().getTechnicianGroups().size() == 0) {
+                byId.setRole(null);
             }
 
             //set ReadGroup
@@ -458,6 +487,8 @@ public class UserApi extends CommonApi {
             profile.setPendingGroups(setGroupName(profile.getPendingGroups()));
             if (profile.getRole() != null) {
                 profile.getRole().setGroupsName(setRoleName(profile.getRole().getAdminGroups()));
+                profile.getRole().setTechnicianName(setRoleName(profile.getRole().getTechnicianGroups()));
+
             }
             return getOk(new BaseResponse(OK, localizeText.getDataUpdated(), profile));
         }
@@ -747,6 +778,7 @@ public class UserApi extends CommonApi {
                     profileByUserName.setReadGroups(setGroupName(profileByUserName.getReadGroups()));
                     profileByUserName.setPendingGroups(setGroupName(profileByUserName.getPendingGroups()));
                     profileByUserName.getRole().setGroupsName(setRoleName(profileByUserName.getRole().getAdminGroups()));
+                    profileByUserName.getRole().setTechnicianName(setRoleName(profileByUserName.getRole().getTechnicianGroups()));
                     profileByUserName.setProvinceName(getProvinceName(profileByUserName.getProvinceCode()));
                     profileByUserName.setDistrictName(getDistrictName(profileByUserName.getDistrictCode()));
                     profileByUserName.setSubDistrictName(getSubDistrictName(profileByUserName.getSubDistrictCode()));
@@ -899,6 +931,7 @@ public class UserApi extends CommonApi {
             profile.setPendingGroups(setGroupName(profile.getPendingGroups()));
             if (profile.getRole()!=null) {
                 profile.getRole().setGroupsName(setRoleName(profile.getRole().getAdminGroups()));
+                profile.getRole().setTechnicianName(setRoleName(profile.getRole().getTechnicianGroups()));
             }
             profile.setProvinceName(getProvinceName(profile.getProvinceCode()));
             profile.setDistrictName(getDistrictName(profile.getDistrictCode()));
@@ -922,6 +955,8 @@ public class UserApi extends CommonApi {
         profile1.setPendingGroups(setGroupName(profile1.getPendingGroups()));
         if (profile1.getRole()!=null) {
             profile1.getRole().setGroupsName(setRoleName(profile1.getRole().getAdminGroups()));
+            profile1.getRole().setTechnicianName(setRoleName(profile1.getRole().getTechnicianGroups()));
+
         }
         profile1.setProvinceName(getProvinceName(profile1.getProvinceCode()));
         profile1.setDistrictName(getDistrictName(profile1.getDistrictCode()));

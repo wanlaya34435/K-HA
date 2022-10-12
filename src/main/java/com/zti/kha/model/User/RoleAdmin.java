@@ -8,9 +8,28 @@ import java.util.List;
 public class RoleAdmin {
     public Boolean isSuperAdmin=false;
     public List<String> adminGroups = new ArrayList<>();
+    public List<String> technicianGroups = new ArrayList<>();
+
 
     @Transient
     public List<String> groupsName = new ArrayList<>();
+    @Transient
+    public List<String> technicianName = new ArrayList<>();
+    public List<String> getTechnicianGroups() {
+        return technicianGroups;
+    }
+
+    public void setTechnicianGroups(List<String> technicianGroups) {
+        this.technicianGroups = technicianGroups;
+    }
+
+    public List<String> getTechnicianName() {
+        return technicianName;
+    }
+
+    public void setTechnicianName(List<String> technicianName) {
+        this.technicianName = technicianName;
+    }
 
     public Boolean getSuperAdmin() {
         return isSuperAdmin;

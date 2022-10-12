@@ -130,12 +130,12 @@ public class ComplainApi extends CommonApi {
         //getCateName
         insert.setCategoryName(getCateName(insert.getCategory()));
         insert.setTitleName(getCateName(insert.getTitleId()));
-        new Thread(new Runnable() {
+       /* new Thread(new Runnable() {
             @Override
             public void run() {
                 sendAdminComplainNotification(insert);
             }
-        }).start();
+        }).start();*/
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -375,7 +375,7 @@ public class ComplainApi extends CommonApi {
         if (groupId.length() == 0) {
             checkSuperAdmin(profile);
         } else {
-            checkSuperAdminGroups(profile, groupId);
+            checkAdminComplain(profile, groupId);
         }
         Page<Complain> byId = null;
         if (id.length() > 0) {
@@ -489,7 +489,7 @@ public class ComplainApi extends CommonApi {
 
 
         if (!complain.getAuthor().equals(profile.getId())) {
-            checkSuperAdminGroups(profile, complain.getGroupId());
+            checkAdminComplain(profile, complain.getGroupId());
 
         } else {
             if (complain.getCurrentStatus() != 0) {
@@ -556,7 +556,7 @@ public class ComplainApi extends CommonApi {
         Optional<Complain> byId = complainRepository.findById(id);
         Complain complain = byId.get();
 
-        checkSuperAdminGroups(profile, complain.getGroupId());
+        checkAdminComplain(profile, complain.getGroupId());
         List<String> picturesList = new ArrayList<>();
         String file = "";
         if (filesPath != null) {
@@ -618,7 +618,7 @@ public class ComplainApi extends CommonApi {
         Profile profile = userValidateToken(token, request);
         for (int i = 0; i < id.size(); i++) {
             Optional<Complain> byIdIn = complainRepository.findById(id.get(i));
-            checkSuperAdminGroups(profile, byIdIn.get().getGroupId());
+            checkAdminComplain(profile, byIdIn.get().getGroupId());
 
             if (byIdIn.get().getCurrentStatus() != 0) {
                 throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
@@ -710,7 +710,6 @@ public class ComplainApi extends CommonApi {
             if (byUserName.isPresent()&& byUserName.get().getGcmToken()!=null && !byUserName.get().getGcmToken().equals("")) {
                 GcmSender.sendCommentComplain(insert.getId(), insert.getComplainId(), TYPE_NOTI_COMMENT, byUserName.get().getGcmToken(), GCM_KEY, insert.getDescription(),post.get().getGroupId());
             }
-
 
             return getOk(new BaseResponse(comment));
         } else {
