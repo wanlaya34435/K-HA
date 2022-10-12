@@ -409,6 +409,7 @@ public class UserApi extends CommonApi {
     public BaseResponse manageAdmin(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = true) String id
+            , @RequestParam(value = "superAdmin", defaultValue = "", required = true) boolean superAdmin
             , @RequestParam(value = "groupId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupId
             , @RequestParam(value = "groupIdDelete", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupIdDelete
             , @RequestParam(value = "techId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> techId
@@ -461,7 +462,7 @@ public class UserApi extends CommonApi {
 
                 }
             }
-
+            byId.getRole().setSuperAdmin(superAdmin);
             //check no damin
             if (byId.getRole().getSuperAdmin()==false&&byId.getRole().getAdminGroups().size() == 0&&byId.getRole().getTechnicianGroups().size() == 0) {
                 byId.setRole(null);

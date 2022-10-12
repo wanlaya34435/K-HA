@@ -795,7 +795,7 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "sequence", defaultValue = "", required = false) String sequence
             , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: knowledge") String category
-            , @RequestParam(value = "mediaType", defaultValue = "", required = false) @ApiParam(value = "1=pdf,2=video,3=image,4=web") String mediaType
+            , @RequestParam(value = "mediaType", defaultValue = "", required = false) @ApiParam(value = "1=pdf,2=video,3=image,4=web,5=audio") String mediaType
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
     ) throws PostExceptions, ParseException {
         initialize(request);
