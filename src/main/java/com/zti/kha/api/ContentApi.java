@@ -892,6 +892,7 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "id", defaultValue = "", required = false) String id
             , @RequestParam(value = "picturesPath", required = false) MultipartFile[] pictures
             , @RequestParam(value = "title", defaultValue = "", required = false) String title
+            , @RequestParam(value = "url", defaultValue = "", required = false) String url
             , @RequestParam(value = "description", defaultValue = "", required = false) String description
             , @RequestParam(value = "deletePictures", required = false) @ApiParam(value = "List name of picture") List<String> deletePictures
             , @RequestParam(value = "pin", defaultValue = "0") @ApiParam(value = "0=not pin,1=pin") String pin
@@ -925,6 +926,7 @@ public class ContentApi extends CommonApi {
         } else {
             notifications.setSequence(sequence);
         }
+        notifications.setUrl(url);
         notifications.setGroupId(groupId);
         notifications.setCategory(category);
         notifications.setTitle(title);

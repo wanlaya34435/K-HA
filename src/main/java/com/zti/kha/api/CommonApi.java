@@ -540,12 +540,14 @@ public class CommonApi {
         }
 
     }
-    protected void checkAdminComplain(Profile profile, String groupId) throws PostExceptions {
+    protected void checkAdminComplain(Profile profile, List<String> groupId) throws PostExceptions {
         if (profile.getRole() == null) {
             throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
         }
-        if (!profile.getRole().getAdminGroups().contains(groupId)&&!profile.getRole().getTechnicianGroups().contains(groupId)) {
-            throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        for (String group:groupId) {
+            if (!profile.getRole().getAdminGroups().contains(group) && !profile.getRole().getTechnicianGroups().contains(group)) {
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
         }
 
     }

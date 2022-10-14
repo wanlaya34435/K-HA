@@ -23,6 +23,7 @@ import javax.mail.internet.ParseException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -442,17 +443,18 @@ public class ReportApi extends CommonApi {
         worksheet.setColumnWidth(7, 5000);
         worksheet.setColumnWidth(8, 5000);
         worksheet.setColumnWidth(9, 5000);
-        worksheet.setColumnWidth(10, 7000);
-        worksheet.setColumnWidth(11, 5000);
-        worksheet.setColumnWidth(12, 7000);
-        worksheet.setColumnWidth(13, 5000);
+        worksheet.setColumnWidth(10, 5000);
+        worksheet.setColumnWidth(11, 7000);
+        worksheet.setColumnWidth(12, 5000);
+        worksheet.setColumnWidth(13, 7000);
         worksheet.setColumnWidth(14, 5000);
-        worksheet.setColumnWidth(15, 7000);
+        worksheet.setColumnWidth(15, 5000);
         worksheet.setColumnWidth(16, 7000);
         worksheet.setColumnWidth(17, 7000);
-        worksheet.setColumnWidth(18, 5000);
+        worksheet.setColumnWidth(18, 7000);
         worksheet.setColumnWidth(19, 5000);
-        worksheet.setColumnWidth(20, 10000);
+        worksheet.setColumnWidth(20, 5000);
+        worksheet.setColumnWidth(21, 10000);
 
         // Set Font Excel
         Font font = worksheet.getWorkbook().createFont();
@@ -500,12 +502,12 @@ public class ReportApi extends CommonApi {
         Cell cellHeader = rowHeader.createCell(0);
         cellHeader.setCellValue("รายงานการร้องเรียน");
         cellHeader.setCellStyle(headerCellStyle);
-        worksheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 20));
+        worksheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 21));
 
         Row rowSubHeader = worksheet.createRow((short) 1);
         rowSubHeader.setHeight((short) 600);
-        for (int i = 0; i <= 20; i++) {
-            if (i != 0 || i != 5 || i != 8 || i != 15) {
+        for (int i = 0; i <= 21; i++) {
+            if (i != 0 || i != 5 || i != 8 || i != 16) {
                 rowSubHeader.createCell(i).setCellStyle(headerCellStyle);
             }
         }
@@ -523,12 +525,12 @@ public class ReportApi extends CommonApi {
         Cell cellSubHeader9 = rowSubHeader.createCell(8);
         cellSubHeader9.setCellValue("สถานะ");
         cellSubHeader9.setCellStyle(headerCellStyle);
-        worksheet.addMergedRegion(new CellRangeAddress(1, 1, 8, 14));
+        worksheet.addMergedRegion(new CellRangeAddress(1, 1, 8, 15));
 
-        Cell cellSubHeader15 = rowSubHeader.createCell(15);
+        Cell cellSubHeader15 = rowSubHeader.createCell(16);
         cellSubHeader15.setCellValue("ข้อมูลผู้แจ้ง");
         cellSubHeader15.setCellStyle(headerCellStyle);
-        worksheet.addMergedRegion(new CellRangeAddress(1, 1, 15, 20));
+        worksheet.addMergedRegion(new CellRangeAddress(1, 1, 16, 21));
 
 
         // Set Cell Column
@@ -577,47 +579,51 @@ public class ReportApi extends CommonApi {
         cell8.setCellValue("สถานะ");
         cell8.setCellStyle(columnCellStyle);
 
-        Cell cell9 = rowColumn.createCell(10);
+        Cell cell81 = rowColumn.createCell(10);
+        cell81.setCellValue("ระยะเวลา");
+        cell81.setCellStyle(columnCellStyle);
+
+        Cell cell9 = rowColumn.createCell(11);
         cell9.setCellValue("ผู้อัปเดต");
         cell9.setCellStyle(columnCellStyle);
 
-        Cell cell10 = rowColumn.createCell(11);
+        Cell cell10 = rowColumn.createCell(12);
         cell10.setCellValue("วันที่อัปเดต");
         cell10.setCellStyle(columnCellStyle);
 
-        Cell cell23 = rowColumn.createCell(12);
+        Cell cell23 = rowColumn.createCell(13);
         cell23.setCellValue("หมายเหตุ");
         cell23.setCellStyle(columnCellStyle);
 
-        Cell cell12 = rowColumn.createCell(13);
+        Cell cell12 = rowColumn.createCell(14);
         cell12.setCellValue("คะแนนความพึงพอใจต่อบริการ");
         cell12.setCellStyle(columnCellStyle);
 
-        Cell cell12_ = rowColumn.createCell(14);
+        Cell cell12_ = rowColumn.createCell(15);
         cell12_.setCellValue("คะแนนความพึงพอใจต่อเจ้าหน้าที่");
         cell12_.setCellStyle(columnCellStyle);
 
-        Cell cell13 = rowColumn.createCell(15);
+        Cell cell13 = rowColumn.createCell(16);
         cell13.setCellValue("อีเมล");
         cell13.setCellStyle(columnCellStyle);
 
-        Cell cell14 = rowColumn.createCell(16);
+        Cell cell14 = rowColumn.createCell(17);
         cell14.setCellValue("ชื่อ");
         cell14.setCellStyle(columnCellStyle);
 
-        Cell cell15 = rowColumn.createCell(17);
+        Cell cell15 = rowColumn.createCell(18);
         cell15.setCellValue("สกุล");
         cell15.setCellStyle(columnCellStyle);
 
-        Cell cell16 = rowColumn.createCell(18);
+        Cell cell16 = rowColumn.createCell(19);
         cell16.setCellValue("รหัสประจำตัวประชาชน");
         cell16.setCellStyle(columnCellStyle);
 
-        Cell cell17 = rowColumn.createCell(19);
+        Cell cell17 = rowColumn.createCell(20);
         cell17.setCellValue("โทรศัพท์");
         cell17.setCellStyle(columnCellStyle);
 
-        Cell cell18 = rowColumn.createCell(20);
+        Cell cell18 = rowColumn.createCell(21);
         cell18.setCellValue("โครงการที่อยู่");
         cell18.setCellStyle(columnCellStyle);
 
@@ -697,9 +703,21 @@ public class ReportApi extends CommonApi {
 
 
 
-            Cell row11 = row.createCell(10);
-            Cell row12 = row.createCell(11);
-            Cell row13 = row.createCell(12);
+            Cell row91 = row.createCell(10);
+            if (result.getCurrentStatus() == 3){
+                long diff =  result.getStatusComplains().get(result.getStatusComplains().size()-1).getUpdateDate().getTime()-result.getCreateDate().getTime() ;
+
+                row91.setCellValue(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+
+            }else {
+                row91.setCellValue("-");
+
+            }
+            row91.setCellStyle(rowCellStyle);
+
+            Cell row11 = row.createCell(11);
+            Cell row12 = row.createCell(12);
+            Cell row13 = row.createCell(13);
             if (result.getStatusComplains().size() > 0) {
                 List<Status> statusComplains = result.getStatusComplains();
                 if (statusComplains.get(statusComplains.size() - 1).getEditByProfile() != null) {
@@ -713,24 +731,24 @@ public class ReportApi extends CommonApi {
             row12.setCellStyle(rowCellStyle);
             row13.setCellStyle(rowCellStyle);
 
-            Cell row14 = row.createCell(13);
+            Cell row14 = row.createCell(14);
             if (result.getRate() != null) {
                 row14.setCellValue(result.getRate().getRateDuration());
             }
             row14.setCellStyle(rowCellStyle);
 
-            Cell row14_ = row.createCell(14);
+            Cell row14_ = row.createCell(15);
             if (result.getRate() != null) {
                 row14_.setCellValue(result.getRate().getRateUpdate());
             }
             row14_.setCellStyle(rowCellStyle);
 
-            Cell row15 = row.createCell(15);
-            Cell row16 = row.createCell(16);
-            Cell row17 = row.createCell(17);
-            Cell row18 = row.createCell(18);
-            Cell row19 = row.createCell(19);
-            Cell row20 = row.createCell(20);
+            Cell row15 = row.createCell(16);
+            Cell row16 = row.createCell(17);
+            Cell row17 = row.createCell(18);
+            Cell row18 = row.createCell(19);
+            Cell row19 = row.createCell(20);
+            Cell row20 = row.createCell(21);
 
 
             if (result.getAuthorProfile() != null) {

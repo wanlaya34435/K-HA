@@ -505,11 +505,8 @@ public class UserApi extends CommonApi {
         if (byEmail==null){
             return getError(ErrorFactory.getError(FAILED, localizeText.getNoUserFound()));
         }else {
-
                 sendEmailForget(email, "แจ้งเตือนจากแอปพลิเคชัน myKHA เรื่องลืมรหัสผ่าน");
-
                 return getOk(new BaseResponse(OK, localizeText.getUpdatedForget()));
-
         }
     }
 

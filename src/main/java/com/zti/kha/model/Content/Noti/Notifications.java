@@ -14,6 +14,7 @@ public class Notifications extends BaseNoti {
     private String title ;
     private String description ;
     private String errorPush ;
+    private String url ;
     private List<String> picturesPath = new ArrayList<>();
     @Transient
     private List<String> categoryProfile=  new ArrayList<>();
@@ -34,6 +35,14 @@ public class Notifications extends BaseNoti {
 
     public void setCategoryProfile(List<String> categoryProfile) {
         this.categoryProfile = categoryProfile;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<String> getCategory() {

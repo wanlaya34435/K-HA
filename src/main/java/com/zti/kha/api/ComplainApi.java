@@ -365,14 +365,14 @@ public class ComplainApi extends CommonApi {
             , @RequestParam(value = "lastDays", defaultValue = "0", required = false) int lastDays
             , @RequestParam(value = "sort", defaultValue = "3", required = false) @ApiParam(value = "1 = Sort by sequence,2 = Sort by complainId,3 = Sort by createDate") int sort
             , @RequestParam(value = "sizeContents", defaultValue = "30", required = false) int sizeContents
-            , @RequestParam(value = "groupId", defaultValue = "", required = false) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
 
     ) throws PostExceptions, ParseException {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
         Pageable pageable = sortPage(page, sizeContents, sort, order);
-        if (groupId.length() == 0) {
+        if (groupId.size() == 0) {
             checkSuperAdmin(profile);
         } else {
             checkAdminComplain(profile, groupId);
@@ -394,8 +394,8 @@ public class ComplainApi extends CommonApi {
         } else {
             Query query = new Query().with(pageable);
 
-            if (groupId.length() > 0) {
-                query.addCriteria(Criteria.where("groupId").is(groupId));
+            if (groupId.size() > 0) {
+                query.addCriteria(Criteria.where("groupId").in(groupId));
 
             }
             if (sequence.length() > 0) {
@@ -489,7 +489,9 @@ public class ComplainApi extends CommonApi {
 
 
         if (!complain.getAuthor().equals(profile.getId())) {
-            checkAdminComplain(profile, complain.getGroupId());
+            List<String>check = new ArrayList<>();
+            check.add( complain.getGroupId());
+            checkAdminComplain(profile,check);
 
         } else {
             if (complain.getCurrentStatus() != 0) {
@@ -555,8 +557,9 @@ public class ComplainApi extends CommonApi {
 
         Optional<Complain> byId = complainRepository.findById(id);
         Complain complain = byId.get();
-
-        checkAdminComplain(profile, complain.getGroupId());
+        List<String>check = new ArrayList<>();
+        check.add( complain.getGroupId());
+        checkAdminComplain(profile,check);
         List<String> picturesList = new ArrayList<>();
         String file = "";
         if (filesPath != null) {
@@ -618,8 +621,9 @@ public class ComplainApi extends CommonApi {
         Profile profile = userValidateToken(token, request);
         for (int i = 0; i < id.size(); i++) {
             Optional<Complain> byIdIn = complainRepository.findById(id.get(i));
-            checkAdminComplain(profile, byIdIn.get().getGroupId());
-
+            List<String>check = new ArrayList<>();
+            check.add( byIdIn.get().getGroupId());
+            checkAdminComplain(profile,check);
             if (byIdIn.get().getCurrentStatus() != 0) {
                 throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
             }
