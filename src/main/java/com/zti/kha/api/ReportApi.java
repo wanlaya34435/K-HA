@@ -580,7 +580,7 @@ public class ReportApi extends CommonApi {
         cell8.setCellStyle(columnCellStyle);
 
         Cell cell81 = rowColumn.createCell(10);
-        cell81.setCellValue("ระยะเวลา");
+        cell81.setCellValue("ระยะเวลา (วัน)");
         cell81.setCellStyle(columnCellStyle);
 
         Cell cell9 = rowColumn.createCell(11);
