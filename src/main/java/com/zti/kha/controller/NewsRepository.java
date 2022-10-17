@@ -14,6 +14,7 @@ public interface NewsRepository extends MongoRepository<News, String> {
     List<News> findByIdInAndEnableOrderByCreateDateDesc(List<String> id, boolean enable);
     List<News> findByPin(int pin);
 
+    List<News> findByGroupIdIn(List<String> id);
 
     Page<News> findById(String id, Pageable pageable);
 }

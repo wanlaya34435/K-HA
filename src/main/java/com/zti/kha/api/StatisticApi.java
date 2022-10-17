@@ -166,9 +166,17 @@ public class StatisticApi extends CommonApi {
         int process = 0;
         int cancel = 0;
         int done = 0;
+        int news = 0;
+        int event = 0;
+        int service = 0;
+        int knowledge = 0;
         int complain = 0;
         if (groupId.size() > 0) {
             user = profileRepository.findByReadGroupsGroupIdIn(groupId).size();
+            news = newsRepository.findByGroupIdIn(groupId).size();
+            event = eventRepository.findByGroupIdIn(groupId).size();
+            service = serviceRepository.findByGroupIdIn(groupId).size();
+            knowledge = knowledgeRepository.findByGroupIdIn(groupId).size();
             complain = complainRepository.findByGroupIdIn(groupId).size();
             pending = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 0).size();
             process = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 1).size();
@@ -177,6 +185,11 @@ public class StatisticApi extends CommonApi {
         } else {
 
             user = profileRepository.findAll().size();
+            news = newsRepository.findAll().size();
+            event = eventRepository.findAll().size();
+            service = serviceRepository.findAll().size();
+            knowledge = knowledgeRepository.findAll().size();
+
             complain = complainRepository.findAll().size();
             pending = complainRepository.findByCurrentStatus(0).size();
             process = complainRepository.findByCurrentStatus(1).size();
@@ -207,6 +220,11 @@ public class StatisticApi extends CommonApi {
         }
         Map<String, Object> result = new HashMap<>();
         result.put("userSize", user);
+        result.put("newsSize", news);
+        result.put("eventSize", event);
+        result.put("serviceSize", service);
+        result.put("knowledgeSize", knowledge);
+
         result.put("complainSize", complain);
         result.put("complainNowSize", complainNow);
         result.put("pendingSize", pending);
