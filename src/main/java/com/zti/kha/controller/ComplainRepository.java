@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface ComplainRepository extends MongoRepository<Complain, String> {
     Optional<Complain> findByComplainId(String id);
-    List<Complain> findByGroupId(String id);
-    List<Complain> findByGroupIdAndCurrentStatus(String id,int status);
-    List<Complain> findByGroupIdAndCreateDateBetween(String id,Date start,Date end);
+    List<Complain> findByGroupIdIn(List<String> id);
+    List<Complain> findByGroupIdInAndCurrentStatus(List<String> id,int status);
+    List<Complain> findByGroupIdInAndCreateDateBetween(List<String> id,Date start,Date end);
     List<Complain> findByCurrentStatus(int status);
     List<Complain> findByCreateDateBetween(Date start,Date end);
 

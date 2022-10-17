@@ -149,32 +149,31 @@ public class StatisticApi extends CommonApi {
 
         return getOk(new BaseResponse(dateStatistic));
     }
-
     @CrossOrigin
     @ApiOperation(value = "ข้อมูลสถิติจำนวน")
     @RequestMapping(value = "/getSizeStatistic", method = RequestMethod.GET)
     public BaseResponse getSizeStatistic(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = "") String token
-            , @RequestParam(value = "groupId", defaultValue = "", required = false) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
 
     ) throws PostExceptions {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkSuperAdminGroups(profile, groupId);
+        checkAdmin(profile);
         int user = 0;
         int pending = 0;
         int process = 0;
         int cancel = 0;
         int done = 0;
         int complain = 0;
-        if (groupId.length() > 0) {
-            user = profileRepository.findByReadGroupsGroupId(groupId).size();
-            complain = complainRepository.findByGroupId(groupId).size();
-            pending = complainRepository.findByGroupIdAndCurrentStatus(groupId, 0).size();
-            process = complainRepository.findByGroupIdAndCurrentStatus(groupId, 1).size();
-            cancel = complainRepository.findByGroupIdAndCurrentStatus(groupId, 2).size();
-            done = complainRepository.findByGroupIdAndCurrentStatus(groupId, 3).size();
+        if (groupId.size() > 0) {
+            user = profileRepository.findByReadGroupsGroupIdIn(groupId).size();
+            complain = complainRepository.findByGroupIdIn(groupId).size();
+            pending = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 0).size();
+            process = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 1).size();
+            cancel = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 2).size();
+            done = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 3).size();
         } else {
 
             user = profileRepository.findAll().size();
@@ -200,8 +199,8 @@ public class StatisticApi extends CommonApi {
         calEn.set(Calendar.SECOND, 59);
         Date end = calEn.getTime();
         int complainNow = 0;
-        if (groupId.length() > 0) {
-            complainNow = complainRepository.findByGroupIdAndCreateDateBetween(groupId, start, end).size();
+        if (groupId.size() > 0) {
+            complainNow = complainRepository.findByGroupIdInAndCreateDateBetween(groupId, start, end).size();
         } else {
             complainNow = complainRepository.findByCreateDateBetween(start, end).size();
 
@@ -215,8 +214,8 @@ public class StatisticApi extends CommonApi {
         result.put("doneSize", done);
         result.put("cancelSize", cancel);
         List<Complain> byGroupIdAndCurrentStatus = new ArrayList<>();
-        if (groupId.length() > 0) {
-            byGroupIdAndCurrentStatus = complainRepository.findByGroupIdAndCurrentStatus(groupId, 3);
+        if (groupId.size() > 0) {
+            byGroupIdAndCurrentStatus = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 3);
         } else {
             byGroupIdAndCurrentStatus = complainRepository.findByCurrentStatus(3);
 
@@ -242,18 +241,20 @@ public class StatisticApi extends CommonApi {
         return getOk(new BaseResponse(result));
     }
 
+
+
     @CrossOrigin
     @ApiOperation(value = "ข้อมูลสถิติจำนวนการร้องเรียน30วัน")
     @RequestMapping(value = "/getComplainMonthStatistic", method = RequestMethod.GET)
     public BaseResponse getComplainMonthStatistic(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = "") String token
-            , @RequestParam(value = "groupId", defaultValue = "", required = false) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
 
     ) throws PostExceptions {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkSuperAdminGroups(profile, groupId);
+        checkAdmin(profile);
 
 
         LocalDateTime date = LocalDateTime.now();
@@ -275,8 +276,8 @@ public class StatisticApi extends CommonApi {
             Query query = new Query();
 
             query.addCriteria(Criteria.where("createDate").gte(datesStart).lte(datesEnd));
-            if (groupId.length() > 0) {
-                query.addCriteria(Criteria.where("groupId").is(groupId));
+            if (groupId.size() > 0) {
+                query.addCriteria(Criteria.where("groupId").in(groupId));
             }
             List<Complain> post = mongoTemplate.find(query, Complain.class);
 
@@ -291,13 +292,13 @@ public class StatisticApi extends CommonApi {
     @RequestMapping(value = "/getComplainYearStatistic", method = RequestMethod.GET)
     public BaseResponse getComplainYearStatistic(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = "") String token
-            , @RequestParam(value = "groupId", defaultValue = "", required = false) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
 
     ) throws PostExceptions {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkSuperAdminGroups(profile, groupId);
+        checkAdmin(profile);
 
 
         LocalDateTime date = LocalDateTime.now();
@@ -332,8 +333,8 @@ public class StatisticApi extends CommonApi {
             Query query = new Query();
 
             query.addCriteria(Criteria.where("createDate").gte(datesStart).lte(datesEnd));
-            if (groupId.length() > 0) {
-                query.addCriteria(Criteria.where("groupId").is(groupId));
+            if (groupId.size() > 0) {
+                query.addCriteria(Criteria.where("groupId").in(groupId));
             }
             List<Complain> post = mongoTemplate.find(query, Complain.class);
 
@@ -348,13 +349,13 @@ public class StatisticApi extends CommonApi {
     @RequestMapping(value = "/getComplainCategorypStatistic", method = RequestMethod.GET)
     public BaseResponse getComplainTopStatistic(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = "") String token
-            , @RequestParam(value = "groupId", defaultValue = "", required = false) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
 
     ) throws PostExceptions {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkSuperAdminGroups(profile, groupId);
+        checkAdmin(profile);
         List<Category> category = new ArrayList<>();
         List<ReturnTopStatistic> dateStatistic = new ArrayList<>();
 
@@ -363,7 +364,7 @@ public class StatisticApi extends CommonApi {
 
         for (int i = 0; i < category.size(); i++) {
             Query query = new Query();
-            if (groupId.length() > 0) {
+            if (groupId.size() > 0) {
                 query.addCriteria(Criteria.where("groupId").in(groupId));
             }
             query.addCriteria(Criteria.where("titleId").is(category.get(i).getCategoryCode()));
@@ -379,19 +380,19 @@ public class StatisticApi extends CommonApi {
     @RequestMapping(value = "/getSumViewsStatistic", method = RequestMethod.GET)
     public BaseResponse getSumViewsStatistic(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = "") String token
-            , @RequestParam(value = "groupId", defaultValue = "", required = false) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
 
     ) throws PostExceptions {
 
         initialize(request);
         Profile profile = userValidateToken(token,request);
-        checkSuperAdminGroups(profile,groupId);
+        checkAdmin(profile);
         int newsSize = 0;
         int eventSize = 0;
         int knowledgeSize = 0;
         int serviceSize = 0;
         Aggregation agg;
-        if (groupId.length() > 0) {
+        if (groupId.size() > 0) {
             agg = Aggregation.newAggregation(
                     Aggregation.match(new Criteria()
                             .and("groupId").in(groupId)),

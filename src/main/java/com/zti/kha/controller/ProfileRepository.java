@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface ProfileRepository extends MongoRepository<Profile, String> {
     public Profile findByEmailIgnoreCase(String email);
     public List<Profile> findByUserNameIgnoreCaseAndEnable(String userName, boolean enable);
-    public List<Profile> findByReadGroupsGroupId(String id);
+    public List<Profile> findByReadGroupsGroupIdIn(List<String> id);
     public ProfileDisplay findByUserName(String userName);
     public Profile findByUserNameIgnoreCase(String userName);
     public Profile findByPhoneNumber(String phone);
