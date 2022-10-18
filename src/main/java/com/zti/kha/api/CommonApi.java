@@ -544,11 +544,14 @@ public class CommonApi {
         if (profile.getRole() == null) {
             throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
         }
-        for (String group:groupId) {
-            if (!profile.getRole().getAdminGroups().contains(group) && !profile.getRole().getTechnicianGroups().contains(group)) {
-                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        if (profile.getRole().getSuperAdmin() == false) {
+            for (String group:groupId) {
+                if (!profile.getRole().getAdminGroups().contains(group) && !profile.getRole().getTechnicianGroups().contains(group)) {
+                    throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                }
             }
         }
+
 
     }
 
