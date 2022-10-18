@@ -34,6 +34,7 @@ public class ContactApi extends CommonApi {
     @RequestMapping(value = "/getContact", method = RequestMethod.GET)
     public BaseResponse getContact(HttpServletRequest request, HttpServletResponse response
             , @RequestHeader(value = "token", required = true) String token
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
             , @RequestParam(value = "id", defaultValue = "", required = false) String id
             , @RequestParam(value = "sort", defaultValue = "1", required = false) @ApiParam(value = "1 = Sort by name,2 = Sort by createDate") int sort
             , @RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord
@@ -55,6 +56,9 @@ public class ContactApi extends CommonApi {
 
         } else {
             Query query = new Query().with(pageable);
+            if (groupId.size() > 0) {
+                query.addCriteria(Criteria.where("groupId").in(groupId));
+            }
             Criteria name1 = Criteria.where("name1").regex(keyWord, "i");
             Criteria name2 = Criteria.where("name2").regex(keyWord, "i");
             Criteria description = Criteria.where("description").regex(keyWord, "i");
