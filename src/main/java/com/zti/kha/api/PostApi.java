@@ -62,7 +62,7 @@ public class PostApi extends CommonApi {
         Profile profile = userValidateToken(token, request);
         if (name.equals(TYPE_NEWS)) {
             News post = newsRepository.findById(id).get();
-            checkAdminGroups(profile,post.getGroupId());
+            checkSuperAdminGroups(profile,post.getGroupId());
             if (post == null) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
             }
@@ -70,7 +70,7 @@ public class PostApi extends CommonApi {
             clearData(id, TYPE_NEWS);
         } else if (name.equals(TYPE_BANNER)) {
             Banner post = bannerRepository.findById(id).get();
-            checkAdminGroups(profile,post.getGroupId());
+            checkSuperAdminGroups(profile,post.getGroupId());
             if (post == null) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
             }
@@ -78,7 +78,7 @@ public class PostApi extends CommonApi {
             clearData(id, TYPE_BANNER);
         } else if (name.equals(TYPE_EVENT)) {
             Event post = eventRepository.findById(id).get();
-            checkAdminGroups(profile,post.getGroupId());
+            checkSuperAdminGroups(profile,post.getGroupId());
             if (post == null) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
             }
@@ -86,7 +86,7 @@ public class PostApi extends CommonApi {
             clearData(id, TYPE_EVENT);
         } else if (name.equals(TYPE_NOTIFICATIONS)) {
             Notifications post = notificationsRepository.findById(id).get();
-            checkAdminGroups(profile,post.getGroupId());
+            checkSuperAdminGroups(profile,post.getGroupId());
             if (post == null) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
             }
@@ -94,7 +94,7 @@ public class PostApi extends CommonApi {
             clearData(id, TYPE_NOTIFICATIONS);
         }else if (name.equals(TYPE_SERVICE)) {
             Service post = serviceRepository.findById(id).get();
-            checkAdminGroups(profile,post.getGroupId());
+            checkSuperAdminGroups(profile,post.getGroupId());
             if (post == null) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
             }
@@ -102,7 +102,7 @@ public class PostApi extends CommonApi {
             clearData(id, TYPE_SERVICE);
         }else if (name.equals(TYPE_KNOWLEDGE)) {
             Knowledge post = knowledgeRepository.findById(id).get();
-            checkAdminGroups(profile,post.getGroupId());
+            checkSuperAdminGroups(profile,post.getGroupId());
             if (post == null) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
             }

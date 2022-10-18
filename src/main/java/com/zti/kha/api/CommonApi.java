@@ -113,7 +113,6 @@ public class CommonApi {
     @Autowired
     public CommentComplainRepository commentComplainRepository;
 
-    public static boolean RELEASE = false;
     protected LocalizeText localizeText;
     @Value("${dir}")
     public String MEDIA_FOLDER;
