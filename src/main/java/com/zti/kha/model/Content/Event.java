@@ -17,7 +17,7 @@ public class Event extends BaseContent {
     private String description ;
     private Date startDate;
     private Date endDate;
-    private List<String> filesPath = new ArrayList<>();
+    private String filesPath ;
     @Transient
     private List<String> categoryProfile=  new ArrayList<>();
     private List<String> category = new ArrayList<>();
@@ -34,9 +34,6 @@ public class Event extends BaseContent {
         return buttonName;
     }
 
-    public List<String> getFilesPath() {
-        return filesPath;
-    }
 
     public List<String> getCategoryProfile() {
         return categoryProfile;
@@ -54,7 +51,11 @@ public class Event extends BaseContent {
         this.category = category;
     }
 
-    public void setFilesPath(List<String> filesPath) {
+    public String getFilesPath() {
+        return filesPath;
+    }
+
+    public void setFilesPath(String filesPath) {
         this.filesPath = filesPath;
     }
 

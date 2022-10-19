@@ -438,7 +438,7 @@ public class ContentApi extends CommonApi {
         }
 
         if (file != null) {
-            newsEvent.setFilesPath(pdf(file, profile));
+            newsEvent.setFilesPath(pdf(file, profile).get(0));
         }
         newsEvent.setGroupId(groupId);
         newsEvent.setCategory(category);
