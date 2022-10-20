@@ -589,7 +589,14 @@ public class CommonApi {
 
         }
     }
+    protected void checkAdminStatistic(Profile profile) throws PostExceptions {
+        if (profile.getRole() == null) {
+            throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        } else if (profile.getRole().getSuperAdmin() == false && profile.getRole().getAdminGroups().equals(new ArrayList<>())&&profile.getRole().getTechnicianGroups().equals(new ArrayList<>())) {
+            throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
 
+        }
+    }
     protected Pageable sortPage(int page, int sizeContents, int sort, boolean isRate) {
         Pageable pageable = null;
         if (sort == 1) {

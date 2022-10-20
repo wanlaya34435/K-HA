@@ -66,7 +66,7 @@ public class StatisticApi extends CommonApi {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkAdmin(profile);
+        checkAdminStatistic(profile);
 
         LocalDateTime date = LocalDateTime.now();
         List<ReturnStatisticInstall> dateStatistic = new ArrayList<>();
@@ -118,7 +118,7 @@ public class StatisticApi extends CommonApi {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkAdmin(profile);
+        checkAdminStatistic(profile);
 
         LocalDateTime date = LocalDateTime.now();
         List<ReturnStatistic> dateStatistic = new ArrayList<>();
@@ -160,7 +160,7 @@ public class StatisticApi extends CommonApi {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkAdmin(profile);
+        checkAdminStatistic(profile);
         int user = 0;
         int pending = 0;
         int process = 0;
@@ -272,7 +272,7 @@ public class StatisticApi extends CommonApi {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkAdmin(profile);
+        checkAdminStatistic(profile);
 
 
         LocalDateTime date = LocalDateTime.now();
@@ -316,7 +316,7 @@ public class StatisticApi extends CommonApi {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkAdmin(profile);
+        checkAdminStatistic(profile);
 
 
         LocalDateTime date = LocalDateTime.now();
@@ -373,7 +373,7 @@ public class StatisticApi extends CommonApi {
 
         initialize(request);
         Profile profile = userValidateToken(token, request);
-        checkAdmin(profile);
+        checkAdminStatistic(profile);
         List<Category> category = new ArrayList<>();
         List<ReturnTopStatistic> dateStatistic = new ArrayList<>();
 
@@ -404,7 +404,7 @@ public class StatisticApi extends CommonApi {
 
         initialize(request);
         Profile profile = userValidateToken(token,request);
-        checkAdmin(profile);
+        checkAdminStatistic(profile);
         int newsSize = 0;
         int eventSize = 0;
         int knowledgeSize = 0;
