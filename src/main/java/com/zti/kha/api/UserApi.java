@@ -474,7 +474,7 @@ public class UserApi extends CommonApi {
             }
 
             //check no damin
-            if (byId.getRole().getSuperAdmin()==false&&byId.getRole().getAdminGroups().size() == 0&&byId.getRole().getTechnicianGroups().size() == 0) {
+            if ( byId.getRole()!=null&&byId.getRole().getSuperAdmin()==false&&byId.getRole().getAdminGroups().size() == 0&&byId.getRole().getTechnicianGroups().size() == 0) {
                 byId.setRole(null);
             }
 

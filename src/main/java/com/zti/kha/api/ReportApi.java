@@ -281,9 +281,9 @@ public class ReportApi extends CommonApi {
                         type="กลุ่มคนโสด";
                     }else if (result.getType()==2){
                         type="กลุ่มคนทำงาน";
-                    }if (result.getType()==3){
+                    }else if (result.getType()==3){
                         type="กลุ่มครอบครัว";
-                    }if (result.getType()==4){
+                    }else if (result.getType()==4){
                         type="ผู้สูงอายุ/ผู้พิการ";
                     }
                     row1.setCellValue(type);
