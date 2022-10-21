@@ -597,33 +597,64 @@ public class CommonApi {
 
         }
     }
-    protected Pageable sortPage(int page, int sizeContents, int sort, boolean isRate, int orderSort) {
+    protected Pageable sortPage(int page, int sizeContents, int sort, boolean isRate, int orderSort, boolean isSequence) {
         Pageable pageable = null;
-        if (sort == 1&& orderSort == 1) {
-            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("pin").descending().and(Sort.by("createDate").ascending())));
-        } else if (sort == 1&& orderSort == 2) {
-            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("pin").descending().and(Sort.by("createDate").descending())));
-        } else if (sort == 3&& orderSort == 1) {
-            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("createDate").ascending()));
-        }else if (sort == 3&& orderSort == 2) {
-            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("createDate").descending()));
-        }else if (sort == 4&& orderSort == 1) {
-            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("enable").ascending()));
-        }else if (sort == 4&& orderSort == 2) {
-            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("enable").descending()));
-        } else {
-            //sort == 2
-            if ( orderSort == 1){
-                if (isRate == false) {
-                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("cntView").ascending()));
-                } else {
-                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("rate").ascending()));
+        if (isSequence==true) {
+            if (sort == 1 && orderSort == 1) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("pin").descending().and(Sort.by("createDate").ascending())));
+            } else if (sort == 1 && orderSort == 2) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("pin").descending().and(Sort.by("createDate").descending())));
+            } else if (sort == 3 && orderSort == 1) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("createDate").ascending()));
+            } else if (sort == 3 && orderSort == 2) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("createDate").descending()));
+            } else if (sort == 4 && orderSort == 1) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("enable").ascending()));
+            } else if (sort == 4 && orderSort == 2) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("enable").descending()));
+            } else {
+                //sort == 2
+                if (orderSort == 1) {
+                    if (isRate == false) {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("cntView").ascending()));
+                    } else {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("rate").ascending()));
+                    }
+                } else if (orderSort == 2) {
+                    if (isRate == false) {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("cntView").descending()));
+                    } else {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("rate").descending()));
+                    }
                 }
-            }else if (orderSort == 2) {
-                if (isRate == false) {
-                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("cntView").descending()));
-                } else {
-                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("rate").descending()));
+            }
+        }else {
+            if (sort == 1 && orderSort == 1) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("pin").descending().and(Sort.by("createDate").ascending()));
+            } else if (sort == 1 && orderSort == 2) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("pin").descending().and(Sort.by("createDate").descending()));
+            } else if (sort == 3 && orderSort == 1) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("createDate").ascending());
+            } else if (sort == 3 && orderSort == 2) {
+                pageable = PageRequest.of(page, sizeContents,Sort.by("createDate").descending());
+            } else if (sort == 4 && orderSort == 1) {
+                pageable = PageRequest.of(page, sizeContents,Sort.by("enable").ascending());
+            } else if (sort == 4 && orderSort == 2) {
+                pageable = PageRequest.of(page, sizeContents, Sort.by("enable").descending());
+            } else {
+                //sort == 2
+                if (orderSort == 1) {
+                    if (isRate == false) {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("cntView").ascending());
+                    } else {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("rate").ascending());
+                    }
+                } else if (orderSort == 2) {
+                    if (isRate == false) {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("cntView").descending());
+                    } else {
+                        pageable = PageRequest.of(page, sizeContents, Sort.by("rate").descending());
+                    }
                 }
             }
         }

@@ -37,13 +37,13 @@ public class ReportApi extends CommonApi {
     @RequestMapping(value = "/exportReport/user", method = RequestMethod.GET)
     public void exportReportUser(HttpServletRequest request, HttpServletResponse response,
                                  @RequestParam(value = "token", defaultValue = TOKEN) String token,
-                                   @RequestParam(value = "role", defaultValue = "", required = false) @ApiParam(value = "1=admin,2=user") String role,
-                                   @RequestParam(value = "readGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId")List<String>  readGroupId,
-                                   @RequestParam(value = "adminGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId") List<String> adminGroupId,
+                                 @RequestParam(value = "role", defaultValue = "", required = false) @ApiParam(value = "1=admin,2=user") String role,
+                                 @RequestParam(value = "readGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId")List<String>  readGroupId,
+                                 @RequestParam(value = "adminGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId") List<String> adminGroupId,
                                  @RequestParam(value = "technicianGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId") List<String> technicianGroupId,
                                  @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate,
-                                   @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate,
-                                   @RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord) throws PostExceptions {
+                                 @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate,
+                                 @RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord) throws PostExceptions {
         initialize(request);
         Profile profile1 = userValidateToken(token, request);
         Query query = new Query().with(Sort.by("createDate").descending());
@@ -51,18 +51,15 @@ public class ReportApi extends CommonApi {
         if (role.length() > 0) {
             if (role.equals("1")) {
                 query.addCriteria(Criteria.where("role").ne(null));
-
             } else if (role.equals("2")) {
                 query.addCriteria(Criteria.where("role").is(null));
             }
         }
         if (readGroupId.size()>0){
             query.addCriteria(Criteria.where("readGroups.groupId").in(readGroupId));
-
         }
         if (adminGroupId.size()>0){
             query.addCriteria(Criteria.where("role.adminGroups").in(adminGroupId));
-
         }
         if (technicianGroupId.size()>0){
             query.addCriteria(Criteria.where("role.technicianGroups").in(technicianGroupId));
@@ -79,7 +76,6 @@ public class ReportApi extends CommonApi {
             query.addCriteria(new Criteria().orOperator(firstName, lastName, userName, email));
         }
         List<Profile> post = mongoTemplate.find(query, Profile.class);
-
 
         for (int i = 0; i < post.size(); i++) {
             post.get(i).setSecret("");
