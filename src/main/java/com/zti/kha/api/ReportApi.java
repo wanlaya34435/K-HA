@@ -40,7 +40,8 @@ public class ReportApi extends CommonApi {
                                    @RequestParam(value = "role", defaultValue = "", required = false) @ApiParam(value = "1=admin,2=user") String role,
                                    @RequestParam(value = "readGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId")List<String>  readGroupId,
                                    @RequestParam(value = "adminGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId") List<String> adminGroupId,
-                                   @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate,
+                                 @RequestParam(value = "technicianGroupId", defaultValue = "", required = false) @ApiParam(value = "groupId") List<String> technicianGroupId,
+                                 @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate,
                                    @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate,
                                    @RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord) throws PostExceptions {
         initialize(request);
@@ -62,6 +63,9 @@ public class ReportApi extends CommonApi {
         if (adminGroupId.size()>0){
             query.addCriteria(Criteria.where("role.adminGroups").in(adminGroupId));
 
+        }
+        if (technicianGroupId.size()>0){
+            query.addCriteria(Criteria.where("role.technicianGroups").in(technicianGroupId));
         }
         if (startDate.length() > 0 && endDate.length() > 0) {
             query.addCriteria(Criteria.where("createDate").gte(new Date(Long.parseLong(startDate))).lt(new Date(Long.parseLong(endDate))));
