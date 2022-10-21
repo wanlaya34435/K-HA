@@ -329,7 +329,7 @@ public class ReportApi extends CommonApi {
             , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int orderSort
             , @RequestParam(value = "lastDays", defaultValue = "0", required = false) int lastDays
             , @RequestParam(value = "sort", defaultValue = "3", required = false) @ApiParam(value = "1 = Sort by sequence,2 = Sort by complainId,3 = Sort by createDate") int sort
-            , @RequestParam(value = "groupId", defaultValue = "", required = false) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
 
     ) throws PostExceptions, ParseException {
         initialize(request);
@@ -349,15 +349,15 @@ public class ReportApi extends CommonApi {
         } else if (sort == 3 && orderSort == 2) {
             sort1 =  Sort.by("createDate").descending();
         }
-        if (groupId.length() == 0) {
+        if (groupId.size() == 0) {
             checkSuperAdmin(profile);
         } else {
-            checkSuperAdminGroups(profile, groupId);
+            checkAdminComplain(profile, groupId);
         }
 
             Query query = new Query().with(sort1);
 
-            if (groupId.length() > 0) {
+            if (groupId.size() > 0) {
                 query.addCriteria(Criteria.where("groupId").is(groupId));
 
             }
