@@ -185,6 +185,11 @@ public class GroupApi extends CommonApi {
             save.setSecret("");
             save.setReadGroups(setGroupName(save.getReadGroups()));
             save.setPendingGroups(setGroupName(save.getPendingGroups()));
+            save.setProvinceName(getProvinceName(save.getProvinceCode()));
+            save.setDistrictName(getDistrictName(save.getDistrictCode()));
+            save.setSubDistrictName(getSubDistrictName(save.getSubDistrictCode()));
+            save.setZipcode(getZipcode(save.getSubDistrictCode()));
+            save.setKhaProfile(getGroupProfile(save.getKhaId()));
             return getOk(new BaseResponse(OK, localizeText.getDataUpdated(),save));
 
         } else {
@@ -218,6 +223,11 @@ public class GroupApi extends CommonApi {
                 profile.setSecret("");
                 profile.setReadGroups(setGroupName(profile.getReadGroups()));
                 profile.setPendingGroups(setGroupName(profile.getPendingGroups()));
+                profile.setProvinceName(getProvinceName(profile.getProvinceCode()));
+                profile.setDistrictName(getDistrictName(profile.getDistrictCode()));
+                profile.setSubDistrictName(getSubDistrictName(profile.getSubDistrictCode()));
+                profile.setZipcode(getZipcode(profile.getSubDistrictCode()));
+                profile.setKhaProfile(getGroupProfile(profile.getKhaId()));
                 return getOk(new BaseResponse(OK, localizeText.getDataUpdated(), profile));
 
             }

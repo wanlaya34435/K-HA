@@ -597,17 +597,34 @@ public class CommonApi {
 
         }
     }
-    protected Pageable sortPage(int page, int sizeContents, int sort, boolean isRate) {
+    protected Pageable sortPage(int page, int sizeContents, int sort, boolean isRate, int orderSort) {
         Pageable pageable = null;
-        if (sort == 1) {
+        if (sort == 1&& orderSort == 1) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("pin").descending().and(Sort.by("createDate").ascending())));
+        } else if (sort == 1&& orderSort == 2) {
             pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("pin").descending().and(Sort.by("createDate").descending())));
-        } else if (sort == 3) {
+        } else if (sort == 3&& orderSort == 1) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("createDate").ascending()));
+        }else if (sort == 3&& orderSort == 2) {
             pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("createDate").descending()));
+        }else if (sort == 4&& orderSort == 1) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("enable").ascending()));
+        }else if (sort == 4&& orderSort == 2) {
+            pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("enable").descending()));
         } else {
-            if (isRate == false) {
-                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("cntView").descending()));
-            } else {
-                pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("rate").descending()));
+            //sort == 2
+            if ( orderSort == 1){
+                if (isRate == false) {
+                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("cntView").ascending()));
+                } else {
+                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("rate").ascending()));
+                }
+            }else if (orderSort == 2) {
+                if (isRate == false) {
+                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("cntView").descending()));
+                } else {
+                    pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("rate").descending()));
+                }
             }
         }
         return pageable;

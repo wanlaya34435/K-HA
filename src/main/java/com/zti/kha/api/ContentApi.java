@@ -118,11 +118,13 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "isAdmin", defaultValue = "false", required = false) boolean isAdmin
             , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
             , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
+            , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int order
+
     ) throws PostExceptions {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false);
+        Pageable pageable = sortPage(page, sizeContents, sort, false,order);
         Page<Banner> byId = null;
         if (id.length() > 0) {
             byId = bannerRepository.findById(id, pageable);
@@ -331,6 +333,7 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "groupId", defaultValue = "", required = false)  List<String> groupId
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: news") String category
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
+            , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int order
 
     ) throws PostExceptions, ParseException {
         initialize(request);
@@ -347,7 +350,7 @@ public class ContentApi extends CommonApi {
             }
         }
 
-        Pageable pageable = sortPage(page, sizeContents, sort, false);
+        Pageable pageable = sortPage(page, sizeContents, sort, false,order);
         Page<News> byId = null;
         if (id.length() > 0) {
             byId = newsRepository.findById(id, pageable);
@@ -504,12 +507,13 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: event") String category
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
             , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
+            , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int order
 
     ) throws PostExceptions, ParseException {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false);
+        Pageable pageable = sortPage(page, sizeContents, sort, false,order);
 
         Page<Event> byId = null;
         if (id.length() > 0) {
@@ -695,11 +699,13 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: service") String category
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
             , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
+            , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int order
+
     ) throws PostExceptions, ParseException {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false);
+        Pageable pageable = sortPage(page, sizeContents, sort, false,order);
 
         Page<Service> byId = null;
         if (id.length() > 0) {
@@ -841,11 +847,13 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: knowledge") String category
             , @RequestParam(value = "mediaType", defaultValue = "", required = false) @ApiParam(value = "1=pdf,2=video,3=image,4=web,5=audio") String mediaType
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
+            , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int order
+
     ) throws PostExceptions, ParseException {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false);
+        Pageable pageable = sortPage(page, sizeContents, sort, false,order);
 
         Page<Knowledge> byId = null;
         if (id.length() > 0) {
@@ -1008,12 +1016,13 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: notifications") String category
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
             , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
+            , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int order
 
     ) throws PostExceptions, ParseException {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false);
+        Pageable pageable = sortPage(page, sizeContents, sort, false,order);
 
         Page<Notifications> byId = null;
         if (id.length() > 0) {
