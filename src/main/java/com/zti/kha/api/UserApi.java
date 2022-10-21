@@ -422,6 +422,16 @@ public class UserApi extends CommonApi {
         if (byId==null){
             return getError(ErrorFactory.getError(FAILED, localizeText.getNoUserFound()));
         }else {
+            if (superAdmin==true) {
+                RoleAdmin role = new RoleAdmin();
+                if (byId.getRole() != null) {
+                    role = byId.getRole();
+                }
+                role.setSuperAdmin(superAdmin);
+                byId.setRole(role);
+
+            }
+
             if (groupId.size()>0) {
                 for (String groupAdd:groupId) {
                     checkSuperAdminGroups(adminProfile, groupAdd);
@@ -462,7 +472,7 @@ public class UserApi extends CommonApi {
 
                 }
             }
-            byId.getRole().setSuperAdmin(superAdmin);
+
             //check no damin
             if (byId.getRole().getSuperAdmin()==false&&byId.getRole().getAdminGroups().size() == 0&&byId.getRole().getTechnicianGroups().size() == 0) {
                 byId.setRole(null);
@@ -901,7 +911,6 @@ public class UserApi extends CommonApi {
         }
         if (readGroupId.size()>0){
             query.addCriteria(Criteria.where("readGroups.groupId").in(readGroupId));
-
         }
         if (adminGroupId.size()>0){
             query.addCriteria(Criteria.where("role.adminGroups").in(adminGroupId));
