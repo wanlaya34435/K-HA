@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -47,10 +48,14 @@ public class LogDeleteAccountApi extends CommonApi {
         logDeleteAccount.setUserId(profile.getId());
         logDeleteAccount.setRemark(remark);
         logDeleteAccountRepository.insert(logDeleteAccount);
-        profileRepository.delete(profile);
+        profile.setEnable(false);
+        profile.setUpdateDate(new Date());
+        profile.setEditBy(profile.getUserName());
+        profileRepository.save(profile);
 
+/*
         List<LogLogin> byUserId = logLoginRepository.findByUserId(profile.getId());
-        logLoginRepository.deleteAll(byUserId);
+        logLoginRepository.deleteAll(byUserId);*/
 
         return getOk(new BaseResponse(OK, localizeText.getDeleted()));
     }
