@@ -292,7 +292,7 @@ public class UserApi extends CommonApi {
 
         byId.setEnable(false);
         byId.setUpdateDate(new Date());
-        byId.setEditBy(byId.getUserName());
+        byId.setEditBy(adminProfile.getUserName());
         profileRepository.save(byId);
 
 //        profileRepository.delete(byId);
