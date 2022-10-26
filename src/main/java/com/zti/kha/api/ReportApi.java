@@ -358,7 +358,7 @@ public class ReportApi extends CommonApi {
             Query query = new Query().with(sort1);
 
             if (groupId.size() > 0) {
-                query.addCriteria(Criteria.where("groupId").is(groupId));
+                query.addCriteria(Criteria.where("groupId").in(groupId));
 
             }
             if (sequence.length() > 0) {
