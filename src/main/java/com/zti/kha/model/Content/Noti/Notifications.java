@@ -23,7 +23,6 @@ public class Notifications extends BaseNoti {
     private boolean isOpen=false;
     @Transient
     private boolean isDelete=false;
-    private List<String> readGroups = new ArrayList<>();
 
     public String getTitle() {
         return title;
@@ -49,13 +48,7 @@ public class Notifications extends BaseNoti {
         return category;
     }
 
-    public List<String> getReadGroups() {
-        return readGroups;
-    }
 
-    public void setReadGroups(List<String> readGroups) {
-        this.readGroups = readGroups;
-    }
 
     public void setCategory(List<String> category) {
         this.category = category;

@@ -290,14 +290,9 @@ public class UserApi extends CommonApi {
         checkSuperAdmin(adminProfile);
         Profile byId = userValidateId(id);
 
-        byId.setEnable(false);
-        byId.setUpdateDate(new Date());
-        byId.setEditBy(adminProfile.getUserName());
-        profileRepository.save(byId);
-
-//        profileRepository.delete(byId);
-//        List<LogLogin> byUserId = logLoginRepository.findByUserId(id);
-//        logLoginRepository.deleteAll(byUserId);
+        profileRepository.delete(byId);
+        List<LogLogin> byUserId = logLoginRepository.findByUserId(id);
+        logLoginRepository.deleteAll(byUserId);
         return getOk(new BaseResponse(OK, localizeText.getDeleted()));
     }
 
