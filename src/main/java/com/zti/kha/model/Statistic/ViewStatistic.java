@@ -3,6 +3,8 @@ package com.zti.kha.model.Statistic;
 
 import com.zti.kha.model.Base.BaseSimpleModel;
 
+import java.util.Date;
+
 /**
  * Created by Windows 8.1 on 25/8/2561.
  */
@@ -12,6 +14,16 @@ public class ViewStatistic extends BaseSimpleModel {
     public String time;
     public int os;
     public String userId;
+    public Date createDate = new Date();
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public String getContentId() {
         return contentId;
     }
