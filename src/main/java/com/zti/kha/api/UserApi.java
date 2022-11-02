@@ -671,6 +671,9 @@ public class UserApi extends CommonApi {
         if (!checkPassword(oldPassword, profile.getSecret())) {
             return getError(ErrorFactory.getError(FAILED, localizeText.getWrongPassword()));
         }
+        if (oldPassword.equals(newPassword)) {
+            return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicatePassword()));
+        }
         if (!newPassword.equals(newPasswordConfirm)) {
             return getError(ErrorFactory.getError(FAILED, localizeText.getPasswordNotMatch()));
         }

@@ -59,6 +59,8 @@ public class LocalizeText  extends BaseModel {
     String  fileUploadFailed="อัพโหลดไฟล์ไม่สำเร็จ";
     String  registerSucceed="สมัครสมาชิกสำเร็จ";
     String  wrongPassword ="รหัสผ่านไม่ถูกต้อง";
+    String  duplicatePassword ="รหัสผ่านใหม่ต้องไม่ซ้ำกับรหัสผ่านเก่า";
+
     String  wrongPhoneNumber ="หมายเลขโทรศัพท์ไม่ถูกต้อง";
     String  noUpdate="ไม่อัพเดท";
     String  failed="ไม่สำเร็จ";
@@ -84,6 +86,10 @@ public class LocalizeText  extends BaseModel {
 
     public String getNoUnScribeGroup() {
         return noUnScribeGroup;
+    }
+
+    public String getDuplicatePassword() {
+        return duplicatePassword;
     }
 
     public String getUserDisable() {
