@@ -29,7 +29,8 @@ public class Event extends BaseContent {
     private String buttonName ;
     private String buttonUrl ;
     private String facebookLive ;
-
+    private double  latitude;
+    private double  longitude;
     public String getButtonName() {
         return buttonName;
     }
@@ -37,6 +38,22 @@ public class Event extends BaseContent {
 
     public List<String> getCategoryProfile() {
         return categoryProfile;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public void setCategoryProfile(List<String> categoryProfile) {

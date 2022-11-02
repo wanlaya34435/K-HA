@@ -533,11 +533,13 @@ public class UserApi extends CommonApi {
        Profile byEmail = profileRepository.findByEmailIgnoreCase(email);
         if (byEmail!=null) {
             if (!newPassword.equals(newPasswordConfirm)) {
-                throw new PostExceptions(FAILED, localizeText.getPasswordNotMatch());
+                return getError(ErrorFactory.getError(FAILED, localizeText.getPasswordNotMatch()));
+
             }
 
             if (!(newPassword.length() > 0)) {
-                throw new PostExceptions(FAILED, localizeText.getNoUpdate());
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoUpdate()));
+
             }
             Profile profile = byEmail;
             profile.setSecret(createPassword(newPassword));
@@ -667,13 +669,13 @@ public class UserApi extends CommonApi {
         initialize(request);
         Profile profile = userValidateToken(token, request);
         if (!checkPassword(oldPassword, profile.getSecret())) {
-            throw new PostExceptions(FAILED, localizeText.getWrongPassword());
+            return getError(ErrorFactory.getError(FAILED, localizeText.getWrongPassword()));
         }
         if (!newPassword.equals(newPasswordConfirm)) {
-            throw new PostExceptions(FAILED, localizeText.getPasswordNotMatch());
+            return getError(ErrorFactory.getError(FAILED, localizeText.getPasswordNotMatch()));
         }
         if (!(newPassword.length() > 0)) {
-            throw new PostExceptions(FAILED, localizeText.getNoUpdate());
+            return getError(ErrorFactory.getError(FAILED, localizeText.getNoUpdate()));
         }
         profile.setSecret(createPassword(newPassword));
         profile.setUpdateDate(new Date());
@@ -1059,7 +1061,7 @@ public class UserApi extends CommonApi {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
             message.setSubject(subject);
-            String html = "คุณสามารถเปลี่ยนแปลงรหัสผ่านของคุณได้จากลิงค์นี้ "  + "\n<a href='"+URL_CMS+"changepassword.html?m=" + email+"'>คลิก</a>";
+            String html = "คุณสามารถเปลี่ยนแปลงรหัสผ่านของคุณได้จากลิงค์นี้ "  + "\n<a href='"+URL_CMS+"password-change?m=" + email+"'>คลิก</a>";
             message.setContent(html, "text/html; charset=utf-8");
 
             Transport.send(message);

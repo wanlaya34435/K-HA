@@ -171,6 +171,8 @@ public class StatisticApi extends CommonApi {
         int service = 0;
         int knowledge = 0;
         int complain = 0;
+        int ios = 0;
+        int android = 0;
         if (groupId.size() > 0) {
             user = profileRepository.findByReadGroupsGroupIdIn(groupId).size();
             news = newsRepository.findByGroupIdIn(groupId).size();
@@ -196,7 +198,8 @@ public class StatisticApi extends CommonApi {
             cancel = complainRepository.findByCurrentStatus(2).size();
             done = complainRepository.findByCurrentStatus(3).size();
         }
-
+         ios = installStatisticRepository.findByOs(1).size();
+         android = installStatisticRepository.findByOs(2).size();
 
         Calendar calSt = Calendar.getInstance();
         calSt.setTime(new Date());
@@ -231,6 +234,8 @@ public class StatisticApi extends CommonApi {
         result.put("processsSize", process);
         result.put("doneSize", done);
         result.put("cancelSize", cancel);
+        result.put("iosSize",ios );
+        result.put("androidSize", android);
         List<Complain> byGroupIdAndCurrentStatus = new ArrayList<>();
         if (groupId.size() > 0) {
             byGroupIdAndCurrentStatus = complainRepository.findByGroupIdInAndCurrentStatus(groupId, 3);

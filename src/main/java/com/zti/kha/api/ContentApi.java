@@ -412,7 +412,8 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: event") List<String> category
             , @RequestParam(value = "enable", defaultValue = "true", required = false) boolean enable
             , @RequestParam(value = "groupId", defaultValue = "", required = true) String groupId
-
+            , @RequestParam(value = "latitude", defaultValue = "0", required = false) double latitude
+            , @RequestParam(value = "longitude", defaultValue = "0", required = false) double longitude
     ) throws PostExceptions {
         initialize(request);
         Profile profile = userValidateToken(token, request);
@@ -445,6 +446,8 @@ public class ContentApi extends CommonApi {
         if (file != null) {
             newsEvent.setFilesPath(pdf(file, profile).get(0));
         }
+        newsEvent.setLatitude(latitude);
+        newsEvent.setLongitude(longitude);
         newsEvent.setGroupId(groupId);
         newsEvent.setCategory(category);
         newsEvent.setYoutube(youtube);

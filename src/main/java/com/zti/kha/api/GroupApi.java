@@ -414,7 +414,33 @@ public class GroupApi extends CommonApi {
         checkSuperAdmin(profile);
         Group byId = groupRepository.findById(id).get();
         groupRepository.delete(byId);
-        return getOk(new BaseResponse(byId));
+
+        List<String> groupId = new ArrayList<>();
+        groupId.add(id);
+        List<Profile> byReadGroupsGroupIdIn = profileRepository.findByReadGroupsGroupIdIn(groupId);
+        List<Profile> byPendingGroupsGroupIdIn = profileRepository.findByPendingGroupsGroupIdIn(groupId);
+        for (int i=0;i<byReadGroupsGroupIdIn.size();i++){
+            for (int j=0;j<byReadGroupsGroupIdIn.get(i).getReadGroups().size();j++) {
+                if (byReadGroupsGroupIdIn.get(i).getReadGroups().get(j).getGroupId().equals(id)){
+                    byReadGroupsGroupIdIn.get(i).getReadGroups().remove(j);
+                    break;
+                }
+            }
+
+            byReadGroupsGroupIdIn.get(i).setReadGroups(byReadGroupsGroupIdIn.get(i).getReadGroups());
+            Profile save = profileRepository.save( byReadGroupsGroupIdIn.get(i));
+        }
+        for (int i=0;i<byPendingGroupsGroupIdIn.size();i++){
+            for (int j=0;j<byPendingGroupsGroupIdIn.get(i).getPendingGroups().size();j++) {
+                if (byPendingGroupsGroupIdIn.get(i).getPendingGroups().get(j).getGroupId().equals(id)){
+                    byPendingGroupsGroupIdIn.get(i).getPendingGroups().remove(j);
+                    break;
+                }
+            }
+            byPendingGroupsGroupIdIn.get(i).setPendingGroups(byPendingGroupsGroupIdIn.get(i).getPendingGroups());
+            Profile save = profileRepository.save(byPendingGroupsGroupIdIn.get(i));
+        }
+        return getOk(new BaseResponse(OK, localizeText.getDeleted()));
     }
 
 

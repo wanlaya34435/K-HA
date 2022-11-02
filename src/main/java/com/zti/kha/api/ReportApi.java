@@ -318,7 +318,7 @@ public class ReportApi extends CommonApi {
     @GetMapping(value = "exportReport/complain")
     public void exportReport(HttpServletRequest request, HttpServletResponse response
             , @RequestParam(value = "token", defaultValue = TOKEN) String token
-            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done,4=out of control") String currentStatus
+            , @RequestParam(value = "currentStatus", defaultValue = "", required = false) @ApiParam(value = "0=waiting,1=in process,2=cancel,3=done,4=out of control,5=receive") String currentStatus
             , @RequestParam(value = "titleId", defaultValue = "", required = true) @ApiParam(value = "categoryCode of categoryType complain") String titleId
             , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
             , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
@@ -684,20 +684,23 @@ public class ReportApi extends CommonApi {
                 Cell row10 = row.createCell(9);
                 String msgCode = "";
                 if (result.getCurrentStatus() == 0) {
-                    msgCode = "รอการตรวจสอบ";
+                    msgCode = "รอดำเนินการ";
                 } else if (result.getCurrentStatus() == 1) {
-                    msgCode = "กำลังดำเนินการ";
+                    msgCode = "ระหว่างดำเนินการ";
 
                 } else if (result.getCurrentStatus() == 3) {
-                    msgCode = "ดำเนินการแล้ว";
+                    msgCode = "ดำเนินการเสร็จสิ้น";
 
                 } else if (result.getCurrentStatus() == 2) {
                     msgCode = "ยกเลิก";
 
                 } else if (result.getCurrentStatus() == 4 ){
-                    msgCode = "นอกเหนือความรับผิดชอบ";
+                    msgCode = "นอกเหนือเขตความรับผิดชอบ";
 
-                }
+                }else if (result.getCurrentStatus() == 5 ){
+                msgCode = "รับเรื่องแล้ว";
+
+            }
                 row10.setCellValue(msgCode);
                 row10.setCellStyle(rowCellStyle);
 

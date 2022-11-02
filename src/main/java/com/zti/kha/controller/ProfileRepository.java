@@ -18,6 +18,7 @@ public interface ProfileRepository extends MongoRepository<Profile, String> {
     public ProfileDisplay findByUserName(String userName);
     public Profile findByUserNameIgnoreCase(String userName);
     public Profile findByPhoneNumber(String phone);
+    public List<Profile> findByPendingGroupsGroupIdIn(List<String> id);
 
     Optional<ProfileDisplay> findByIdIs(String id);
     public Profile findByUserNameIs(String userName);
