@@ -33,6 +33,12 @@ import java.util.Locale;
 @EnableCaching
 public class WebappApplication extends SpringBootServletInitializer {
 
+    private static final String SSL_CERTIFICATE = "rds-ca-2015-us-east-1.pem";
+    private static final String KEY_STORE_TYPE = "JKS";
+    private static final String KEY_STORE_PROVIDER = "SUN";
+    private static final String KEY_STORE_FILE_PREFIX = "sys-connect-via-ssl-test-cacerts";
+    private static final String KEY_STORE_FILE_SUFFIX = ".jks";
+    private static final String DEFAULT_KEY_STORE_PASSWORD = "changeit";
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(WebappApplication.class);
@@ -51,7 +57,6 @@ public class WebappApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
 //        SSLContextHelper.setSslProperties();
-
         SpringApplication.run(WebappApplication.class, args);
     }
 
@@ -70,47 +75,38 @@ public class WebappApplication extends SpringBootServletInitializer {
         localeResolver.setDefaultLocale(Locale.US);
         return localeResolver;
     }
-   /* protected static class SSLContextHelper {
-
-        private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-        private static final String DEFAULT_SSL_CERTIFICATE = "rds-combined-ca-bundle.pem";
-        private static final String SSL_CERTIFICATE = "sslCertificate";
-        private static final String KEY_STORE_TYPE = "JKS";
-        private static final String KEY_STORE_PROVIDER = "SUN";
-        private static final String KEY_STORE_FILE_PREFIX = "sys-connect-via-ssl-test-cacerts";
-        private static final String KEY_STORE_FILE_SUFFIX = ".jks";
-        private static final String DEFAULT_KEY_STORE_PASSWORD = "changeit";
-        private static final String SSL_TRUST_STORE = "javax.net.ssl.trustStore";
-        private static final String SSL_TRUST_STORE_PASSWORD = "javax.net.ssl.trustStorePassword";
-        private static final String SSL_TRUST_STORE_TYPE = "javax.net.ssl.trustStoreType";
-
-
-
-
+    protected static class SSLContextHelper {
+        /**
+         * This method sets the SSL properties which specify the key store file, its type and password:
+         *
+         * @throws Exception
+         */
         private static void setSslProperties() {
 
             try {
-                String sslCertificate= System.getProperty(SSL_CERTIFICATE);
-                if(ObjectUtils.isEmpty(sslCertificate)) {
-                    sslCertificate= DEFAULT_SSL_CERTIFICATE;
-                }
-                logger.info(" ssl certificate path {}",sslCertificate);
-                System.setProperty(SSL_TRUST_STORE, createKeyStoreFile(sslCertificate));
-                System.setProperty(SSL_TRUST_STORE_TYPE, KEY_STORE_TYPE);
-                System.setProperty(SSL_TRUST_STORE_PASSWORD, DEFAULT_KEY_STORE_PASSWORD);
+                System.setProperty("javax.net.ssl.trustStore", createKeyStoreFile());
             } catch (Exception e) {
+
                 e.printStackTrace();
             }
-
+            System.setProperty("javax.net.ssl.trustStoreType", KEY_STORE_TYPE);
+            System.setProperty("javax.net.ssl.trustStorePassword", DEFAULT_KEY_STORE_PASSWORD);
         }
 
-        private static String createKeyStoreFile(String sslCertificate) throws Exception {
-            return createKeyStoreFile(createCertificate(sslCertificate)).getPath();
+
+        private static String createKeyStoreFile() throws Exception {
+            return createKeyStoreFile(createCertificate()).getPath();
         }
 
-        private static X509Certificate createCertificate(String sslCertificate) throws Exception {
+        /**
+         * This method generates the SSL certificate
+         *
+         * @return
+         * @throws Exception
+         */
+        private static X509Certificate createCertificate() throws Exception {
             CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
-            URL url = new File(sslCertificate).toURI().toURL();
+            URL url = new File(SSL_CERTIFICATE).toURI().toURL();
             if (url == null) {
                 throw new Exception();
             }
@@ -119,6 +115,13 @@ public class WebappApplication extends SpringBootServletInitializer {
             }
         }
 
+        /**
+         * This method creates the Key Store File
+         *
+         * @param rootX509Certificate - the SSL certificate to be stored in the KeyStore
+         * @return
+         * @throws Exception
+         */
         private static File createKeyStoreFile(X509Certificate rootX509Certificate) throws Exception {
             File keyStoreFile = File.createTempFile(KEY_STORE_FILE_PREFIX, KEY_STORE_FILE_SUFFIX);
             try (FileOutputStream fos = new FileOutputStream(keyStoreFile.getPath())) {
@@ -130,26 +133,6 @@ public class WebappApplication extends SpringBootServletInitializer {
             return keyStoreFile;
         }
 
-    }*/
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-//        localeChangeInterceptor.setParamName("lang");
-//        registry.addInterceptor(localeChangeInterceptor);
-//    }
-
-
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        final CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        // Don't do this in production, use a proper list  of allowed origins
-//        config.setAllowedOrigins(Collections.singletonList("*"));
-//        config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
-//        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
-//        source.registerCorsConfiguration("/**", config);
-//        return new CorsFilter(source);
-//    }
-}
+    }
+    }
 
