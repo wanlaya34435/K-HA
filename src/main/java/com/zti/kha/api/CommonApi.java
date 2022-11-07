@@ -687,7 +687,7 @@ public class CommonApi {
 
 
     public void checkRoleCommentComplain(Profile profile, Complain complain) throws PostExceptions {
-        if (!complain.getAuthor().equals(profile.getId()) && (profile.getRole() == null ||( !profile.getRole().getAdminGroups().contains(complain.getGroupId())&&!profile.getRole().getTechnicianGroups().contains(complain.getGroupId())))) {
+        if (!complain.getAuthor().equals(profile.getId()) && (profile.getRole() == null ||(profile.getRole().getSuperAdmin() == false&& !profile.getRole().getAdminGroups().contains(complain.getGroupId())&&!profile.getRole().getTechnicianGroups().contains(complain.getGroupId())))) {
             throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
         }
     }
