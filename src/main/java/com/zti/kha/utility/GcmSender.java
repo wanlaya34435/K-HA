@@ -119,15 +119,21 @@ public class GcmSender extends CommonApi {
             String title = "";
             String msgCode = "";
             if (statusCode == 0) {
-                msgCode = "รอการตรวจสอบ";
+                msgCode = "รอดำเนินการ";
             } else if (statusCode == 1) {
-                msgCode = "กำลังตรวจสอบ";
+                msgCode = "ระหว่างดำเนินการ";
 
             } else if (statusCode == 3) {
-                msgCode = "ดำเนินการแล้ว";
+                msgCode = "ดำเนินการเสร็จสิ้น";
 
             } else if (statusCode == 2) {
                 msgCode = "ยกเลิก";
+
+            }else if (statusCode == 4) {
+                msgCode = "นอกเหนือเขตความรับผิดชอบ";
+
+            }else if (statusCode == 5) {
+                msgCode = "รับเรื่องแล้ว";
 
             }
             if (isAdmin == true) {
