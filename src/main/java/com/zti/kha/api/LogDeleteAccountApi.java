@@ -85,7 +85,7 @@ public class LogDeleteAccountApi extends CommonApi {
         initialize(request);
         Profile profile = userValidateToken(token, request);
         checkSuperAdmin(profile);
-        Pageable pageable = new PageRequest(page, sizeContents, new Sort(new Sort.Order(Sort.Direction.ASC, "name")));
+        Pageable pageable =  PageRequest.of(page, sizeContents,Sort.by("name").ascending());
 
         Page<LogDeleteAccount> byId = null;
         if (id.length() > 0) {
