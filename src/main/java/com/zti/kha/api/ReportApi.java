@@ -645,7 +645,9 @@ public class ReportApi extends CommonApi {
             row0.setCellStyle(rowCellStyle);
 
             Cell row1_ = row.createCell(1);
-            row1_.setCellValue(result.getGroupProfile().getName());
+            if (result.getGroupProfile()!=null) {
+                row1_.setCellValue(result.getGroupProfile().getName());
+            }
             row1_.setCellStyle(rowCellStyle);
 
             Cell row1 = row.createCell(2);

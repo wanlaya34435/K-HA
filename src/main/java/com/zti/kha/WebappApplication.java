@@ -53,7 +53,7 @@ public class WebappApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        SSLContextHelper.setSslProperties();
+//        SSLContextHelper.setSslProperties();
         SpringApplication.run(WebappApplication.class, args);
     }
 

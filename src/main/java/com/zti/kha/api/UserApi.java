@@ -528,18 +528,16 @@ public class UserApi extends CommonApi {
             , @RequestParam(value = "newPassword", defaultValue = "", required = true) String newPassword
             , @RequestParam(value = "newPasswordConfirm", defaultValue = "", required = true) String newPasswordConfirm) throws NoSuchAlgorithmException, PostExceptions, UnsupportedEncodingException, InvalidKeyException {
 
-        initialize(request);
+       initialize(request);
 
        Profile byEmail = profileRepository.findByEmailIgnoreCase(email);
         if (byEmail!=null) {
             if (!newPassword.equals(newPasswordConfirm)) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getPasswordNotMatch()));
-
             }
 
             if (!(newPassword.length() > 0)) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoUpdate()));
-
             }
             Profile profile = byEmail;
             profile.setSecret(createPassword(newPassword));
@@ -551,6 +549,7 @@ public class UserApi extends CommonApi {
             return getError(ErrorFactory.getError(FAILED, localizeText.getNoUserFound()));
 
         }
+
     }
 
 
