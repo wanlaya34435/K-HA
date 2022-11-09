@@ -1,103 +1,203 @@
-2022-11-08 15:22:24,009 [INFO  ] StartupInfoLogger.logStarting(StartupInfoLogger.java:50) – Starting WebappApplication on LAPTOP-4F4RMRQ8 with PID 15956 (D:\Work\Server\K-HA\target\classes started by USER in D:\Work\Server\K-HA)
-2022-11-08 15:22:24,020 [DEBUG ] StartupInfoLogger.logStarting(StartupInfoLogger.java:53) – Running with Spring Boot v2.1.0.RELEASE, Spring v5.1.2.RELEASE
-2022-11-08 15:22:24,020 [INFO  ] SpringApplication.logStartupProfileInfo(SpringApplication.java:679) – The following profiles are active: dev
-2022-11-08 15:22:24,050 [INFO  ] DeferredLog.logTo(DeferredLog.java:227) – Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2022-11-08 15:22:24,051 [INFO  ] DeferredLog.logTo(DeferredLog.java:227) – For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2022-11-08 15:22:25,022 [INFO  ] RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:244) – Multiple Spring Data modules found, entering strict repository configuration mode!
-2022-11-08 15:22:25,025 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) – Bootstrapping Spring Data repositories in DEFAULT mode.
-2022-11-08 15:22:25,130 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:182) – Finished Spring Data repository scanning in 101ms. Found 26 repository interfaces.
-2022-11-08 15:22:25,138 [INFO  ] RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:244) – Multiple Spring Data modules found, entering strict repository configuration mode!
-2022-11-08 15:22:25,140 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) – Bootstrapping Spring Data repositories in DEFAULT mode.
-2022-11-08 15:22:25,154 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.BannerRepository.
-2022-11-08 15:22:25,155 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.CategoryRepository.
-2022-11-08 15:22:25,155 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.CommentComplainRepository.
-2022-11-08 15:22:25,156 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ComplainRepository.
-2022-11-08 15:22:25,156 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ContactRepository.
-2022-11-08 15:22:25,157 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.DailyStatisticRepository.
-2022-11-08 15:22:25,158 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.DeleteNotificationRepository.
-2022-11-08 15:22:25,158 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.DistrictRepository.
-2022-11-08 15:22:25,159 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.EventRepository.
-2022-11-08 15:22:25,161 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.FileInfoRepository.
-2022-11-08 15:22:25,161 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.GroupRepository.
-2022-11-08 15:22:25,162 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.InstallStatisticRepository.
-2022-11-08 15:22:25,162 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.KnowledgeRepository.
-2022-11-08 15:22:25,163 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.LogDeleteAccountRepository.
-2022-11-08 15:22:25,163 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.LogLoginRepository.
-2022-11-08 15:22:25,164 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.MainPopUpRepository.
-2022-11-08 15:22:25,164 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.NewsRepository.
-2022-11-08 15:22:25,165 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.NotificationsRepository.
-2022-11-08 15:22:25,165 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ProfileRepository.
-2022-11-08 15:22:25,166 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ProvinceRepository.
-2022-11-08 15:22:25,166 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.RemarkDeleteRepository.
-2022-11-08 15:22:25,167 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.RudeWordRepository.
-2022-11-08 15:22:25,167 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ServiceRepository.
-2022-11-08 15:22:25,168 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.SubDistrictRepository.
-2022-11-08 15:22:25,168 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ViewStatisticRepository.
-2022-11-08 15:22:25,169 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.WebLinkRepository.
-2022-11-08 15:22:25,169 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:182) – Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
-2022-11-08 15:22:25,471 [INFO  ] PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) – Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$98719b22] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-11-08 15:22:25,490 [INFO  ] PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) – Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c4bf899f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-11-08 15:22:26,070 [INFO  ] TomcatWebServer.initialize(TomcatWebServer.java:90) – Tomcat initialized with port(s): 8080 (http)
-2022-11-08 15:22:26,081 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Initializing ProtocolHandler ["http-nio-8080"]
-2022-11-08 15:22:26,088 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Starting service [Tomcat]
-2022-11-08 15:22:26,088 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Starting Servlet Engine: Apache Tomcat/8.5.34
-2022-11-08 15:22:26,097 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_131\bin;;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NetSarang\Xshell 7\;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;;.]
-2022-11-08 15:22:26,349 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2022-11-08 15:22:26,353 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Initializing Spring embedded WebApplicationContext
-2022-11-08 15:22:26,354 [INFO  ] ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:285) – Root WebApplicationContext: initialization completed in 2300 ms
-2022-11-08 15:22:30,999 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Cluster created with settings {hosts=[db.ztidev.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2022-11-08 15:22:31,002 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Adding discovered server db.ztidev.com:27017 to client view of cluster
-2022-11-08 15:22:31,244 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Opened connection [connectionId{localValue:1, serverValue:1587}] to db.ztidev.com:27017
-2022-11-08 15:22:31,293 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Monitor thread successfully connected to server with description ServerDescription{address=db.ztidev.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 28]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=45373000}
-2022-11-08 15:22:31,296 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Discovered cluster type of STANDALONE
-2022-11-08 15:22:31,491 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'characterEncodingFilter' to: [/*]
-2022-11-08 15:22:31,493 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'webMvcMetricsFilter' to: [/*]
-2022-11-08 15:22:31,494 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
-2022-11-08 15:22:31,495 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'formContentFilter' to: [/*]
-2022-11-08 15:22:31,495 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'requestContextFilter' to: [/*]
-2022-11-08 15:22:31,495 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'sessionFilter' to: [/*]
-2022-11-08 15:22:31,502 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'httpTraceFilter' to: [/*]
-2022-11-08 15:22:31,502 [INFO  ] ServletRegistrationBean.addRegistration(ServletRegistrationBean.java:186) – Servlet dispatcherServlet mapped to [/]
-2022-11-08 15:22:31,683 [INFO  ] OptionalLiveReloadServer.startServer(OptionalLiveReloadServer.java:57) – LiveReload server is running on port 35729
-2022-11-08 15:22:32,706 [INFO  ] EndpointLinksResolver.<init>(EndpointLinksResolver.java:59) – Exposing 17 endpoint(s) beneath base path '/actuator'
-2022-11-08 15:22:32,788 [INFO  ] PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) – Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
-2022-11-08 15:22:32,848 [INFO  ] TilesAccess.setContainer(TilesAccess.java:93) – Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
-2022-11-08 15:22:32,998 [INFO  ] ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) – Initializing ExecutorService 'applicationTaskExecutor'
-2022-11-08 15:22:33,386 [INFO  ] DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:151) – Context refreshed
-2022-11-08 15:22:33,402 [INFO  ] DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:154) – Found 1 custom documentation plugin(s)
-2022-11-08 15:22:33,432 [INFO  ] ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) – Scanning for api listing references
-2022-11-08 15:22:34,157 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: deleteGroupUsingPOST_1
-2022-11-08 15:22:34,175 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_1
-2022-11-08 15:22:34,177 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_2
-2022-11-08 15:22:34,179 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_3
-2022-11-08 15:22:34,181 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingDELETE_1
-2022-11-08 15:22:34,182 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_4
-2022-11-08 15:22:34,183 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_5
-2022-11-08 15:22:34,184 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_6
-2022-11-08 15:22:34,185 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_7
-2022-11-08 15:22:34,186 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_8
-2022-11-08 15:22:34,187 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_9
-2022-11-08 15:22:34,189 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_10
-2022-11-08 15:22:34,190 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_11
-2022-11-08 15:22:34,191 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_12
-2022-11-08 15:22:34,192 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_13
-2022-11-08 15:22:34,193 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_14
-2022-11-08 15:22:34,195 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_15
-2022-11-08 15:22:34,197 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_16
-2022-11-08 15:22:34,198 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_17
-2022-11-08 15:22:34,199 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_18
-2022-11-08 15:22:34,200 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_19
-2022-11-08 15:22:34,201 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_20
-2022-11-08 15:22:34,202 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingPOST_1
-2022-11-08 15:22:34,203 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_21
-2022-11-08 15:22:34,247 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: editPasswordUsingPOST_1
-2022-11-08 15:22:34,311 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Starting ProtocolHandler ["http-nio-8080"]
-2022-11-08 15:22:34,320 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Using a shared selector for servlet write/read
-2022-11-08 15:22:34,342 [INFO  ] TomcatWebServer.start(TomcatWebServer.java:204) – Tomcat started on port(s): 8080 (http) with context path '/myKHA'
-2022-11-08 15:22:34,345 [INFO  ] StartupInfoLogger.logStarted(StartupInfoLogger.java:59) – Started WebappApplication in 14.669 seconds (JVM running for 17.363)
-2022-11-08 15:22:34,427 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-11-08 15:22:34,428 [INFO  ] FrameworkServlet.initServletBean(FrameworkServlet.java:521) – Initializing Servlet 'dispatcherServlet'
-2022-11-08 15:22:34,437 [INFO  ] FrameworkServlet.initServletBean(FrameworkServlet.java:543) – Completed initialization in 8 ms
-2022-11-08 15:22:36,404 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Opened connection [connectionId{localValue:2, serverValue:1588}] to db.ztidev.com:27017
-2022-11-08 15:22:36,558 [INFO  ] Slf4JLogger.info(Slf4JLogger.java:101) – Starting without optional epoll library
-2022-11-08 15:22:36,562 [INFO  ] Slf4JLogger.info(Slf4JLogger.java:101) – Starting without optional kqueue library
+2022-11-09 10:39:54,066 [INFO  ] StartupInfoLogger.logStarting(StartupInfoLogger.java:50) – Starting WebappApplication on LAPTOP-4F4RMRQ8 with PID 6664 (D:\Work\Server\K-HA\target\classes started by USER in D:\Work\Server\K-HA)
+2022-11-09 10:39:54,077 [DEBUG ] StartupInfoLogger.logStarting(StartupInfoLogger.java:53) – Running with Spring Boot v2.1.0.RELEASE, Spring v5.1.2.RELEASE
+2022-11-09 10:39:54,077 [INFO  ] SpringApplication.logStartupProfileInfo(SpringApplication.java:679) – The following profiles are active: prod
+2022-11-09 10:39:54,114 [INFO  ] DeferredLog.logTo(DeferredLog.java:227) – Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-11-09 10:39:54,115 [INFO  ] DeferredLog.logTo(DeferredLog.java:227) – For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-11-09 10:39:56,368 [INFO  ] RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:244) – Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-11-09 10:39:56,371 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) – Bootstrapping Spring Data repositories in DEFAULT mode.
+2022-11-09 10:39:56,486 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:182) – Finished Spring Data repository scanning in 109ms. Found 26 repository interfaces.
+2022-11-09 10:39:56,497 [INFO  ] RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:244) – Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-11-09 10:39:56,498 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) – Bootstrapping Spring Data repositories in DEFAULT mode.
+2022-11-09 10:39:56,514 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.BannerRepository.
+2022-11-09 10:39:56,514 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.CategoryRepository.
+2022-11-09 10:39:56,515 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.CommentComplainRepository.
+2022-11-09 10:39:56,516 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ComplainRepository.
+2022-11-09 10:39:56,516 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ContactRepository.
+2022-11-09 10:39:56,517 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.DailyStatisticRepository.
+2022-11-09 10:39:56,517 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.DeleteNotificationRepository.
+2022-11-09 10:39:56,518 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.DistrictRepository.
+2022-11-09 10:39:56,519 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.EventRepository.
+2022-11-09 10:39:56,520 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.FileInfoRepository.
+2022-11-09 10:39:56,521 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.GroupRepository.
+2022-11-09 10:39:56,521 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.InstallStatisticRepository.
+2022-11-09 10:39:56,522 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.KnowledgeRepository.
+2022-11-09 10:39:56,522 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.LogDeleteAccountRepository.
+2022-11-09 10:39:56,523 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.LogLoginRepository.
+2022-11-09 10:39:56,523 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.MainPopUpRepository.
+2022-11-09 10:39:56,524 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.NewsRepository.
+2022-11-09 10:39:56,525 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.NotificationsRepository.
+2022-11-09 10:39:56,525 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ProfileRepository.
+2022-11-09 10:39:56,526 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ProvinceRepository.
+2022-11-09 10:39:56,526 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.RemarkDeleteRepository.
+2022-11-09 10:39:56,527 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.RudeWordRepository.
+2022-11-09 10:39:56,527 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ServiceRepository.
+2022-11-09 10:39:56,528 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.SubDistrictRepository.
+2022-11-09 10:39:56,528 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.ViewStatisticRepository.
+2022-11-09 10:39:56,529 [INFO  ] RepositoryConfigurationExtensionSupport.isStrictRepositoryCandidate(RepositoryConfigurationExtensionSupport.java:363) – Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.zti.kha.controller.WebLinkRepository.
+2022-11-09 10:39:56,529 [INFO  ] RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:182) – Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
+2022-11-09 10:39:56,867 [INFO  ] PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) – Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$2c193838] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-09 10:39:56,886 [INFO  ] PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) – Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$586726b5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-09 10:39:57,416 [INFO  ] TomcatWebServer.initialize(TomcatWebServer.java:90) – Tomcat initialized with port(s): 8080 (https)
+2022-11-09 10:39:57,427 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Initializing ProtocolHandler ["https-jsse-nio-8080"]
+2022-11-09 10:39:57,436 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Starting service [Tomcat]
+2022-11-09 10:39:57,437 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Starting Servlet Engine: Apache Tomcat/8.5.34
+2022-11-09 10:39:57,445 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_131\bin;;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NetSarang\Xshell 7\;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;;.]
+2022-11-09 10:39:57,732 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2022-11-09 10:39:57,737 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Initializing Spring embedded WebApplicationContext
+2022-11-09 10:39:57,737 [INFO  ] ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:285) – Root WebApplicationContext: initialization completed in 3620 ms
+2022-11-09 10:39:58,743 [WARN  ] SLF4JLogger.warn(SLF4JLogger.java:86) – Deprecated boolean value ('false -jar target/aws-documentdb-*.jar') in the connection string for 'retrywrites', please update to retrywrites=false
+2022-11-09 10:39:58,746 [WARN  ] SLF4JLogger.warn(SLF4JLogger.java:86) – Unsupported option 'ssl_ca_certs' in the connection string 'mongodb://mykha1runtest1user:kfp*mez0gwd8XTP1jpk@mykha-runtest-docdb.cluster-cpd5irnugpzk.ap-southeast-1.docdb.amazonaws.com:27017/admin?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false -jar target/aws-documentdb-*.jar'.
+2022-11-09 10:39:59,637 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Cluster created with settings {hosts=[mykha-runtest-docdb.cluster-cpd5irnugpzk.ap-southeast-1.docdb.amazonaws.com:27017], mode=MULTIPLE, requiredClusterType=REPLICA_SET, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500, requiredReplicaSetName='rs0'}
+2022-11-09 10:39:59,638 [INFO  ] SLF4JLogger.info(SLF4JLogger.java:71) – Adding discovered server mykha-runtest-docdb.cluster-cpd5irnugpzk.ap-southeast-1.docdb.amazonaws.com:27017 to client view of cluster
+2022-11-09 10:39:59,980 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'characterEncodingFilter' to: [/*]
+2022-11-09 10:39:59,981 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2022-11-09 10:39:59,981 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2022-11-09 10:39:59,982 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'formContentFilter' to: [/*]
+2022-11-09 10:39:59,982 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'requestContextFilter' to: [/*]
+2022-11-09 10:39:59,982 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'sessionFilter' to: [/*]
+2022-11-09 10:39:59,983 [INFO  ] AbstractFilterRegistrationBean.configure(AbstractFilterRegistrationBean.java:248) – Mapping filter: 'httpTraceFilter' to: [/*]
+2022-11-09 10:39:59,983 [INFO  ] ServletRegistrationBean.addRegistration(ServletRegistrationBean.java:186) – Servlet dispatcherServlet mapped to [/]
+2022-11-09 10:40:00,119 [INFO  ] OptionalLiveReloadServer.startServer(OptionalLiveReloadServer.java:57) – LiveReload server is running on port 35729
+2022-11-09 10:40:00,932 [INFO  ] EndpointLinksResolver.<init>(EndpointLinksResolver.java:59) – Exposing 17 endpoint(s) beneath base path '/actuator'
+2022-11-09 10:40:00,998 [INFO  ] PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) – Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2022-11-09 10:40:01,049 [INFO  ] TilesAccess.setContainer(TilesAccess.java:93) – Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2022-11-09 10:40:01,175 [INFO  ] ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) – Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-09 10:40:01,535 [INFO  ] DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:151) – Context refreshed
+2022-11-09 10:40:01,553 [INFO  ] DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:154) – Found 1 custom documentation plugin(s)
+2022-11-09 10:40:01,581 [INFO  ] ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) – Scanning for api listing references
+2022-11-09 10:40:02,299 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: deleteGroupUsingPOST_1
+2022-11-09 10:40:02,313 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_1
+2022-11-09 10:40:02,314 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_2
+2022-11-09 10:40:02,315 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_3
+2022-11-09 10:40:02,316 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingDELETE_1
+2022-11-09 10:40:02,317 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_4
+2022-11-09 10:40:02,318 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_5
+2022-11-09 10:40:02,319 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_6
+2022-11-09 10:40:02,320 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_7
+2022-11-09 10:40:02,321 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_8
+2022-11-09 10:40:02,322 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_9
+2022-11-09 10:40:02,323 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_10
+2022-11-09 10:40:02,326 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_11
+2022-11-09 10:40:02,327 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_12
+2022-11-09 10:40:02,328 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_13
+2022-11-09 10:40:02,329 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_14
+2022-11-09 10:40:02,330 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_15
+2022-11-09 10:40:02,331 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_16
+2022-11-09 10:40:02,332 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_17
+2022-11-09 10:40:02,333 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_18
+2022-11-09 10:40:02,334 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_19
+2022-11-09 10:40:02,335 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_20
+2022-11-09 10:40:02,335 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingPOST_1
+2022-11-09 10:40:02,336 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: handleUsingGET_21
+2022-11-09 10:40:02,368 [INFO  ] CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) – Generating unique operation named: editPasswordUsingPOST_1
+2022-11-09 10:40:02,421 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Starting ProtocolHandler ["https-jsse-nio-8080"]
+2022-11-09 10:40:02,452 [ERROR ] DirectJDKLog.log(DirectJDKLog.java:182) – Failed to start connector [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Failed to start component [Connector[HTTP/1.1-8080]]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:167) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:225) [tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:300) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:162) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549) [spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at com.zti.kha.WebappApplication.main(WebappApplication.java:57) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_131]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_131]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_131]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_131]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+Caused by: org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1020) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	... 18 more
+Caused by: java.lang.IllegalArgumentException: Invalid keystore format
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.createSSLContext(AbstractJsseEndpoint.java:115) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.initialiseSsl(AbstractJsseEndpoint.java:86) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:244) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1151) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:591) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1018) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	... 18 more
+Caused by: java.io.IOException: Invalid keystore format
+	at sun.security.provider.JavaKeyStore.engineLoad(JavaKeyStore.java:658) ~[?:1.8.0_131]
+	at sun.security.provider.JavaKeyStore$JKS.engineLoad(JavaKeyStore.java:56) ~[?:1.8.0_131]
+	at sun.security.provider.KeyStoreDelegator.engineLoad(KeyStoreDelegator.java:224) ~[?:1.8.0_131]
+	at sun.security.provider.JavaKeyStore$DualFormatJKS.engineLoad(JavaKeyStore.java:70) ~[?:1.8.0_131]
+	at java.security.KeyStore.load(KeyStore.java:1445) ~[?:1.8.0_131]
+	at org.apache.tomcat.util.net.SSLUtilBase.getStore(SSLUtilBase.java:159) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.SSLHostConfigCertificate.getCertificateKeystore(SSLHostConfigCertificate.java:204) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.jsse.JSSEUtil.getKeyManagers(JSSEUtil.java:184) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.createSSLContext(AbstractJsseEndpoint.java:113) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.initialiseSsl(AbstractJsseEndpoint.java:86) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:244) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1151) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:591) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1018) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	... 18 more
+2022-11-09 10:40:02,471 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Pausing ProtocolHandler ["https-jsse-nio-8080"]
+2022-11-09 10:40:02,472 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Stopping service [Tomcat]
+2022-11-09 10:40:02,479 [WARN  ] DirectJDKLog.log(DirectJDKLog.java:180) – The web application [myKHA] appears to have started a thread named [lettuce-eventExecutorLoop-1-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+ io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:251)
+ io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884)
+ io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.lang.Thread.run(Thread.java:748)
+2022-11-09 10:40:02,480 [WARN  ] DirectJDKLog.log(DirectJDKLog.java:180) – The web application [myKHA] appears to have started a thread named [cluster-ClusterId{value='636b210fcffb511a083b0c4f', description='null'}-mykha-runtest-docdb.cluster-cpd5irnugpzk.ap-southeast-1.docdb.amazonaws.com:27017] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+ java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+ java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+ java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+ java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+ java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+ java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+ java.net.Socket.connect(Socket.java:589)
+ sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:668)
+ com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:64)
+ com.mongodb.internal.connection.SocketStream.open(SocketStream.java:62)
+ com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:126)
+ com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:117)
+ java.lang.Thread.run(Thread.java:748)
+2022-11-09 10:40:02,481 [WARN  ] DirectJDKLog.log(DirectJDKLog.java:180) – The web application [myKHA] appears to have started a thread named [CleanCursors-1-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:748)
+2022-11-09 10:40:02,485 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – The stop() method was called on component [StandardServer[-1]] after stop() had already been called. The second call will be ignored.
+2022-11-09 10:40:02,486 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Stopping ProtocolHandler ["https-jsse-nio-8080"]
+2022-11-09 10:40:02,486 [INFO  ] DirectJDKLog.log(DirectJDKLog.java:180) – Destroying ProtocolHandler ["https-jsse-nio-8080"]
+2022-11-09 10:40:02,490 [INFO  ] ConditionEvaluationReportLoggingListener.logMessage(ConditionEvaluationReportLoggingListener.java:142) – 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-11-09 10:40:02,494 [ERROR ] LoggingFailureAnalysisReporter.report(LoggingFailureAnalysisReporter.java:42) – 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2022-11-09 10:40:02,499 [INFO  ] ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) – Shutting down ExecutorService 'applicationTaskExecutor'
+2022-11-09 10:40:02,499 [INFO  ] TilesAccess.setContainer(TilesAccess.java:88) – Removing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext

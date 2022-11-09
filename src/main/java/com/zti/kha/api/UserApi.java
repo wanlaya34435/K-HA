@@ -423,15 +423,14 @@ public class UserApi extends CommonApi {
         if (byId==null){
             return getError(ErrorFactory.getError(FAILED, localizeText.getNoUserFound()));
         }else {
-            if (superAdmin==true) {
-                RoleAdmin role = new RoleAdmin();
+                RoleAdmin roleSuper = new RoleAdmin();
                 if (byId.getRole() != null) {
-                    role = byId.getRole();
+                    roleSuper = byId.getRole();
                 }
-                role.setSuperAdmin(superAdmin);
-                byId.setRole(role);
+                roleSuper.setSuperAdmin(superAdmin);
+                byId.setRole(roleSuper);
 
-            }
+
 
             if (groupId.size()>0) {
                 for (String groupAdd:groupId) {
