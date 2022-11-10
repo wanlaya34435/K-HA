@@ -14,6 +14,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.LocaleResolver;
@@ -160,8 +162,12 @@ public class WebappApplication extends SpringBootServletInitializer {
 //                System.setProperty("javax.net.ssl.trustStore", createKeyStoreFile());
 //                String keyPath = createKeyStoreFile();
                 String keyPath = "ssl/ap-se-store.jks";
-                logger.info(">>>>> keyPath: "+keyPath);
-                System.setProperty("javax.net.ssl.trustStore", keyPath);
+                Resource resource = new ClassPathResource(keyPath);
+//                File f = new File(keyPath);
+//                System.out.println(f.getAbsolutePath());
+                logger.info(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
+                System.out.println(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
+                System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
             } catch (Exception e) {
 
                 e.printStackTrace();
