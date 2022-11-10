@@ -39,6 +39,8 @@ import java.util.Locale;
 public class WebappApplication extends SpringBootServletInitializer {
 
 
+            private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(WebappApplication.class);
@@ -56,7 +58,7 @@ public class WebappApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        SSLContextHelper.setSslProperties();
+//        SSLContextHelper.setSslProperties();
         SpringApplication.run(WebappApplication.class, args);
     }
 
@@ -74,6 +76,29 @@ public class WebappApplication extends SpringBootServletInitializer {
         CookieLocaleResolver localeResolver = new CookieLocaleResolver();
         localeResolver.setDefaultLocale(Locale.US);
         return localeResolver;
+    }
+
+    @Bean
+    public  MongoClientOptions mongoClientOptions(){
+        String keyPath = "ssl/ap-se-store.jks";
+        String keyType = "JKS";
+        String keyPassword = "zeal1tech";
+        try {
+            Resource resource = new ClassPathResource(keyPath);
+
+            logger.info(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
+            System.out.println(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
+            System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        System.setProperty("javax.net.ssl.trustStoreType", keyType);
+        System.setProperty("javax.net.ssl.trustStorePassword", keyPassword);
+
+        MongoClientOptions.Builder builder = MongoClientOptions.builder();
+        MongoClientOptions options=builder.sslEnabled(true).build();
+        return options;
     }
 
 //    protected static class SSLContextHelper {
