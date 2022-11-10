@@ -78,28 +78,28 @@ public class WebappApplication extends SpringBootServletInitializer {
         return localeResolver;
     }
 
-    @Bean
-    public  MongoClientOptions mongoClientOptions(){
-        String keyPath = "ssl/ap-se-store.jks";
-        String keyType = "JKS";
-        String keyPassword = "zeal1tech";
-        try {
-            Resource resource = new ClassPathResource(keyPath);
-
-            logger.info(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
-            System.out.println(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
-            System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-        System.setProperty("javax.net.ssl.trustStoreType", keyType);
-        System.setProperty("javax.net.ssl.trustStorePassword", keyPassword);
-
-        MongoClientOptions.Builder builder = MongoClientOptions.builder();
-        MongoClientOptions options=builder.sslEnabled(true).build();
-        return options;
-    }
+//    @Bean
+//    public  MongoClientOptions mongoClientOptions(){
+//        String keyPath = "ssl/ap-se-store.jks";
+//        String keyType = "JKS";
+//        String keyPassword = "zeal1tech";
+//        try {
+//            Resource resource = new ClassPathResource(keyPath);
+//
+//            logger.info(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
+//            System.out.println(">>>>> keyPath: "+resource.getFile().getAbsolutePath());
+//            System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//        }
+//        System.setProperty("javax.net.ssl.trustStoreType", keyType);
+//        System.setProperty("javax.net.ssl.trustStorePassword", keyPassword);
+//
+//        MongoClientOptions.Builder builder = MongoClientOptions.builder();
+//        MongoClientOptions options=builder.sslEnabled(true).build();
+//        return options;
+//    }
 
 //    protected static class SSLContextHelper {
 //
