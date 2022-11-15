@@ -76,7 +76,8 @@ public class WebappApplication extends SpringBootServletInitializer {
         localeResolver.setDefaultLocale(Locale.US);
         return localeResolver;
     }
-
+//comment dev
+/*
     @Bean
     public  MongoClientOptions mongoClientOptions(){
         String keyPath = "ssl/ap-se-store.jks";
@@ -103,6 +104,7 @@ public class WebappApplication extends SpringBootServletInitializer {
         MongoClientOptions options=builder.sslEnabled(true).build();
         return options;
     }
+*/
 
 
 
