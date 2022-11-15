@@ -193,17 +193,19 @@ public class UserApi extends CommonApi {
 
         Profile adminProfile = userValidateToken(token, request);
         Profile profile = userValidateId(id);
-        //check superAdmin permission
-        if (profile.getRole()!=null&&profile.getRole().getSuperAdmin()==true){
-            if (adminProfile.getRole()==null){
-                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
-            }else {
-                if (adminProfile.getRole().getSuperAdmin()==false){
+        if (!adminProfile.getId().equals(profile.getId())) {
+            //check superAdmin permission
+            if (profile.getRole() != null && profile.getRole().getSuperAdmin() == true) {
+                if (adminProfile.getRole() == null) {
                     throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                } else {
+                    if (adminProfile.getRole().getSuperAdmin() == false) {
+                        throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                    }
+
                 }
 
             }
-
         }
 
         if (!email.equals(profile.getEmail())) {
@@ -489,7 +491,7 @@ public class UserApi extends CommonApi {
                 }
             }
 
-            //check no damin
+            //check no admin
             if ( byId.getRole()!=null&&byId.getRole().getSuperAdmin()==false&&byId.getRole().getAdminGroups().size() == 0&&byId.getRole().getTechnicianGroups().size() == 0) {
                 byId.setRole(null);
             }
