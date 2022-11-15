@@ -193,6 +193,19 @@ public class UserApi extends CommonApi {
 
         Profile adminProfile = userValidateToken(token, request);
         Profile profile = userValidateId(id);
+        //check superAdmin permission
+        if (profile.getRole()!=null&&profile.getRole().getSuperAdmin()==true){
+            if (adminProfile.getRole()==null){
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }else {
+                if (adminProfile.getRole().getSuperAdmin()==false){
+                    throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                }
+
+            }
+
+        }
+
         if (!email.equals(profile.getEmail())) {
             if (email.length() > 0 && profileRepository.findByEmailIgnoreCase(email) != null) {
                 return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicateEmail()));
@@ -410,7 +423,6 @@ public class UserApi extends CommonApi {
     public BaseResponse manageAdmin(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = true) String id
-            , @RequestParam(value = "superAdmin", defaultValue = "", required = true) boolean superAdmin
             , @RequestParam(value = "groupId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupId
             , @RequestParam(value = "groupIdDelete", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupIdDelete
             , @RequestParam(value = "techId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> techId
@@ -423,14 +435,18 @@ public class UserApi extends CommonApi {
         if (byId==null){
             return getError(ErrorFactory.getError(FAILED, localizeText.getNoUserFound()));
         }else {
-                RoleAdmin roleSuper = new RoleAdmin();
-                if (byId.getRole() != null) {
-                    roleSuper = byId.getRole();
+            //check superAdmin permission
+            if (byId.getRole()!=null&&byId.getRole().getSuperAdmin()==true){
+                if (adminProfile.getRole()==null){
+                    throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                }else {
+                    if (byId.getRole().getSuperAdmin()==false){
+                        throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                    }
+
                 }
-                roleSuper.setSuperAdmin(superAdmin);
-                byId.setRole(roleSuper);
 
-
+            }
 
             if (groupId.size()>0) {
                 for (String groupAdd:groupId) {
