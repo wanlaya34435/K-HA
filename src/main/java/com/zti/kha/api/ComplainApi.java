@@ -493,7 +493,13 @@ public class ComplainApi extends CommonApi {
             check.add( complain.getGroupId());
             checkAdminComplain(profile,check);
 
-        } else {
+        }else if (complain.getAuthor().equals(profile.getId())&&profile.getRole()!=null) {
+            List<String>check = new ArrayList<>();
+            check.add( complain.getGroupId());
+            checkAdminComplain(profile,check);
+        }else {
+
+
             if (complain.getCurrentStatus() != 0) {
                 throw new PostExceptions(FAILED, localizeText.getNoUpdate());
             }
