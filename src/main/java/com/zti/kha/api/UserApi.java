@@ -74,9 +74,9 @@ public class UserApi extends CommonApi {
         if (token.length()>0){
              adminProfile = userValidateToken(token, request);
             checkSuperAdminGroups(adminProfile,groupId);
-            RoleAdmin roleAdmin = new RoleAdmin();
+           /* RoleAdmin roleAdmin = new RoleAdmin();
             roleAdmin.setSuperAdmin(true);
-            profile.setRole(roleAdmin);
+            profile.setRole(roleAdmin);*/
         }
 
         if ( userName != null&&!userName.equals("")&& profileRepository.findByUserNameIgnoreCase(userName) != null  ) {
