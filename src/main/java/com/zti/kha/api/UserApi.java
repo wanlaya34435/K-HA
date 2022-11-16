@@ -74,6 +74,9 @@ public class UserApi extends CommonApi {
         if (token.length()>0){
              adminProfile = userValidateToken(token, request);
             checkSuperAdminGroups(adminProfile,groupId);
+            RoleAdmin roleAdmin = new RoleAdmin();
+            roleAdmin.setSuperAdmin(true);
+            profile.setRole(roleAdmin);
         }
 
         if ( userName != null&&!userName.equals("")&& profileRepository.findByUserNameIgnoreCase(userName) != null  ) {
@@ -100,6 +103,7 @@ public class UserApi extends CommonApi {
             profile.setProvinceCode(provinceCode);
             profile.setDistrictCode(districtCode);
             profile.setSubDistrictCode(subDistrictCode);
+
             if (endContract.length() > 0) {
                 if (endContract.equals("null")) {
                     profile.setEndContract(null);
