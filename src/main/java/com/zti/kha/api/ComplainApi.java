@@ -630,9 +630,9 @@ public class ComplainApi extends CommonApi {
             List<String>check = new ArrayList<>();
             check.add( byIdIn.get().getGroupId());
             checkAdminComplain(profile,check);
-            if (byIdIn.get().getCurrentStatus() != 0) {
-                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
-            }
+//            if (byIdIn.get().getCurrentStatus() != 0) {
+//                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+//            }
             complainRepository.delete(byIdIn.get());
         }
         return getOk(new BaseResponse(OK, localizeText.getDeleted()));
