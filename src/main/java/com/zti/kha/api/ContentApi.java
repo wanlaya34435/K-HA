@@ -316,9 +316,8 @@ public class ContentApi extends CommonApi {
         }
     }
     @CrossOrigin
-    @ApiOperation(value = "ข่าวประชาสัมพันธ์", notes = "", response = News.class)
-    @RequestMapping(value = "/getNews", method = RequestMethod.GET)
-    public BaseResponse getNews(HttpServletRequest request
+    @RequestMapping(value = "/noti", method = RequestMethod.GET)
+    public BaseResponse noti(HttpServletRequest request
     ) throws PostExceptions, ParseException {
 
 //                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
