@@ -315,18 +315,18 @@ public class ContentApi extends CommonApi {
             return getOk(new BaseResponse(OK, localizeText.getPostUploaded(), newsEvent));
         }
     }
-    @CrossOrigin
-    @RequestMapping(value = "/noti", method = RequestMethod.GET)
-    public BaseResponse noti(HttpServletRequest request
-    ) throws PostExceptions, ParseException {
-
-//                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
-                sendPushNotification(TYPE_NEWS, "", "ทดสอบ", "635f65bb4cedfd0001fd7efa",TOPIC);
-
-
-
-            return getOk(new BaseResponse(OK, localizeText.getPostUploaded()));
-}
+//    @CrossOrigin
+//    @RequestMapping(value = "/noti", method = RequestMethod.GET)
+//    public BaseResponse noti(HttpServletRequest request
+//    ) throws PostExceptions, ParseException {
+//
+////                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
+//                sendPushNotification(TYPE_NEWS, "", "ทดสอบ", "635f65bb4cedfd0001fd7efa",TOPIC);
+//
+//
+//
+//            return getOk(new BaseResponse(OK, localizeText.getPostUploaded()));
+//}
 
 
     @CrossOrigin

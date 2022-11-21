@@ -816,13 +816,13 @@ public class CommonApi {
                 newsRepository.save(byId);
             } else if (type.equals(TYPE_NOTIFICATIONS)) {
                 GcmSender.sendForNotification(id, title, type, 1, groupId, notificationsRepository, GCM_KEY, TOPIC);
-//                Notifications byId = notificationsRepository.findById(id).get();
-//                if (byId.getStatus() != 3) {
-//                    byId.setStatus(2);
-//                    byId.setSendNotiDate(new Date());
-//                    byId.setPushAlready(true);
-//                    notificationsRepository.save(byId);
-//                }
+                Notifications byId = notificationsRepository.findById(id).get();
+                if (byId.getStatus() != 3) {
+                    byId.setStatus(2);
+                    byId.setSendNotiDate(new Date());
+                    byId.setPushAlready(true);
+                    notificationsRepository.save(byId);
+                }
             }
         }
 
