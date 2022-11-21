@@ -104,7 +104,7 @@ public class GcmSender extends CommonApi {
         } catch (IOException | JSONException e) {
             Notifications byId = notificationsRepository.findById(id).get();
             byId.setStatus(3);
-//            byId.setErrorPush(e.getStackTrace().toString()+"-------"+e.toString());
+            byId.setErrorPush(e.getStackTrace().toString()+"-------"+e.toString());
             notificationsRepository.save(byId);
             e.printStackTrace();
         }
