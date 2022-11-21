@@ -551,7 +551,6 @@ public class CommonApi {
             }
         }
 
-
     }
 
     public List<ReadGroup> setGroupName(List<ReadGroup> readGroups) {
