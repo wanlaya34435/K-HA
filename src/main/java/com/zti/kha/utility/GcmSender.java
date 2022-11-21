@@ -89,23 +89,9 @@ public class GcmSender extends CommonApi {
             gcmJson.put("notification", notification);
             gcmJson.put("data", data);
 
-            //////////
-            String keyPath = "ssl/ap-se-store.jks";
-            String keyType = "JKS";
-            String keyPassword = "zeal1tech";
-            try {
-                Resource resource = new ClassPathResource(keyPath);
-                System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
-                System.setProperty("javax.net.ssl.keyStore", resource.getFile().getAbsolutePath());
-            } catch (Exception e) {
 
-                e.printStackTrace();
-            }
-            System.setProperty("javax.net.ssl.trustStoreType", keyType);
-            System.setProperty("javax.net.ssl.trustStorePassword", keyPassword);
-            System.setProperty("javax.net.ssl.keyStoreType", keyType);
-            System.setProperty("javax.net.ssl.keyStorePassword", keyPassword);
-            ///////////
+
+
 
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
