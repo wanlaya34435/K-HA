@@ -77,28 +77,28 @@ public class WebappApplication extends SpringBootServletInitializer {
         return localeResolver;
     }
 // Comment code when dev
-//    @Bean
-//    public  MongoClientOptions mongoClientOptions(){
-//        String keyPath = "ssl/ap-se-store.jks";
-//        String keyType = "JKS";
-//        String keyPassword = "zeal1tech";
-//        try {
-//            Resource resource = new ClassPathResource(keyPath);
-//            System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
-//            System.setProperty("javax.net.ssl.keyStore", resource.getFile().getAbsolutePath());
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//        }
-//        System.setProperty("javax.net.ssl.trustStoreType", keyType);
-//        System.setProperty("javax.net.ssl.trustStorePassword", keyPassword);
-//        System.setProperty("javax.net.ssl.keyStoreType", keyType);
-//        System.setProperty("javax.net.ssl.keyStorePassword", keyPassword);
-//
-//        MongoClientOptions.Builder builder = MongoClientOptions.builder();
-//        MongoClientOptions options=builder.sslEnabled(true).build();
-//        return options;
-//    }
+    @Bean
+    public  MongoClientOptions mongoClientOptions(){
+        String keyPath = "ssl/ap-se-store.jks";
+        String keyType = "JKS";
+        String keyPassword = "zeal1tech";
+        try {
+            Resource resource = new ClassPathResource(keyPath);
+            System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
+            System.setProperty("javax.net.ssl.keyStore", resource.getFile().getAbsolutePath());
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        System.setProperty("javax.net.ssl.trustStoreType", keyType);
+        System.setProperty("javax.net.ssl.trustStorePassword", keyPassword);
+        System.setProperty("javax.net.ssl.keyStoreType", keyType);
+        System.setProperty("javax.net.ssl.keyStorePassword", keyPassword);
+
+        MongoClientOptions.Builder builder = MongoClientOptions.builder();
+        MongoClientOptions options=builder.sslEnabled(true).build();
+        return options;
+    }
 
 
 }
