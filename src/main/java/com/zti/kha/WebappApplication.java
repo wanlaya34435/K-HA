@@ -101,6 +101,5 @@ public class WebappApplication extends SpringBootServletInitializer {
     }
 
 
-
-    }
+}
 

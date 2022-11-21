@@ -5,6 +5,8 @@ import com.zti.kha.controller.NotificationsRepository;
 import com.zti.kha.model.Content.Noti.Notifications;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,6 +88,24 @@ public class GcmSender extends CommonApi {
             data.put("message", "message");
             gcmJson.put("notification", notification);
             gcmJson.put("data", data);
+
+            //////////
+            String keyPath = "ssl/ap-se-store.jks";
+            String keyType = "JKS";
+            String keyPassword = "zeal1tech";
+            try {
+                Resource resource = new ClassPathResource(keyPath);
+                System.setProperty("javax.net.ssl.trustStore", resource.getFile().getAbsolutePath());
+                System.setProperty("javax.net.ssl.keyStore", resource.getFile().getAbsolutePath());
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            System.setProperty("javax.net.ssl.trustStoreType", keyType);
+            System.setProperty("javax.net.ssl.trustStorePassword", keyPassword);
+            System.setProperty("javax.net.ssl.keyStoreType", keyType);
+            System.setProperty("javax.net.ssl.keyStorePassword", keyPassword);
+            ///////////
 
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
