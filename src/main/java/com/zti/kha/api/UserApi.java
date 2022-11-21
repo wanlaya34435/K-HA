@@ -40,7 +40,7 @@ public class UserApi extends CommonApi {
     static Logger log = LogManager.getLogger(SSOToken.class);
     public UserApi() throws Exception {
     }
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
     public BaseResponse generate(HttpServletRequest request) throws PostExceptions, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         initialize(request);
@@ -127,7 +127,7 @@ public class UserApi extends CommonApi {
         }
 
         return getOk(new BaseResponse());
-    }
+    }*/
     @CrossOrigin
     @ApiOperation(value = "สมัครสมาชิก", notes = "", response = Profile.class)
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
