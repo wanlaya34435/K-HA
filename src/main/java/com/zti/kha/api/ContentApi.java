@@ -213,40 +213,40 @@ public class ContentApi extends CommonApi {
 
     ) throws PostExceptions {
         initialize(request);
-//        Profile profile = userValidateToken(token, request);
+        Profile profile = userValidateToken(token, request);
         News newsEvent = new News();
         List<String> picturesList = new ArrayList<>();
-//        if (id.length() > 0) {
-//            Optional<News> byId = newsRepository.findById(id);
-//            newsEvent = byId.get();
-//            checkSuperAdminGroups(profile, newsEvent.getGroupId());
-//            picturesList = newsEvent.getPicturesPath();
-//        } else {
-//            checkSuperAdminGroups(profile, groupId);
-//        }
-//        if (pictures != null && pictures.length > 0) {
-//            List<String> picture = picture(picturesList, pictures, profile);
-//            newsEvent.setPicturesPath(picture);
-//        }
-//        if (thumbnailFile != null) {
-//            newsEvent.setThumbnailsPath(thumbnail(thumbnailFile, profile, FOLDER_COVER));
-//        }
+        if (id.length() > 0) {
+            Optional<News> byId = newsRepository.findById(id);
+            newsEvent = byId.get();
+            checkSuperAdminGroups(profile, newsEvent.getGroupId());
+            picturesList = newsEvent.getPicturesPath();
+        } else {
+            checkSuperAdminGroups(profile, groupId);
+        }
+        if (pictures != null && pictures.length > 0) {
+            List<String> picture = picture(picturesList, pictures, profile);
+            newsEvent.setPicturesPath(picture);
+        }
+        if (thumbnailFile != null) {
+            newsEvent.setThumbnailsPath(thumbnail(thumbnailFile, profile, FOLDER_COVER));
+        }
         if (sequence == 0) {
             newsEvent.setSequence(9999);
         } else {
             newsEvent.setSequence(sequence);
         }
-//        if (filesPath != null) {
-//            newsEvent.setFilesPath(pdf(filesPath, profile).get(0));
-//        }
-//
-//        if (videoPath != null) {
-//            newsEvent.setVideoPath(uploadFile(videoPath, profile, FOLDER_VIDEO, FILE_TYPE_MP4));
-//        }
-//
-//        if (audioPath != null) {
-//            newsEvent.setAudioPath(uploadFile(audioPath, profile, FOLDER_AUDIO, FILE_TYPE_MP3));
-//        }
+        if (filesPath != null) {
+            newsEvent.setFilesPath(pdf(filesPath, profile).get(0));
+        }
+
+        if (videoPath != null) {
+            newsEvent.setVideoPath(uploadFile(videoPath, profile, FOLDER_VIDEO, FILE_TYPE_MP4));
+        }
+
+        if (audioPath != null) {
+            newsEvent.setAudioPath(uploadFile(audioPath, profile, FOLDER_AUDIO, FILE_TYPE_MP3));
+        }
         newsEvent.setGroupId(groupId);
         newsEvent.setCategory(category);
         newsEvent.setTitle(title);
@@ -278,7 +278,7 @@ public class ContentApi extends CommonApi {
                 newsEvent.setPicturesPath(picturesList);
             }
             newsEvent.setUpdateDate(new Date());
-//            newsEvent.setEditBy(profile.getUserName());
+            newsEvent.setEditBy(profile.getUserName());
             News save = newsRepository.save(newsEvent);
             if (save.isPushnotification() == true && save.isPushAlready() == false) {
                 new Thread(new Runnable() {
@@ -294,19 +294,17 @@ public class ContentApi extends CommonApi {
             }
             return getOk(new BaseResponse(OK, localizeText.getDataUpdated(), newsEvent));
         } else {
-//
-//            newsEvent.setAuthor(profile.getUserName());
-//            newsEvent.setEditBy(profile.getUserName());
-//            News save = newsRepository.insert(newsEvent);
 
-//            if (save.isPushnotification() == true && save.isPushAlready() == false) {
+            newsEvent.setAuthor(profile.getUserName());
+            newsEvent.setEditBy(profile.getUserName());
+            News save = newsRepository.insert(newsEvent);
+
+            if (save.isPushnotification() == true && save.isPushAlready() == false) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-//                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
-                                                       sendPushNotification(TYPE_NEWS, "", "ทดสอบ", "635f65bb4cedfd0001fd7efa",TOPIC);
-
+                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
                         } catch (PostExceptions postExceptions) {
                             postExceptions.printStackTrace();
                         }
@@ -315,8 +313,22 @@ public class ContentApi extends CommonApi {
             }
 
             return getOk(new BaseResponse(OK, localizeText.getPostUploaded(), newsEvent));
-//        }
+        }
     }
+    @CrossOrigin
+    @ApiOperation(value = "ข่าวประชาสัมพันธ์", notes = "", response = News.class)
+    @RequestMapping(value = "/getNews", method = RequestMethod.GET)
+    public BaseResponse getNews(HttpServletRequest request
+    ) throws PostExceptions, ParseException {
+
+//                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
+                sendPushNotification(TYPE_NEWS, "", "ทดสอบ", "635f65bb4cedfd0001fd7efa",TOPIC);
+
+
+
+            return getOk(new BaseResponse(OK, localizeText.getPostUploaded()));
+}
+
 
     @CrossOrigin
     @ApiOperation(value = "ข่าวประชาสัมพันธ์", notes = "", response = News.class)
