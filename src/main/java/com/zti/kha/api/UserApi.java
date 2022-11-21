@@ -40,7 +40,94 @@ public class UserApi extends CommonApi {
     static Logger log = LogManager.getLogger(SSOToken.class);
     public UserApi() throws Exception {
     }
+    @CrossOrigin
+    @RequestMapping(value = "/generate", method = RequestMethod.GET)
+    public BaseResponse generate(HttpServletRequest request) throws PostExceptions, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        initialize(request);
+        for (int i =1;i<21;i++){
+            Profile profile = new Profile();
+            RoleAdmin roleAdmin = new RoleAdmin();
+            roleAdmin.setSuperAdmin(true);
+            profile.setRole(roleAdmin);
+            profile.setSecret(createPassword("123456789"));
+            String username ="";
+            if (i<10){
+                username = "superKHA0" + i;
+            }else {
+                username = "superKHA" + i;
+            }
 
+            profile.setUserName(username);
+            profile.setFirstName(username);
+            profile.setLastName("SuperAdmin");
+            profile.setIdCard("");
+            profile.setAmountResidents(100);
+            profile.setType(1);
+            profile.setJob("เจ้าหน้าที่");
+            profile.setKhaId("");
+            profile.setAddress("");
+            profile.setProvinceCode("");
+            profile.setDistrictCode("");
+            profile.setSubDistrictCode("");
+            profile.setEndContract(null);
+            List<ReadGroup> readList = new ArrayList<>();
+            //set default group
+            List<Group> byDefaultIs = groupRepository.findByMain(true);
+            for (Group group : byDefaultIs) {
+                ReadGroup readGroup = new ReadGroup(group.getId());
+                readList.add(readGroup);
+            }
+            profile.setReadGroups(readList);
+
+            profile.setEmail("");
+            profile.setPhoneNumber("");
+            profile.setPermissionMenu("");
+            profile.setPermissionButton("");
+
+            Profile insert = profileRepository.insert(profile);
+        }
+        for (int i =1;i<41;i++){
+            Profile profile = new Profile();
+            profile.setSecret(createPassword("123456789"));
+            String username ="";
+            if (i<10){
+                username = "userKHA0" + i;
+            }else {
+                username = "userKHA" + i;
+            }
+
+            profile.setUserName(username);
+            profile.setFirstName(username);
+            profile.setLastName("User");
+            profile.setIdCard("");
+            profile.setAmountResidents(100);
+            profile.setType(1);
+            profile.setJob("พนักงานเอกชน");
+            profile.setKhaId("");
+            profile.setAddress("");
+            profile.setProvinceCode("");
+            profile.setDistrictCode("");
+            profile.setSubDistrictCode("");
+            profile.setEndContract(null);
+            List<ReadGroup> readList = new ArrayList<>();
+            //set default group
+            List<Group> byDefaultIs = groupRepository.findByMain(true);
+            for (Group group : byDefaultIs) {
+                ReadGroup readGroup = new ReadGroup(group.getId());
+                readList.add(readGroup);
+            }
+            profile.setReadGroups(readList);
+
+            profile.setEmail("");
+            profile.setPhoneNumber("");
+            profile.setPermissionMenu("");
+            profile.setPermissionButton("");
+
+            Profile insert = profileRepository.insert(profile);
+        }
+
+        return getOk(new BaseResponse());
+    }
     @CrossOrigin
     @ApiOperation(value = "สมัครสมาชิก", notes = "", response = Profile.class)
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
