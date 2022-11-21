@@ -92,7 +92,6 @@ public class GcmSender extends CommonApi {
 
 
 
-
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Authorization", "key=" + GCM_KEY);
