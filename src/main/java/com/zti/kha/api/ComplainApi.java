@@ -98,6 +98,9 @@ public class ComplainApi extends CommonApi {
             Transport.send(message);
         } catch (javax.mail.MessagingException e) {
             e.printStackTrace();
+            return getOk(new BaseResponse(OK,e.toString()));
+
+
         }
 
 
