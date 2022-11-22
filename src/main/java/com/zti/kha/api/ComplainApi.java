@@ -58,6 +58,52 @@ public class ComplainApi extends CommonApi {
         }
         return pageable;
     }
+    @CrossOrigin
+    @RequestMapping(value = "/testMail", method = RequestMethod.GET)
+    public BaseResponse testMail(HttpServletRequest request
+    ) throws PostExceptions, ParseException {
+
+        Properties props = new Properties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(MAIL_SENDER, MAIL_PASSWORD);
+                    }
+                });
+        Message message = new MimeMessage(session);
+        try {
+            message.setFrom(new InternetAddress(MAIL_SENDER));
+
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse("wanlaya.c@zealtechinter.com"));
+            message.setSubject("แจ้งเตือนการร้องเรียนใหม่จากระบบ myKHA");
+
+
+            message.setContent("<!DOCTYPE html>\n" +
+                    "<html lang=\"en\">\n" +
+                    "<body>\n" +
+                    "<p>เรียน เจ้าหน้าที่และผู้ที่เกี่ยวข้อง</p>\n" +
+                    "<p>เราขอแจ้งให้ทราบว่าขณะนี้มีผู้ใช้งานร้องเรียน แจ้งเหตุผ่านระบบรับเรื่องร้องเรียน แจ้งเหตุ ผ่าน Website และ Mobile Application โดยมีรายละเอียดดังนี้</p>" +
+                    "<p>ท่านสามารถอัปเดตสถานะการเนินการผ่าน Web Service ของระบบได้ที่ลิงค์ : " + URL_CMS + "login.html" + "</p>\n" +
+                    "<p>หมายเหตุ : ข้อความนี้เป็นระบบอัตโนมัติ</p>" +
+                    "</body>\n" +
+                    "</html>", "text/html; charset=utf-8"
+            );
+
+            Transport.send(message);
+        } catch (javax.mail.MessagingException e) {
+            e.printStackTrace();
+        }
+
+
+
+            return getOk(new BaseResponse(OK));
+}
 
     @CrossOrigin
     @RequestMapping(value = "/addComplain", method = RequestMethod.POST)
