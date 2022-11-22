@@ -68,6 +68,7 @@ public class ComplainApi extends CommonApi {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
 
         Session session = Session.getInstance(props,
