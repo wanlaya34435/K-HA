@@ -58,7 +58,7 @@ public class ComplainApi extends CommonApi {
         }
         return pageable;
     }
-    @CrossOrigin
+/*    @CrossOrigin
     @RequestMapping(value = "/testMail", method = RequestMethod.GET)
     public BaseResponse testMail(HttpServletRequest request
     ) throws PostExceptions, ParseException {
@@ -108,7 +108,7 @@ public class ComplainApi extends CommonApi {
 
 
             return getOk(new BaseResponse(OK));
-}
+}*/
 
     @CrossOrigin
     @RequestMapping(value = "/addComplain", method = RequestMethod.POST)
