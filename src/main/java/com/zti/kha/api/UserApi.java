@@ -40,7 +40,7 @@ public class UserApi extends CommonApi {
     static Logger log = LogManager.getLogger(SSOToken.class);
     public UserApi() throws Exception {
     }
-    @CrossOrigin
+  /*  @CrossOrigin
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
     public BaseResponse generate(HttpServletRequest request) throws PostExceptions, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         initialize(request);
@@ -86,7 +86,7 @@ public class UserApi extends CommonApi {
 
             Profile insert = profileRepository.insert(profile);
         }
-        /*for (int i =1;i<41;i++){
+        for (int i =1;i<41;i++){
             Profile profile = new Profile();
             profile.setSecret(createPassword("123456789"));
             String username ="";
@@ -124,10 +124,10 @@ public class UserApi extends CommonApi {
             profile.setPermissionButton("");
 
             Profile insert = profileRepository.insert(profile);
-        }*/
+        }
 
         return getOk(new BaseResponse());
-    }
+    }*/
     @CrossOrigin
     @ApiOperation(value = "สมัครสมาชิก", notes = "", response = Profile.class)
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
