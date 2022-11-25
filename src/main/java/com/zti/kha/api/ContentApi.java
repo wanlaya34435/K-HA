@@ -1163,7 +1163,7 @@ public class ContentApi extends CommonApi {
     @RequestMapping(value = "/countNotification", method = RequestMethod.GET)
     public BaseResponse countNotification(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
-            , @RequestParam(value = "groupId", defaultValue = "", required = true) String groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = true) List<String> groupId
 
     ) throws PostExceptions {
         initialize(request);
@@ -1372,7 +1372,7 @@ public class ContentApi extends CommonApi {
         return list;
     }
 
-    private int countNoti(Profile profile,String groupId) {
+    private int countNoti(Profile profile,List<String> groupId) {
         Query query = Query.query(Criteria.where("statisticType").is(TYPE_NOTIFICATIONS));
         query.addCriteria(Criteria.where("userId").is(profile.getId()));
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);//dd/MM/yyyy
@@ -1394,8 +1394,8 @@ public class ContentApi extends CommonApi {
         }
 
         Query queryAll = new Query();
-        queryAll.addCriteria(Criteria.where("enable").in(true));
-        queryAll.addCriteria(Criteria.where("groupId").is(groupId));
+        queryAll.addCriteria(Criteria.where("enable").is(true));
+        queryAll.addCriteria(Criteria.where("groupId").in(groupId));
         queryAll.addCriteria(Criteria.where("createDate").gte(profile.getCreateDate()));
 
         List<Notifications> postAll = mongoTemplate.find(queryAll, Notifications.class);
