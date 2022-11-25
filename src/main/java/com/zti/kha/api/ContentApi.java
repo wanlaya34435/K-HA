@@ -1373,10 +1373,12 @@ public class ContentApi extends CommonApi {
     }
 
     private int countNoti(Profile profile,List<String> groupId) {
-        Query query = Query.query(Criteria.where("statisticType").is(TYPE_NOTIFICATIONS));
-        query.addCriteria(Criteria.where("userId").is(profile.getId()));
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);//dd/MM/yyyy
         String date = sdfDate.format(profile.getCreateDate());
+
+        Query query = Query.query(Criteria.where("statisticType").is(TYPE_NOTIFICATIONS));
+        query.addCriteria(Criteria.where("userId").is(profile.getId()));
+
         query.addCriteria(Criteria.where("time").gte(date));
         List<String> viewStatisticsOpen = new ArrayList<>();
 
@@ -1385,8 +1387,11 @@ public class ContentApi extends CommonApi {
         while (cursorOpen.hasNext()) {
             viewStatisticsOpen.add((String) cursorOpen.next());
         }
+
+        Query queryDelete = Query.query(Criteria.where("userId").is((profile.getId())));
+        queryDelete.addCriteria(Criteria.where("createDate").gte(profile.getCreateDate()));
         List<String> viewStatisticsDelete = new ArrayList<>();
-        DistinctIterable distinctDelete = mongoTemplate.getCollection("deleteNotification").distinct("contentId", query.getQueryObject(), String.class);
+        DistinctIterable distinctDelete = mongoTemplate.getCollection("deleteNotification").distinct("contentId", queryDelete.getQueryObject(), String.class);
 
         MongoCursor cursor = distinctDelete.iterator();
         while (cursor.hasNext()) {
