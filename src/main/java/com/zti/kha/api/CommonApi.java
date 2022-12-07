@@ -529,7 +529,57 @@ public class CommonApi {
         }
 
     }
+    protected void checkAdminGroupsList(Profile profile, List<ReadGroup> groupId) throws PostExceptions {
+        if (profile.getRole() == null) {
+            throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        }
+        for (ReadGroup group:groupId) {
+            if (!profile.getRole().getAdminGroups().contains(group.getGroupId())) {
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
+        }
 
+    }
+    protected void checkReadGroups(Profile profile, String groupId) throws PostExceptions {
+        List<String>list = new ArrayList<>();
+        list.add(groupId);
+        checkReadGroups(profile,list);
+    }
+        protected void checkReadGroups(Profile profile, List<String> groupId) throws PostExceptions {
+        if (groupId.size()==0) {
+            if (profile.getRole() != null) {
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
+            if (profile.getRole().getSuperAdmin() == false) {
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
+        }
+        List<String>readGroup = new ArrayList<>();
+        for (ReadGroup group:profile.getReadGroups()) {
+            readGroup.add(group.getGroupId());
+        }
+
+        if (profile.getRole() != null) {
+            if (profile.getRole().getSuperAdmin() == false) {
+                for (String group:profile.getRole().getAdminGroups()) {
+                    readGroup.add(group);
+                }
+                for (String group:groupId) {
+                    if (!readGroup.contains(group)) {
+                        throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                    }
+                }
+            }
+        }else {
+            for (String group:groupId) {
+                if (!readGroup.contains(group)) {
+                    throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                }
+            }
+            }
+
+
+    }
     protected void checkAdminGroups(Profile profile, String groupId) throws PostExceptions {
         if (profile.getRole() == null) {
             throw new PostExceptions(FAILED, localizeText.getPermissionDenied());

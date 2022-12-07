@@ -43,7 +43,8 @@ public class ContactApi extends CommonApi {
     ) throws PostExceptions {
 
         initialize(request);
-        userValidateToken(token, request);
+        Profile profile = userValidateToken(token, request);
+
         Pageable pageable;
         if (sort == 1) {
             pageable = PageRequest.of(page, sizeContents, Sort.by("sequence").ascending().and(Sort.by("name1").ascending()));
@@ -53,8 +54,14 @@ public class ContactApi extends CommonApi {
         Page<Contact> byId = null;
         if (id.length() > 0) {
             byId = contactRepository.findById(id, pageable);
+            if (byId.getContent().size()==0){
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+            }
+            checkReadGroups(profile,groupId);
 
         } else {
+            checkReadGroups(profile,groupId);
+
             Query query = new Query().with(pageable);
             if (groupId.size() > 0) {
                 query.addCriteria(Criteria.where("groupId").in(groupId));

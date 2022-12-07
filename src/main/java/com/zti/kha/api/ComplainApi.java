@@ -6,10 +6,7 @@ import com.zti.kha.model.ComplainInfo.ComplainRate;
 
 import com.zti.kha.model.Base.BaseResponse;
 import com.zti.kha.model.ComplainInfo.Status;
-import com.zti.kha.model.User.Group;
-import com.zti.kha.model.User.GroupDisplay;
-import com.zti.kha.model.User.Profile;
-import com.zti.kha.model.User.ProfileDisplay;
+import com.zti.kha.model.User.*;
 import com.zti.kha.utility.ErrorFactory;
 import com.zti.kha.utility.GcmSender;
 import com.zti.kha.utility.PostExceptions;
@@ -135,6 +132,14 @@ public class ComplainApi extends CommonApi {
         initialize(request);
         Profile profile = userValidateToken(token, request);
         Complain complain = new Complain();
+        List<String> readGroupId = new ArrayList<>();
+        for (ReadGroup group:profile.getReadGroups()){
+            readGroupId.add(group.getGroupId());
+        }
+        if (!readGroupId.contains(groupId)){
+            throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        }
+
         List<String> picturesList = new ArrayList<>();
         if (pictures != null && pictures.length > 0) {
             List<String> picture = picture(picturesList, pictures, profile);
@@ -814,9 +819,10 @@ public class ComplainApi extends CommonApi {
             , @RequestParam(value = "page", defaultValue = "0", required = false) int page
             , @RequestParam(value = "sizeContents", defaultValue = "30", required = false) int sizeContents) throws PostExceptions {
         initialize(request);
-        userValidateToken(token, request);
+        Profile profile = userValidateToken(token, request);
 
         Pageable pageable = PageRequest.of(page, sizeContents, Sort.by("createDate").descending());
+
 
         Query query = new Query().with(pageable);
 
@@ -824,9 +830,20 @@ public class ComplainApi extends CommonApi {
         Page<CommentComplain> byContent;
         if (id.length() > 0) {
             byContent = commentComplainRepository.findByIdIs(id, pageable);
+
         } else {
+
             if (complainId.length() > 0) {
+                Optional<Complain> byComplainId = complainRepository.findByComplainId(complainId);
+                if (byComplainId.isPresent()==false){
+                    return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+                }
+                checkRoleCommentComplain(profile, byComplainId.get());
+
                 query.addCriteria(Criteria.where("complainId").is(complainId));
+            }else {
+                checkSuperAdmin(profile);
+
             }
 
             if (enable.equals("1")) {

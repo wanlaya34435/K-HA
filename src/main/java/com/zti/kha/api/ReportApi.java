@@ -45,7 +45,20 @@ public class ReportApi extends CommonApi {
                                  @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate,
                                  @RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord) throws PostExceptions {
         initialize(request);
-        Profile profile1 = userValidateToken(token, request);
+        Profile adminProfile = userValidateToken(token, request);
+        if (readGroupId.size()>0){
+            for (String group:readGroupId){
+                checkSuperAdminGroups(adminProfile,group);
+            }
+        }else {
+            if (adminProfile.getRole() == null) {
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
+            if (adminProfile.getRole().getSuperAdmin() == false) {
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
+        }
+
         Query query = new Query().with(Sort.by("createDate").descending());
 
         if (role.length() > 0) {

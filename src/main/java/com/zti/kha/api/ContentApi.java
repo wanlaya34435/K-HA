@@ -11,6 +11,7 @@ import com.zti.kha.model.Statistic.ViewStatistic;
 import com.zti.kha.model.User.GroupDisplay;
 import com.zti.kha.model.User.Profile;
 import com.zti.kha.model.User.ProfileDisplay;
+import com.zti.kha.utility.ErrorFactory;
 import com.zti.kha.utility.PostExceptions;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -125,12 +126,18 @@ public class ContentApi extends CommonApi {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false,order,orderSequence);
+
+        Pageable pageable = sortPage(page, sizeContents, sort, false, order, orderSequence);
         Page<Banner> byId = null;
         if (id.length() > 0) {
             byId = bannerRepository.findById(id, pageable);
-
+            if (byId.getContent().size() == 0) {
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+            }
+            checkReadGroups(profile, byId.getContent().get(0).getGroupId());
         } else {
+            checkReadGroups(profile, groupId);
+
             Query query = new Query().with(pageable);
             if (authorName.length() > 0) {
                 query.addCriteria(Criteria.where("author").is(authorName));
@@ -177,7 +184,7 @@ public class ContentApi extends CommonApi {
             }
             //set group profile
             GroupDisplay group = groupRepository.findByIdIs(byId.getContent().get(i).getGroupId());
-            if (group!=null){
+            if (group != null) {
                 byId.getContent().get(i).setGroupProfile(group);
             }
         }
@@ -285,7 +292,7 @@ public class ContentApi extends CommonApi {
                     @Override
                     public void run() {
                         try {
-                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
+                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(), TOPIC);
                         } catch (PostExceptions postExceptions) {
                             postExceptions.printStackTrace();
                         }
@@ -304,7 +311,7 @@ public class ContentApi extends CommonApi {
                     @Override
                     public void run() {
                         try {
-                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
+                            sendPushNotification(TYPE_NEWS, save.getId(), save.getTitle(), save.getGroupId(), TOPIC);
                         } catch (PostExceptions postExceptions) {
                             postExceptions.printStackTrace();
                         }
@@ -344,7 +351,7 @@ public class ContentApi extends CommonApi {
             , @RequestParam(value = "startDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String startDate
             , @RequestParam(value = "endDate", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endDate
             , @RequestParam(value = "sequence", defaultValue = "", required = false) String sequence
-            , @RequestParam(value = "groupId", defaultValue = "", required = false)  List<String> groupId
+            , @RequestParam(value = "groupId", defaultValue = "", required = false) List<String> groupId
             , @RequestParam(value = "category", defaultValue = "", required = false) @ApiParam(value = "categoryCode of categoryType: news") String category
             , @RequestParam(value = "enable", defaultValue = "1", required = false) @ApiParam(value = "0=not filter,1=true,2=false") String enable
             , @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int order
@@ -365,14 +372,19 @@ public class ContentApi extends CommonApi {
             }
         }
 
-        Pageable pageable = sortPage(page, sizeContents, sort, false,order,orderSequence);
+        Pageable pageable = sortPage(page, sizeContents, sort, false, order, orderSequence);
         Page<News> byId = null;
         if (id.length() > 0) {
             byId = newsRepository.findById(id, pageable);
-
-            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView()+1);
+            if (byId.getContent().size() == 0) {
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+            }
+            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView() + 1);
             newsRepository.save(byId.getContent().get(0));
+
+            checkReadGroups(profile, byId.getContent().get(0).getGroupId());
         } else {
+            checkReadGroups(profile, groupId);
             Query query = new Query().with(pageable);
             queryBase(query, pin, sequence, startDate, endDate, authorName, groupId, category, enable);
 
@@ -395,7 +407,7 @@ public class ContentApi extends CommonApi {
             byId.getContent().get(i).setCategoryProfile(getCateNameList(byId.getContent().get(i).getCategory()));
             //set group profile
             GroupDisplay group = groupRepository.findByIdIs(byId.getContent().get(i).getGroupId());
-            if (group!=null){
+            if (group != null) {
                 byId.getContent().get(i).setGroupProfile(group);
             }
         }
@@ -532,16 +544,20 @@ public class ContentApi extends CommonApi {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false,order,orderSequence);
+        Pageable pageable = sortPage(page, sizeContents, sort, false, order, orderSequence);
 
         Page<Event> byId = null;
         if (id.length() > 0) {
             byId = eventRepository.findById(id, pageable);
-
-            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView()+1);
+            if (byId.getContent().size() == 0) {
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+            }
+            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView() + 1);
             eventRepository.save(byId.getContent().get(0));
 
+            checkReadGroups(profile, byId.getContent().get(0).getGroupId());
         } else {
+            checkReadGroups(profile, groupId);
             Query query = new Query().with(pageable);
             queryBase(query, pin, sequence, startDate, endDate, authorName, groupId, category, enable);
 
@@ -569,7 +585,7 @@ public class ContentApi extends CommonApi {
             byId.getContent().get(i).setCategoryProfile(getCateNameList(byId.getContent().get(i).getCategory()));
             //set group profile
             GroupDisplay group = groupRepository.findByIdIs(byId.getContent().get(i).getGroupId());
-            if (group!=null){
+            if (group != null) {
                 byId.getContent().get(i).setGroupProfile(group);
             }
         }
@@ -650,10 +666,10 @@ public class ContentApi extends CommonApi {
         if (id.length() > 0) {
             Optional<Service> byId = serviceRepository.findById(id);
             service = byId.get();
-            checkSuperAdminGroups(profile,service.getGroupId());
+            checkSuperAdminGroups(profile, service.getGroupId());
             picturesList = service.getPicturesPath();
-        }else {
-            checkSuperAdminGroups(profile,groupId);
+        } else {
+            checkSuperAdminGroups(profile, groupId);
         }
 
         if (thumbnails != null) {
@@ -725,15 +741,21 @@ public class ContentApi extends CommonApi {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false,order,orderSequence);
+
+        Pageable pageable = sortPage(page, sizeContents, sort, false, order, orderSequence);
 
         Page<Service> byId = null;
         if (id.length() > 0) {
             byId = serviceRepository.findById(id, pageable);
-
-            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView()+1);
+            if (byId.getContent().size()==0){
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+            }
+            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView() + 1);
             serviceRepository.save(byId.getContent().get(0));
+
+            checkReadGroups(profile,byId.getContent().get(0).getGroupId());
         } else {
+            checkReadGroups(profile,groupId);
             Query query = new Query().with(pageable);
             queryBase(query, pin, sequence, startDate, endDate, authorName, groupId, category, enable);
 
@@ -746,7 +768,7 @@ public class ContentApi extends CommonApi {
             Criteria description = Criteria.where("description").regex(keyWord, "i");
 
             if (keyWord != null && keyWord.length() > 0) {
-                query.addCriteria(new Criteria().orOperator(name1, address,description));
+                query.addCriteria(new Criteria().orOperator(name1, address, description));
             }
             List<Service> post = mongoTemplate.find(query, Service.class);
             long count = mongoTemplate.count(query, Service.class);
@@ -762,7 +784,7 @@ public class ContentApi extends CommonApi {
             byId.getContent().get(i).setCategoryProfile(getCateNameList(byId.getContent().get(i).getCategory()));
             //set group profile
             GroupDisplay group = groupRepository.findByIdIs(byId.getContent().get(i).getGroupId());
-            if (group!=null){
+            if (group != null) {
                 byId.getContent().get(i).setGroupProfile(group);
             }
         }
@@ -796,10 +818,10 @@ public class ContentApi extends CommonApi {
         if (id.length() > 0) {
             Optional<Knowledge> byId = knowledgeRepository.findById(id);
             knowledge = byId.get();
-            checkSuperAdminGroups(profile,knowledge.getGroupId());
+            checkSuperAdminGroups(profile, knowledge.getGroupId());
 
-        }else {
-            checkSuperAdminGroups(profile,groupId);
+        } else {
+            checkSuperAdminGroups(profile, groupId);
 
         }
 
@@ -874,15 +896,21 @@ public class ContentApi extends CommonApi {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false,order,orderSequence);
+
+        Pageable pageable = sortPage(page, sizeContents, sort, false, order, orderSequence);
 
         Page<Knowledge> byId = null;
         if (id.length() > 0) {
             byId = knowledgeRepository.findById(id, pageable);
-
-            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView()+1);
+            if (byId.getContent().size()==0){
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+            }
+            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView() + 1);
             knowledgeRepository.save(byId.getContent().get(0));
+
+            checkReadGroups(profile,byId.getContent().get(0).getGroupId());
         } else {
+            checkReadGroups(profile,groupId);
             Query query = new Query().with(pageable);
             if (mediaType.length() > 0) {
                 query.addCriteria(Criteria.where("mediaType").is(Integer.parseInt(mediaType)));
@@ -907,7 +935,7 @@ public class ContentApi extends CommonApi {
             byId.getContent().get(i).setCategoryProfile(getCateNameList(byId.getContent().get(i).getCategory()));
             //set group profile
             GroupDisplay group = groupRepository.findByIdIs(byId.getContent().get(i).getGroupId());
-            if (group!=null){
+            if (group != null) {
                 byId.getContent().get(i).setGroupProfile(group);
             }
         }
@@ -940,10 +968,10 @@ public class ContentApi extends CommonApi {
             Optional<Notifications> byId = notificationsRepository.findById(id);
             notifications = byId.get();
             picturesList = notifications.getPicturesPath();
-            checkSuperAdminGroups(profile,notifications.getGroupId());
+            checkSuperAdminGroups(profile, notifications.getGroupId());
 
-        }else {
-            checkSuperAdminGroups(profile,groupId);
+        } else {
+            checkSuperAdminGroups(profile, groupId);
 
         }
         if (pictures != null && pictures.length > 0) {
@@ -979,7 +1007,7 @@ public class ContentApi extends CommonApi {
                     @Override
                     public void run() {
                         try {
-                            sendPushNotification(TYPE_NOTIFICATIONS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
+                            sendPushNotification(TYPE_NOTIFICATIONS, save.getId(), save.getTitle(), save.getGroupId(), TOPIC);
                         } catch (PostExceptions postExceptions) {
                             postExceptions.printStackTrace();
                         }
@@ -1003,7 +1031,7 @@ public class ContentApi extends CommonApi {
                     @Override
                     public void run() {
                         try {
-                            sendPushNotification(TYPE_NOTIFICATIONS, save.getId(), save.getTitle(), save.getGroupId(),TOPIC);
+                            sendPushNotification(TYPE_NOTIFICATIONS, save.getId(), save.getTitle(), save.getGroupId(), TOPIC);
                         } catch (PostExceptions postExceptions) {
                             postExceptions.printStackTrace();
                         }
@@ -1044,18 +1072,25 @@ public class ContentApi extends CommonApi {
         initialize(request);
 
         Profile profile = userValidateToken(token, request);
-        Pageable pageable = sortPage(page, sizeContents, sort, false,order,orderSequence);
+
+        Pageable pageable = sortPage(page, sizeContents, sort, false, order, orderSequence);
 
         Page<Notifications> byId = null;
         if (id.length() > 0) {
             byId = notificationsRepository.findById(id, pageable);
+            if (byId.getContent().size()==0){
+                return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
+            }
 
             if (os.length() > 0) {
                 updateView(id, TYPE_NOTIFICATIONS, profile.getId(), Integer.parseInt(os));
             }
-            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView()+1);
+            byId.getContent().get(0).setCntView(byId.getContent().get(0).getCntView() + 1);
             notificationsRepository.save(byId.getContent().get(0));
+
+            checkReadGroups(profile,byId.getContent().get(0).getGroupId());
         } else {
+            checkReadGroups(profile,groupId);
             Query query = new Query().with(pageable);
             queryBase(query, pin, sequence, startDate, endDate, authorName, groupId, category, enable);
             if (createDate.length() > 0) {
@@ -1091,7 +1126,7 @@ public class ContentApi extends CommonApi {
             byId.getContent().get(i).setCategoryProfile(getCateNameList(byId.getContent().get(i).getCategory()));
             //set group profile
             GroupDisplay group = groupRepository.findByIdIs(byId.getContent().get(i).getGroupId());
-            if (group!=null){
+            if (group != null) {
                 byId.getContent().get(i).setGroupProfile(group);
             }
         }
@@ -1141,7 +1176,7 @@ public class ContentApi extends CommonApi {
         }
 
         Query queryAll = new Query();
-        if (category.length()>0) {
+        if (category.length() > 0) {
             queryAll.addCriteria(Criteria.where("category").in(category));
         }
         queryAll.addCriteria(Criteria.where("enable").in(true));
@@ -1169,7 +1204,7 @@ public class ContentApi extends CommonApi {
         initialize(request);
         Profile profile = userValidateToken(token, request);
 
-        int i = countNoti(profile,groupId);
+        int i = countNoti(profile, groupId);
         return getOk(new BaseResponse(i));
     }
 
@@ -1217,7 +1252,7 @@ public class ContentApi extends CommonApi {
         for (int i = 0; i < postAll.size(); i++) {
             if (!viewStatistics.contains(postAll.get(i).getId())) {
                 updateView(postAll.get(i).getId(), TYPE_NOTIFICATIONS, profile.getId(), os);
-                postAll.get(i).setCntView(postAll.get(i).getCntView()+1);
+                postAll.get(i).setCntView(postAll.get(i).getCntView() + 1);
                 notificationsRepository.save(postAll.get(i));
             }
         }
@@ -1260,7 +1295,7 @@ public class ContentApi extends CommonApi {
         }
         Query queryAll = new Query();
         queryAll.addCriteria(Criteria.where("enable").in(true));
-        if (category.length()>0) {
+        if (category.length() > 0) {
             queryAll.addCriteria(Criteria.where("category").in(category));
         }
         queryAll.addCriteria(Criteria.where("createDate").gte(profile.getCreateDate()));
@@ -1271,7 +1306,7 @@ public class ContentApi extends CommonApi {
         for (int i = 0; i < postAll.size(); i++) {
             if (!viewStatistics.contains(postAll.get(i).getId())) {
                 updateView(postAll.get(i).getId(), TYPE_NOTIFICATIONS, profile.getId(), os);
-                postAll.get(i).setCntView(postAll.get(i).getCntView()+1);
+                postAll.get(i).setCntView(postAll.get(i).getCntView() + 1);
                 notificationsRepository.save(postAll.get(i));
             }
         }
@@ -1372,7 +1407,7 @@ public class ContentApi extends CommonApi {
         return list;
     }
 
-    private int countNoti(Profile profile,List<String> groupId) {
+    private int countNoti(Profile profile, List<String> groupId) {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);//dd/MM/yyyy
         String date = sdfDate.format(profile.getCreateDate());
 

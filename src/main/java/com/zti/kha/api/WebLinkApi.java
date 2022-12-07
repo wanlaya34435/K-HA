@@ -43,7 +43,7 @@ public class WebLinkApi extends CommonApi  {
             , @RequestParam(value = "sizeContents", defaultValue = "25", required = false) int sizeContents
     ) throws PostExceptions {
         initialize(request);
-       userValidateToken(token, request);
+        Profile profile = userValidateToken(token, request);
         Pageable pageable = null;
         Page<WebLink> byId = null;
         if (sort == 1) {
@@ -56,8 +56,12 @@ public class WebLinkApi extends CommonApi  {
             if (byId==null){
                 return getError(ErrorFactory.getError(FAILED, localizeText.getNoContent()));
             }
+            checkReadGroups(profile,byId.getContent().get(0).getGroupId());
+
             return getOk(new BaseResponse(byId.getContent().get(0)));
         } else {
+            checkReadGroups(profile,groupId);
+
             Query query = new Query().with(pageable);
             if (enable.equals("1")) {
                 query.addCriteria(Criteria.where("enable").is(true));

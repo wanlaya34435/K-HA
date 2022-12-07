@@ -128,11 +128,114 @@ public class UserApi extends CommonApi {
 
         return getOk(new BaseResponse());
     }*/
+
+  @CrossOrigin
+  @ApiOperation(value = "แอดมินเพิ่มสมาชิก", notes = "", response = Profile.class)
+  @RequestMapping(value = "/addUser", method = {RequestMethod.POST})
+  public BaseResponse addUser(HttpServletRequest request,
+                               @RequestHeader(value = "token", defaultValue = "")  @ApiParam(value = "")String token,
+                               @RequestParam(value = "password", defaultValue = "", required = false) String password,
+                               @RequestParam(value = "phoneNumber", defaultValue = "", required = true) String phoneNumber,
+                               @RequestParam(value = "username", defaultValue = "", required = false) String userName,
+                               @RequestParam(value = "email", defaultValue = "", required = false) String email,
+                               @RequestParam(value = "firstName", defaultValue = "", required = false) String firstName,
+                               @RequestParam(value = "lastName", defaultValue = "", required = false) String lastName,
+                               @RequestParam(value = "imageProfile", defaultValue = "", required = false) String imageProfile,
+                               @RequestParam(value = "permissionButton", defaultValue = "", required = false) String permissionButton,
+                               @RequestParam(value = "permissionMenu", defaultValue = "", required = false) String permissionMenu,
+                               @RequestParam(value = "groupId", defaultValue = "")  @ApiParam(value = "") String groupId,
+                               @RequestParam(value = "idCard", defaultValue = "", required = false) String idCard,
+                               @RequestParam(value = "amountResidents", defaultValue = "0", required = false) int amountResidents,
+                               @RequestParam(value = "type", defaultValue = "1", required = false)@ApiParam(value = "1=กลุ่มคนโสด,2=กลุ่มคนทำงาน,3=กลุ่มครอบครัว,4=ผู้สูงอายุ/ผู้พิการ") int type,
+                               @RequestParam(value = "job", defaultValue = "", required = false) String job,
+                               @RequestParam(value = "khaId", defaultValue = "", required = false) String khaId,
+                               @RequestParam(value = "address", defaultValue = "", required = false) String address,
+                               @RequestParam(value = "provinceCode", defaultValue = "", required = false) String provinceCode,
+                               @RequestParam(value = "districtCode", defaultValue = "", required = false) String districtCode,
+                               @RequestParam(value = "subDistrictCode", defaultValue = "", required = false) String subDistrictCode,
+                               @RequestParam(value = "endContract", defaultValue = "", required = false) @ApiParam(value = "Time in milliseconds") String endContract
+  )throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, PostExceptions {
+
+      initialize(request);
+      Profile profile = new Profile();
+      Profile adminProfile = new Profile();
+          adminProfile = userValidateToken(token, request);
+          checkSuperAdminGroups(adminProfile,groupId);
+
+
+      if ( userName != null&&!userName.equals("")&& profileRepository.findByUserNameIgnoreCase(userName) != null  ) {
+          return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicateUserName()));
+      } else if (phoneNumber.length() > 0 && phoneNumber.length() != 10&& profileRepository.findByPhoneNumber(phoneNumber) != null ) {
+          return getError(ErrorFactory.getError(FAILED, localizeText.getWrongPhoneNumber()));
+      }else if (phoneNumber.length() > 0 &&profileRepository.findByPhoneNumber(phoneNumber) != null ) {
+          return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicatePhoneNumber()));
+      } else if (email.length()>0&&profileRepository.findByEmailIgnoreCase(email)!= null ) {
+          return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicateEmail()));
+      } else {
+          if (password.length()>0) {
+              profile.setSecret(createPassword(password));
+          }
+          profile.setUserName(userName);
+          profile.setFirstName(firstName);
+          profile.setLastName(lastName);
+          profile.setIdCard(idCard);
+          profile.setAmountResidents(amountResidents);
+          profile.setType(type);
+          profile.setJob(job);
+          profile.setKhaId(khaId);
+          profile.setAddress(address);
+          profile.setProvinceCode(provinceCode);
+          profile.setDistrictCode(districtCode);
+          profile.setSubDistrictCode(subDistrictCode);
+
+          if (endContract.length() > 0) {
+              if (endContract.equals("null")) {
+                  profile.setEndContract(null);
+              } else {
+                  profile.setEndContract(new Date(Long.parseLong(endContract)));
+              }
+          }
+          List<ReadGroup> readList = new ArrayList<>();
+          //set default group
+          List<Group> byDefaultIs = groupRepository.findByMain(true);
+          for (Group group : byDefaultIs) {
+              ReadGroup readGroup = new ReadGroup(group.getId());
+              readList.add(readGroup);
+          }
+
+          if (groupId.length()>0) {
+              Optional<Group> byId = groupRepository.findById(groupId);
+              if (byId.isPresent() == true) {
+                      ReadGroup readGroup = new ReadGroup( adminProfile.getUserName(),groupId);
+                      readList.add(readGroup);
+              } else {
+                  return getError(ErrorFactory.getError(FAILED, localizeText.getNoGroup()));
+              }
+          }
+
+          profile.setReadGroups(readList);
+          profile.setEmail(email);
+          profile.setPhoneNumber(phoneNumber);
+          profile.setPermissionMenu(permissionMenu);
+          profile.setPermissionButton(permissionButton);
+
+          if (imageProfile.length() > 0) {
+              profile.setImageProfile(imageProfile);
+          }
+
+          Profile insert = profileRepository.insert(profile);
+          insert.setProvinceName(getProvinceName(insert.getProvinceCode()));
+          insert.setDistrictName(getDistrictName(insert.getDistrictCode()));
+          insert.setSubDistrictName(getSubDistrictName(insert.getSubDistrictCode()));
+          insert.setZipcode(getZipcode(insert.getSubDistrictCode()));
+          insert.setKhaProfile(getGroupProfile(insert.getKhaId()));
+          return getOk(new BaseResponse(OK, localizeText.getRegisterSucceed(), insert));
+      }
+  }
     @CrossOrigin
     @ApiOperation(value = "สมัครสมาชิก", notes = "", response = Profile.class)
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
     public BaseResponse register(HttpServletRequest request,
-                                   @RequestParam(value = "token", defaultValue = "", required = false)  @ApiParam(value = "for admin")String token,
                                    @RequestParam(value = "password", defaultValue = "", required = false) String password,
                                    @RequestParam(value = "phoneNumber", defaultValue = "", required = true) String phoneNumber,
                                    @RequestParam(value = "username", defaultValue = "", required = false) String userName,
@@ -158,13 +261,7 @@ public class UserApi extends CommonApi {
         initialize(request);
         Profile profile = new Profile();
         Profile adminProfile = new Profile();
-        if (token.length()>0){
-             adminProfile = userValidateToken(token, request);
-            checkSuperAdminGroups(adminProfile,groupId);
-           /* RoleAdmin roleAdmin = new RoleAdmin();
-            roleAdmin.setSuperAdmin(true);
-            profile.setRole(roleAdmin);*/
-        }
+
 
         if ( userName != null&&!userName.equals("")&& profileRepository.findByUserNameIgnoreCase(userName) != null  ) {
             return getError(ErrorFactory.getError(FAILED, localizeText.getDuplicateUserName()));
@@ -210,10 +307,7 @@ public class UserApi extends CommonApi {
                 Optional<Group> byId = groupRepository.findById(groupId);
                 if (byId.isPresent() == true) {
 
-                    if (token.length()>0) {
-                        ReadGroup readGroup = new ReadGroup( adminProfile.getUserName(),groupId);
-                        readList.add(readGroup);
-                    }else {
+
 
                         ReadGroup readGroup = new ReadGroup(groupId);
                         if (byId.get().isPrivate() == false) {
@@ -224,7 +318,7 @@ public class UserApi extends CommonApi {
 
                             profile.setPendingGroups(pendingList);
                         }
-                    }
+
                 } else {
                     return getError(ErrorFactory.getError(FAILED, localizeText.getNoGroup()));
                 }
@@ -413,7 +507,7 @@ public class UserApi extends CommonApi {
         Profile adminProfile = userValidateToken(token, request);
 
         Profile byId = profileRepository.findById(id).get();
-        checkAdmin(adminProfile);
+        checkAdminGroupsList(adminProfile,byId.getReadGroups());
 
         byId.setEnable(status);
         byId.setEditBy(adminProfile.getUserName());
@@ -994,7 +1088,21 @@ public class UserApi extends CommonApi {
                                    @RequestParam(value = "orderBy", defaultValue = "2", required = false) @ApiParam(value = "1=asc,2=desc") int orderSort,
                                    @RequestParam(value = "sizeContents", defaultValue = "30", required = false) int sizeContents) throws PostExceptions {
         initialize(request);
-        Profile profile1 = userValidateToken(token, request);
+        Profile adminProfile = userValidateToken(token, request);
+
+        if (readGroupId.size()>0){
+            for (String group:readGroupId){
+                checkSuperAdminGroups(adminProfile,group);
+            }
+        }else {
+            if (adminProfile.getRole() == null) {
+                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
+            if (adminProfile.getRole().getSuperAdmin() == false) {
+                    throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+            }
+        }
+
         Pageable pageable = null;
         if (sort == 1 && orderSort == 1) {
             pageable = PageRequest.of(page, sizeContents, Sort.by("firstName").ascending());
@@ -1073,8 +1181,14 @@ public class UserApi extends CommonApi {
     public BaseResponse getProfile(HttpServletRequest request, @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "") String id) throws PostExceptions {
         initialize(request);
-        userValidateToken(token, request);
+        Profile adminProfile = userValidateToken(token, request);
+
+
         Profile profile1 = profileRepository.findById(id).get();
+        if (!adminProfile.getId().equals(id)){
+            checkAdminGroupsList(adminProfile,profile1.getReadGroups());
+        }
+
         profile1.setSecret("");
         profile1.setReadGroups(setGroupName(profile1.getReadGroups()));
         profile1.setPendingGroups(setGroupName(profile1.getPendingGroups()));
