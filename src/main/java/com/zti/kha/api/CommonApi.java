@@ -550,7 +550,7 @@ public class CommonApi {
     }
         protected void checkReadGroups(Profile profile, List<String> groupId) throws PostExceptions {
         if (groupId.size()==0) {
-            if (profile.getRole() != null) {
+            if (profile.getRole() == null) {
                 throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
             }
             if (profile.getRole().getSuperAdmin() == false) {
