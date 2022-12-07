@@ -533,9 +533,12 @@ public class CommonApi {
         if (profile.getRole() == null) {
             throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
         }
-        for (ReadGroup group:groupId) {
-            if (!profile.getRole().getAdminGroups().contains(group.getGroupId())) {
-                throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+        if (profile.getRole().getSuperAdmin() == false) {
+
+            for (ReadGroup group : groupId) {
+                if (!profile.getRole().getAdminGroups().contains(group.getGroupId())) {
+                    throw new PostExceptions(FAILED, localizeText.getPermissionDenied());
+                }
             }
         }
 
