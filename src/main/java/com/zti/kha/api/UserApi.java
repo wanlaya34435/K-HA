@@ -610,6 +610,7 @@ public class UserApi extends CommonApi {
     public BaseResponse manageAdmin(HttpServletRequest request
             , @RequestHeader(value = "token", defaultValue = TOKEN) String token
             , @RequestParam(value = "id", defaultValue = "", required = true) String id
+            , @RequestParam(value = "isSuperAdmin", defaultValue = "", required = false) Boolean isSuperAdmin
             , @RequestParam(value = "groupId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupId
             , @RequestParam(value = "groupIdDelete", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> groupIdDelete
             , @RequestParam(value = "techId", defaultValue = "", required = false)@ApiParam(value = "groupId") List<String> techId
@@ -634,7 +635,15 @@ public class UserApi extends CommonApi {
                 }
 
             }
+            if (adminProfile.getRole()!=null&&adminProfile.getRole().getSuperAdmin()==true&&adminProfile.getUserName().equals("zealtech")) {
+                RoleAdmin role = new RoleAdmin();
+                if (byId.getRole() != null) {
+                    role = byId.getRole();
+                }
+                role.setSuperAdmin(isSuperAdmin);
+                byId.setRole(role);
 
+            }
             if (groupId.size()>0) {
                 for (String groupAdd:groupId) {
                     checkSuperAdminGroups(adminProfile, groupAdd);
