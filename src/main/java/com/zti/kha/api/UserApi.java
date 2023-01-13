@@ -583,7 +583,7 @@ public class UserApi extends CommonApi {
                             byId.getReadGroups().add(new ReadGroup(adminProfile.getUserName(),groupId));
                             byId.getPendingGroups().remove(i);
                             if (byId.getEmail()!=null&&byId.getEmail().length()>0) {
-                                sendEmailApprove(byId.getEmail(), "[myKHA] Approve new group");
+                                sendEmailApprove(byId.getEmail(), "[OneKHA] Approve new group");
                             }
                         } else {
                             byId.getPendingGroups().remove(i);
@@ -727,7 +727,7 @@ public class UserApi extends CommonApi {
         if (byEmail==null){
             return getError(ErrorFactory.getError(FAILED, localizeText.getNoUserFound()));
         }else {
-                sendEmailForget(email, "แจ้งเตือนจากแอปพลิเคชัน myKHA เรื่องลืมรหัสผ่าน");
+                sendEmailForget(email, "แจ้งเตือนจากแอปพลิเคชัน OneKHA เรื่องลืมรหัสผ่าน");
                 return getOk(new BaseResponse(OK, localizeText.getUpdatedForget()));
         }
     }

@@ -241,7 +241,7 @@ public class ComplainApi extends CommonApi {
 
                     message.setRecipients(Message.RecipientType.TO,
                             InternetAddress.parse(profileList.get(i).getEmail()));
-                    message.setSubject("แจ้งเตือนการร้องเรียนใหม่จากระบบ myKHA");
+                    message.setSubject("แจ้งเตือนการร้องเรียนใหม่จากระบบ OneKHA");
 
 
                     message.setContent("<!DOCTYPE html>\n" +

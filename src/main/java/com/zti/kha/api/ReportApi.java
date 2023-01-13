@@ -109,7 +109,7 @@ public class ReportApi extends CommonApi {
     }
 
     private void excelSheetUser(HttpServletResponse response, List<Profile> results) {
-        String reportName = "Report_MyKHA_User_" + convertDateToString(new Date()) + ".xlsx";
+        String reportName = "Report_OneKHA_User_" + convertDateToString(new Date()) + ".xlsx";
         response.setHeader("Content-Disposition", "inline; filename=" + reportName);
         response.setContentType("application/vnd.ms-excel");
 
@@ -438,7 +438,7 @@ public class ReportApi extends CommonApi {
 
 
     private void excelSheet(HttpServletResponse response, List<Complain> results) {
-        String reportName = "Report_MyKHA_Complain_" + convertDateToString(new Date()) + ".xlsx";
+        String reportName = "Report_OneKHA_Complain_" + convertDateToString(new Date()) + ".xlsx";
         response.setHeader("Content-Disposition", "inline; filename=" + reportName);
         response.setContentType("application/vnd.ms-excel");
 
